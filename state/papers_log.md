@@ -2,4 +2,5 @@
 
 | 日期 | 星期主题 | 标题 | DOI/arXiv ID | 链接 |
 |---|---|---|---|---|
+| 2026-09-03 | 周四·模型可靠性 | Uncertainty Quantification in Molecular Machine Learning for Property Predictions under Data Shifts | 10.1021/acs.jcim.5c02381 | https://doi.org/10.1021/acs.jcim.5c02381 |
 | 2026-09-04 | 周五:微流控/实验平台与AI结合 | Label-Free Machine Learning Prediction of Chemotherapy on Tumor Spheroids Using a Microfluidics Droplet Platform | 10.1002/smsc.202500173 | https://onlinelibrary.wiley.com/doi/10.1002/smsc.202500173 |
