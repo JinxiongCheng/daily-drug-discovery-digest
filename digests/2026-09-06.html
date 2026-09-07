@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-06 · 周日 · 反面教材</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-06 · 周日</p>
+  <h1>反面教材</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Data Leakage and Redundancy in the LIT-PCBA Benchmark</h3>
+<p class="meta">
+  Amber Huang, Ian Scott Knight, Slava Naprienko<br>
+  arXiv:2507.21404（2025年7月）·
+  <a href="https://arxiv.org/abs/2507.21404" target="_blank" rel="noopener">https://arxiv.org/abs/2507.21404</a>
+</p>
+
+<p><strong>核心主张</strong>：虚拟筛选领域被广泛使用的 LIT-PCBA 基准存在系统性数据泄漏和结构冗余，足以让一个不含可学习参数的记忆式方法打平甚至超过已发表的 SOTA 深度模型，这个基准不能再被当作公平的评测标准用。</p>
+
+<p><strong>方法</strong>：作者对 LIT-PCBA 15 个靶点的 training / validation / query 三个 split 做 2D 结构层面的稽核——用 ECFP4 指纹做精确匹配找完全重复分子，用 Tanimoto 相似度找近重复（analog）。检查三类问题：(1) 跨 split 泄漏，同一分子同时出现在不该同时出现的 split 里；(2) 单个 split 内部的重复；(3) query set（本该代表“未见过”的测试用例）里混进了训练/验证集里出现过的配体。然后构造一个零参数 baseline：对每个 query 分子，用它到 training actives 的最大 2D ECFP4 Tanimoto 相似度直接作为筛选打分，跑一遍标准的 EF1%（前 1% 富集因子）评测，和文献里已发表的 3D encoder 方法的数字放在一起比。</p>
+
+<p><strong>关键数字</strong>：跨 split 重复 inactive 分子 <strong>2,491</strong> 个；training 内部重复 <strong>2,945</strong> 个，validation 内部重复 <strong>789</strong> 个；query set 里 3 个配体本应是“未见过”的测试样本，实际 2 个出现在 training、1 个出现在 validation；ALDH1 靶点上有 <strong>323</strong> 对 Tanimoto ≥ 0.6 的 active 高相似对跨越 train/val；MTORC1 靶点 11 个 query 配体里 9 个是 Tanimoto ≥ 0.9 的近重复。零参数的最大相似度 baseline，只用 training actives 时 EF1% 中位数 = <strong>4.15</strong>，与近期发表的 3D encoder 方法报告的水平相当；把 query 配体也纳入相似度比较池后中位数升到 <strong>4.33</strong>，均值从 4.35 升到 <strong>5.83</strong>。</p>
+
+<p><strong>最大方法学弱点</strong>：文章论证“简单 baseline ≈ SOTA”的方式，是把自己跑出来的 baseline EF1% 数字和其他论文里报告的 SOTA 数字直接摆在一起比较，而不是在完全相同的评测代码、相同负样本采样、相同 EF 定义下重新跑一遍 SOTA 模型。跨论文的数字对比很容易因为口径差异（负样本怎么定义、EF 怎么算）产生误导，这个“打平”结论目前还不是受控实验意义上的打平。</p>
+
+<p><strong>和我的课题接口</strong>：没有直接接口。我目前不做化合物库虚拟筛选，但这提醒我以后如果做任何 molecule-side 的工作，在划 train/test 前必须先对基准或自建数据集做类似的 2D 去重稽核，不能默认公开基准是干净的。</p>
+
+<p><strong>谁在做</strong>：这类“基准审计/方法学批评”的工作目前集中在学界做评测方法学的小团队和独立研究者手里，和产业界关系不大——审计自己行业标杆数据集，对靠这些基准打榜融资的商业化虚拟筛选公司是负向激励，很少见到大药厂或 AI 药物发现公司主动发这类论文。</p>
+
+<h2>五分钟判断题（找死穴）</h2>
+
+<div class="question-box">
+  <p>审计判定“重复/冗余”的标准是 2D ECFP4 精确匹配（完全重复）+ Tanimoto 阈值（如 0.6、0.9，近重复）。如果把“近重复”这条标准去掉，只保留“2D 结构完全一致”才算泄漏，他们的核心结论——零参数 baseline 打平 SOTA——还能不能站得住?具体说说数字会怎么变。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 9 月 3 日，Akeso 宣布其 III 期 HARMONi-2（AK112-303）试验的 OS（总生存期）期中分析，经独立数据监察委员会（IDMC）评估，达到了关键次要终点。HARMONi-2 是一项全球注册性 III 期试验，评估 ivonescimab（PD-1/VEGF 双特异性抗体）单药对比 pembrolizumab 单药，一线治疗 PD-L1 阳性（TPS≥1%）局部晚期/转移性 NSCLC。公司只说“具有统计学意义且临床意义显著”，没有公布具体 HR、中位 OS 或 p 值，称会在后续会议和同行评审期刊上公布——这部分数字目前查不到，不做估计。作为参照，该试验此前公布的主要终点（PFS）数据是：中位 PFS <strong>11.14</strong> 个月 vs pembrolizumab 组 <strong>5.8</strong> 个月，<strong>HR = 0.51</strong>，<strong>P &lt; .0001</strong>。（<a href="https://www.akesobio.com/en/media/akeso-news/260903/" target="_blank" rel="noopener">链接</a>）</p>
+
+<p><strong>AI 含量</strong>：Akeso 官方资料里把“AI-powered drug R&D platform”列为公司多个技术平台之一，但 ivonescimab 本身的工程化基础是公司的 Tetrabody 双特异性抗体骨架平台，没有公开证据显示这款分子的发现或优化流程具体用到了 AI/ML 方法。公司泛化的“AI 平台”宣传语不能当作这款药有实质 AI 含量的证据——就这条新闻而言，AI 贡献不明确，大概率很小，不做夸大。</p>
+
+<p><strong>历史对照</strong>：VEGF 通路阻断和 PD-1/PD-L1 检查点阻断联用治疗 NSCLC 的临床假说，在 2018 年的 IMpower150 试验（atezolizumab + bevacizumab + 化疗 vs bevacizumab + 化疗，NEJM）里首次被 III 期数据证实能带来 OS 获益，建立了“VEGF + 免疫检查点联合阻断”这条路线的合法性。Ivonescimab 把两种机制做进同一个双特异性抗体分子里，某种意义上是把 IMpower150 验证过的联合机制假说做了一次分子工程化的延续，不是全新机制的首次验证。</p>
+
+<h2>每周复盘（探索期进度）</h2>
+
+<p><strong>注意力落点</strong>：<code>state/direction_notes.md</code> 目前是空文件，这周没有任何“还想继续往下读什么”的记录；<code>state/feedback.md</code> 里也没有出现过“这个方向再来几篇”。这不是“注意力很分散”，而是这一栏还没被真正用起来——运行到今天才第 4 天，复盘机制本身还没跑起来。如果接下来几周这一栏持续空着，那本身就是个问题：说明每天读完就翻篇了，没有回头看的动作，而这个动作才是暴露方向的关键机制。</p>
+
+<p><strong>地形更新</strong>：这周（9/3–9/6）推的四篇分别站在——9/3（模型可靠性）UQ 论文站在“评估方法学”象限；9/4（微流控/AI）droplet 平台论文站在“实验自动化+AI”象限，离你现在的课题最近；9/5（经典必读）Eroom's Law 站在“产业史/为什么需要 AI”的背景象限，不是方法论文；9/6（今天）LIT-PCBA 审计和 9/3 同属“评估方法学”象限，但角度是揭批而不是提出新方法。表型组学、分子表征、单细胞扰动这三个象限这周还没轮到（本周排到的是周四到周日，周一到周三要等下一轮才补齐），所以现在下结论说“地形已经看全”还太早。</p>
+
+<p><strong>倒计时</strong>：距 2026-12-31 还剩约 <strong>16.5 周</strong>（不到 4 个月）。数据太少，现在还谈不上“可以定了”三个字。真正的风险点不是这周该收敛却没收敛，而是“方向线索”这一栏如果长期空着，3-4 个月很容易在“每天都读了点东西”的错觉里被填满，却没有留下任何可以回头分析的信号。建议从下周开始，哪怕一句话也要填。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

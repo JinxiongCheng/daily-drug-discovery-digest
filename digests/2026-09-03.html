@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-03 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-03 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Uncertainty Quantification in Molecular Machine Learning for Property Predictions under Data Shifts</h3>
+<p class="meta">
+  Raquel Parrondo-Pizarro, Jessica Lanini, Raquel Rodríguez-Pérez<br>
+  <em>J. Chem. Inf. Model.</em> 2026, 66(2), 923–935 · DOI:
+  <a href="https://doi.org/10.1021/acs.jcim.5c02381" target="_blank" rel="noopener">10.1021/acs.jcim.5c02381</a>
+  · PMC: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12848971/" target="_blank" rel="noopener">PMC12848971</a>
+</p>
+
+<p><strong>核心主张</strong>：ADME 性质预测里常用的不确定性量化（UQ）方法，在样本内（in-domain）校准良好，但在真实的时间性 domain shift 下校准质量系统性变差，且这种变差本身没有被 UQ 方法准确感知到——模型犯错更多了，但报出来的不确定性没有相应变大。</p>
+
+<p><strong>方法</strong>：作者用 Novartis 自己开发的 UNIQUE 框架（统一评测多种 UQ 指标的 Python 库），对比“基于模型”的 UQ（预测方差、集成方差）和“基于数据”的 UQ（化学空间距离等）。测试对象是 ADME 回归模型，用 Novartis in-house 化合物库按注册时间切分：训练集截至 2022 年底，校准集截至 2023 年底，测试集是 2024 年 1 月至 2025 年 4 月新注册的化合物，同时用公开数据集做对照。这是刻意避开随机切分，模拟药厂真实工作流里“用过去的化合物训模型，预测明天合成的新化合物”的场景。</p>
+
+<p><strong>关键数字</strong>：公开数据集上，除 fu（fraction unbound）这个 endpoint 外，所有 ADME endpoint 的 UQ 方法排序能力（Spearman rank correlation）都显著优于随机猜测基线。校准指标（ENCE/ZVE 类）在时间切分测试集上相比校准集出现系统性偏移，方向是“低估外推误差”。原文报的具体 ENCE/SRCC 数值这次没能从可访问的摘要/PMC 页面里核实到精确数字，这里不编——只能确认方向性结论，精确值需要读原文。</p>
+
+<p><strong>最大方法学弱点</strong>：整个时间切分实验只在 Novartis 一家公司的 in-house 数据上做。不同药厂的化学空间、assay 漂移模式、化合物注册节奏都不一样，这个“OOD 校准系统性失效”的结论能不能外推到别的机构，论文本身给不出证据。另外 ENCE/ZVE 这类 MAD-based 校准统计量本身在小样本下方差大、对异常值敏感（Pernot 2023 有专门文章讨论这个），所以观察到的“低估”多大程度是真实现象、多大程度是统计量本身的 artifact，论文没有充分厘清。</p>
+
+<p><strong>和我的课题接口</strong>：没有直接接口。ADME 性质预测和单细胞形态学/迁移表型工作在数据类型和任务上都不一样。但“按时间而不是随机切分数据来测真实域漂移”这个评估框架是可迁移的方法论。</p>
+
+<p><strong>谁在做</strong>：大药厂内部计算化学/ML 团队是主力——Novartis、Roche 这类，他们发论文但训练数据不公开。做 UQ tooling 的初创公司里，Genesis Therapeutics 和 Iambic 在往不确定性感知的分子性质预测方向做产品。</p>
+
+<h2>五分钟判断题</h2>
+
+<div class="question-box">
+  <p>这篇论文用“按注册时间切分训练/校准/测试集”来模拟真实 domain shift。如果把这个框架直接搬到你自己的 PGCC 形态学筛选数据上（不同批次、不同天成像），第一个会崩掉的假设是什么？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 9 月 2 日，Owkin 与 Boehringer Ingelheim 签署许可协议，Boehringer 获得 Owkin “K Pro” AI 平台及其肿瘤/免疫多组学 patient 数据的使用权，用于加速肿瘤和免疫相关疾病的靶点发现。这是继 2026 年 5 月 AstraZeneca（三年期 license）、6 月 Sanofi（五年期 license）之后，Owkin 一个月内签下的第三家大药厂，协议建立在双方 2025 年一个 pilot 项目（用 Owkin 的患者肿瘤样本库帮 Boehringer 做靶点优先级排序）之上。首付款、里程碑金额、协议具体期限均未披露，查不到可核实的数字。</p>
+
+<p><strong>AI 含量</strong>：偏低，而且和 AstraZeneca、Sanofi 那两单是同一个套路。公开报道显示这次协议实际交付的是两块东西：一是 Owkin 自己的患者数据资产，本质是数据许可，不是 AI；二是 K Pro 作为一个检索/agent 层，让团队能在这些数据上做交叉查询和分析——强调的能力其实是 competitive intelligence、landscape forecasting、target evaluation 这类偏检索和摘要的 agentic 工作流，不是新的分子性质预测算法或经过验证的湿实验产出。三份新闻稿都没有披露任何具体靶点、化合物或模型准确率数字。</p>
+
+<p><strong>历史对照</strong>：“平台公司在短时间窗口内连续拿下多家大药厂许可协议”不是新模式。1990 年代末 Millennium Pharmaceuticals 靠基因组学平台在几年内和拜耳、安万特、礼来签下一连串数亿美元级别的合作；更贴近的近例是 Exscientia 和 BenevolentAI，两家都曾密集签下多家大药厂合作，但随后临床管线普遍不及预期：BenevolentAI 押注的特应性皮炎资产失败后市值大幅缩水，Exscientia 2024 年被 Recursion 收购，收购价相对巅峰市值大幅折价。签约本身不是产出证据，几年后有没有真正推进到临床的资产，才是检验点。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
