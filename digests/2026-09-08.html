@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-08 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-08 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>A Systematic Survey and Benchmark of Deep Learning for Molecular Property Prediction in the Foundation Model Era</h3>
+<p class="meta">
+  Zongru Li, Xingsheng Chen, Honggang Wen, Regina Qianru Zhang, Ming Li, Xiaojin Zhang, Hongzhi Yin, Qiang Yang, Kwok-Yan Lam, Pietro Liò, Siu-Ming Yiu<br>
+  <em>Journal of Chemical Theory and Computation</em>，2026，22(10): 4866–4887 · DOI:
+  <a href="https://doi.org/10.1021/acs.jctc.5c02081" target="_blank" rel="noopener">10.1021/acs.jctc.5c02081</a>
+  ・ arXiv: <a href="https://arxiv.org/abs/2604.16586" target="_blank" rel="noopener">2604.16586</a>
+</p>
+
+<p><strong>核心主张</strong>：分子性质预测已有100多个模型，统一协议比较后差距远比各论文自报的小，split方式比架构更决定结果。</p>
+
+<p><strong>方法</strong>：把领域方法归成四类——量子描述符、descriptor ML、几何/图深度学习、分子foundation model（预训练+微调）——统一评测。数据集两种：MoleculeNet经典任务（7个，ROC-AUC，scaffold split），和一个industry ADME数据集，加time-based split（按合成/测定时间切train/test）。</p>
+
+<p><strong>关键数字</strong>：MoleculeNet scaffold split上，KA-GCN/KA-GAT类方法拿下 <strong>6/7</strong> 数据集第一，但多数方法ROC-AUC只差几个百分点。换到ADME的time-based split，性能明显掉档，最好模型 <strong>Pearson r 很少超过 0.7</strong>。</p>
+
+<p><strong>最大方法学弱点</strong>：差距只几个百分点时，论文没报不同随机种子的置信区间，也没说清各家族调参预算是否对等。“6/7第一”换个调参预算或换人复现很可能洗牌——大型跨方法benchmark通病，这篇没能免疫。</p>
+
+<p><strong>和我的课题接口</strong>：没有。分子表征和细胞图像/迁移轨迹表征是两条平行线，底层模型不共享。可迁移的教训：time-based split暴露的域偏移比架构更决定方法靠不靠谱。</p>
+
+<p><strong>谁在做</strong>：学界是图学习方法论组（如这篇里剑桥 Pietro Liò 一线）；业界是 Schrödinger、Recursion 这些分子性质预测平台公司。</p>
+
+<h2>五分钟判断题（先猜后看）</h2>
+
+<div class="question-box">
+  <p>scaffold split下多数方法ROC-AUC只差几个百分点。换成time-based split评估同批方法在ADME数据集上表现，你猜最好模型的Pearson r量级是多少？给个具体数字。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026年9月2日，Owkin 将 K Pro 及肿瘤/免疫数据许可给 Boehringer Ingelheim，此前已与 AstraZeneca（三年，5月）、Sanofi（五年，6月）签过类似协议，财务条款均未披露。<a href="https://www.bloomberg.com/news/articles/2026-09-02/boehringer-signs-deal-for-owkin-ai-joining-astra-and-sanofi" target="_blank" rel="noopener">Bloomberg 报道</a></p>
+
+<p><strong>AI 含量</strong>：低。K Pro 帮科学家检索分析多模态数据、辅助靶点识别，不是 molecule design，没有候选化合物或临床数据公开，是数据+分析工具许可，不是“AI发现新药”。</p>
+
+<p><strong>历史对照</strong>：结构相似的先例是2019年 AstraZeneca 与 BenevolentAI 的知识图谱靶点合作。7年里 <strong>5</strong> 个AI生成靶点（覆盖CKD、IPF、心衰、SLE）进入管线，截至2026年无一获批。许可交易造势容易，管线走出药要看很多年。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
