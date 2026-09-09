@@ -8,3 +8,4 @@
 | 2026-09-06 | 周日·反面教材 | Data Leakage and Redundancy in the LIT-PCBA Benchmark | arXiv:2507.21404 | https://arxiv.org/abs/2507.21404 |
 | 2026-09-07 | 周一·表型组学与图像表征学习 | Self-supervision advances morphological profiling by unlocking powerful image representations | 10.1038/s41598-025-88825-4 | https://doi.org/10.1038/s41598-025-88825-4 |
 | 2026-09-08 | 周二·分子表征与性质预测 | A Systematic Survey and Benchmark of Deep Learning for Molecular Property Prediction in the Foundation Model Era | 10.1021/acs.jctc.5c02081 / arXiv:2604.16586 | https://doi.org/10.1021/acs.jctc.5c02081 |
+| 2026-09-09 | 周三·单细胞与扰动生物学 | Predicting transcriptional outcomes of novel multigene perturbations with GEARS | 10.1038/s41587-023-01905-6 | https://doi.org/10.1038/s41587-023-01905-6 |
