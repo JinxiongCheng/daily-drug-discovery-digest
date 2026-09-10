@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-10 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-10 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>A guide for active learning in synergistic drug discovery</h3>
+<p class="meta">
+  Shuhui Wang, Alexandre Allauzen, Philippe Nghe, Vaitea Opuu（Laboratoire de Biophysique et Evolution, CNRS-ESPCI, PSL University Paris；LAMSADE, Université Paris-Dauphine）<br>
+  <em>Scientific Reports</em>, 15, 2025年1月28日发表（bioRxiv 预印本 2024年9月） · DOI:
+  <a href="https://doi.org/10.1038/s41598-025-85600-3" target="_blank" rel="noopener">10.1038/s41598-025-85600-3</a>
+</p>
+
+<p><strong>核心主张</strong>：用主动学习（active learning）在已知的药物组合筛选矩阵上按策略挑选下一步要"测"的药物对，可以用远少于全量筛选的预算发现大部分协同药物对。</p>
+
+<p><strong>方法</strong>：数据来自 O'Neil et al. 经 DrugComb 平台整理的药物组合筛选集——39 个癌症细胞系、38 个药物（22 个 FDA 获批药 + 16 个候选药），每个细胞系 583 个药物对，用 Loewe synergy score 定义协同标签。作者训练一个融合分子编码和细胞系特征的 surrogate 预测模型，每轮用 acquisition 策略从矩阵里挑一批药物对去"查询"（即读取矩阵里已有的真实标签，不是真做湿实验），用新标签重训模型，反复迭代；主指标用 PR-AUC（正样本稀少，更适合不平衡数据），并对比不同 batch size 下 exploration-exploitation 策略的效果。</p>
+
+<p><strong>关键数字</strong>：探索 <strong>10%</strong> 的组合空间即可发现 <strong>60%</strong> 的协同药物对；分子编码方式对结果影响有限，细胞系环境特征对预测帮助更大；更小的 batch size 配合动态 exploration-exploitation 调节能进一步提高发现效率。</p>
+
+<p><strong>方法学最大弱点</strong>：这本质是在 O'Neil 的一个已经全测完、标签全知的完整矩阵上做 retrospective 模拟——所谓"主动学习"是从一个 39×38 的小网格里挑查询顺序，不是在真正未知的化学空间里跑湿实验闭环。"10% 空间发现 60% 协同对"这个效率数字，依赖于这个网格本身很小，而且候选药物已经被人工预先筛过（22 个 FDA 获批药 + 16 个候选，不是随机化合物库）。把这个效率数字直接套到更大、更稀疏、真正未知的筛选空间，论文没有验证过。</p>
+
+<p><strong>和我的课题接口</strong>：弱但有。我做高通量药物筛选（migration/PGCC 形态学），如果化合物库大，active learning 的迭代收敛思路可以直接用来省湿实验预算，但必须换成真正的 prospective 闭环，不能只在已有数据上模拟。</p>
+
+<p><strong>谁在做</strong>：学界这条线的中心是 ESPCI/CNRS（Nghe 组，做微流控 + 定向进化 + 机器学习结合）以及做 self-driving lab、Bayesian optimization 的组（MIT、多伦多）；业界做高通量筛选 + 主动学习闭环的代表是 Recursion、Insitro 这类平台公司，但协同筛选这块具体方法论文相对少见公开发表。</p>
+
+<h2>五分钟判断题（换域）</h2>
+
+<div class="question-box">
+  <p>论文里的"主动学习"其实是在 O'Neil 的一个已经全测完的 39×38 完整矩阵上挑查询顺序。如果把这套方法直接搬到你自己的化合物库筛选（PGCC 形态学筛选）上，第一个会崩掉的假设是什么？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 9 月 9 日，Insilico Medicine 宣布其 AI 设计药物 rentosertib（TNIK 抑制剂）在 GENESIS-IPF-3——特发性肺纤维化（IPF）Phase III 试验——完成首例患者给药，北京协和医院和上海市肺科医院同日入组首例。这是一项 <strong>52 周</strong>、随机、双盲、安慰剂对照研究，计划在中国 <strong>47</strong> 个中心入组 <strong>320</strong> 例 IPF 患者。<a href="https://www.drugtargetreview.com/insilico-medicine-launches-phase-iii-trial-of-ai-designed-rentosertib-drug/2135890.article" target="_blank" rel="noopener">Drug Target Review 报道</a></p>
+
+<p><strong>AI 含量</strong>：早期贡献确实大——靶点 TNIK 由 Insilico 的 PandaOmics 从组学数据里挖出来，分子由 Chemistry42 生成式化学平台设计，从靶点确定到 preclinical candidate 只用了 18 个月。但今天这条新闻本身，即"Phase III 首例给药"，是纯临床运营里程碑，不涉及任何新的 AI 动作，不该算进 AI 的功劳里。</p>
+
+<p><strong>历史对照</strong>：同一个适应症（IPF）里，FibroGen 的 pamrevlumab 走过几乎一样的路径——Phase II 看着有希望，Phase III（ZEPHYRUS-1）主要终点 FVC 变化未达标（安慰剂校正差异 <strong>70ml</strong>，<strong>p=0.29</strong>），次要终点疾病进展 <strong>HR=0.78</strong>（95% CI 0.52–1.15）同样未达标，第二个三期试验 ZEPHYRUS-2 随即被砍掉。IPF 这个适应症历史上 Phase II 到 Phase III 的转化率并不高，rentosertib 的 AI 标签不改变这个统计学基础。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
