@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-11 · 周五 · 微流控 / 实验平台与 AI 结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-11 · 周五</p>
+  <h1>微流控 / 实验平台与 AI 结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>A Deep Learning-Based Model Approach for Quantitative Analysis of Cell Chemotaxis in a Microfluidic Chip</h3>
+<p class="meta">
+  Hongxuan Wu, Fei Zhang, Mingji Wei（Jiangsu University 电气信息工程学院）<br>
+  <em>Sensors</em>, 2025, 25(11):3515，2025 年 6 月 3 日发表 · DOI:
+  <a href="https://doi.org/10.3390/s25113515" target="_blank" rel="noopener">10.3390/s25113515</a>
+</p>
+
+<p><strong>核心主张</strong>：用改进版 YOLO（DCSPP-Yolo）自动识别趋化芯片图像里迁移/未迁移的细胞并计数，替代人工计数。</p>
+
+<p><strong>方法</strong>：芯片用化学梯度和剪切力模拟体内趋化环境，诱导 MCF-7 细胞迁移；YOLO 基础上加密集连接和空间金字塔池化（DC-SPP），针对微米级小目标优化检测，输出每帧迁移/未迁移细胞的框和计数，与人工计数对比。</p>
+
+<p><strong>关键数字</strong>：迁移细胞检测 precision <strong>96.56%</strong>、recall <strong>96.51%</strong>，与人工计数相关性 <strong>R²=0.98</strong>；论文称显著优于原始 YOLOv5，具体基线数值没查到。</p>
+
+<p><strong>方法学最大弱点</strong>：数据全来自同一实验室、同一细胞系（MCF-7）、同一芯片设计——验证的是模型能否学会这批标注，不是能否推广到别的细胞或芯片。标签本身是人工按位移阈值划的，模型学的是复刻这个标准，没有跨芯片、跨细胞系测试。</p>
+
+<p><strong>和我的课题接口</strong>：直接。迁移 assay 计数环节可以借这个思路，但换到 PGCC 或自己的芯片，需要重新标注训练，权重不能直接迁移。</p>
+
+<p><strong>谁在做</strong>：这类微流控 + 定制 YOLO/CNN 分散在很多工程院系，没集中在少数组；趋化芯片方向更知名的是 Irimia 组（MGH）、Levchenko 组（Yale）。商业化迁移分析目前靠 Sartorius Incucyte、ibidi 的经典图像处理，还没主流厂商上深度学习检测。</p>
+
+<h2>五分钟判断题（数字体检）</h2>
+
+<div class="question-box">
+  <p>论文同时报告 precision/recall 约 96.5%，和人工计数相关性 R²=0.98。若漏检数和假阳性数接近，两个指标会怎么变？R²=0.98 能反过来证明 precision/recall 是真的吗？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 9 月 9 日，FDA 批准 Bayer 的 Hyrnuo（sevabertinib）扩展到一线治疗 HER2 TKD 突变的局部晚期/转移性非鳞状 NSCLC，此前仅批经治患者。依据 SOHO-01 队列 F（初治，n=<strong>69</strong>）：ORR <strong>75%</strong>（95% CI 64–85），DOR≥12 个月 <strong>38%</strong>。<a href="https://www.fda.gov/drugs/resources-information-approved-drugs/fda-grants-accelerated-approval-sevabertinib-locally-advanced-or-metastatic-non-squamous-non-small" target="_blank" rel="noopener">FDA 公告</a></p>
+
+<p><strong>AI 含量</strong>：没有。传统口服 TKI，常规药化设计，不涉及 AI。</p>
+
+<p><strong>历史对照</strong>：同类突变赛道，poziotinib 的 ZENITH20 经治队列（n=90）ORR 仅 <strong>27.8%</strong>，ODAC 以 <strong>9 比 4</strong> 投票认为获益不足抵消毒性，2022 年 FDA 拒绝批准，公司终止开发。<strong>75%</strong> 对 <strong>27.8%</strong> 决定了不同结局，但前者初治、后者经治，人群不全可比。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

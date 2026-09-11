@@ -10,3 +10,4 @@
 | 2026-09-08 | 周二·分子表征与性质预测 | A Systematic Survey and Benchmark of Deep Learning for Molecular Property Prediction in the Foundation Model Era | 10.1021/acs.jctc.5c02081 / arXiv:2604.16586 | https://doi.org/10.1021/acs.jctc.5c02081 |
 | 2026-09-09 | 周三·单细胞与扰动生物学 | Predicting transcriptional outcomes of novel multigene perturbations with GEARS | 10.1038/s41587-023-01905-6 | https://doi.org/10.1038/s41587-023-01905-6 |
 | 2026-09-10 | 周四·模型可靠性 | A guide for active learning in synergistic drug discovery | 10.1038/s41598-025-85600-3 | https://doi.org/10.1038/s41598-025-85600-3 |
+| 2026-09-11 | 周五·微流控/实验平台与AI结合 | A Deep Learning-Based Model Approach for Quantitative Analysis of Cell Chemotaxis in a Microfluidic Chip | 10.3390/s25113515 | https://doi.org/10.3390/s25113515 |
