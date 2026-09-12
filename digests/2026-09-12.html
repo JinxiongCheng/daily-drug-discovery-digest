@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-12 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-12 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>A community effort to assess and improve drug sensitivity prediction algorithms</h3>
+<p class="meta">
+  James C. Costello, Laura M. Heiser, Elisabeth Georgii et al.（NCI-DREAM community；通讯作者 Gustavo Stolovitzky、Julio Saez-Rodriguez）<br>
+  <em>Nature Biotechnology</em>, 32, 1202–1212 (2014) · DOI:
+  <a href="https://doi.org/10.1038/nbt.2877" target="_blank" rel="noopener">10.1038/nbt.2877</a>
+</p>
+
+<p><strong>核心主张</strong>：NCI 和 DREAM 联合组织了一场盲评众包挑战——用乳腺癌细胞系的多组学数据预测未知药物敏感性，结果是没有单一算法能稳定拿第一，但把多个团队的预测做简单集成（ensemble），比几乎所有单一提交都稳定更准。</p>
+
+<p><strong>方法</strong>：NCI 提供 <strong>53</strong> 个乳腺癌细胞系（<strong>35</strong> 个训练+<strong>18</strong> 个完全 held-out 盲测）的基因表达、拷贝数、DNA 甲基化、外显子测序、RPPA 蛋白质谱数据，以及这些细胞系对 <strong>31</strong> 种化合物的敏感性（GI50）。各队伍只能看到训练集标签，对 held-out 细胞系提交预测，组织方用加权概率一致性指数（weighted probabilistic c-index）在队伍完全看不到的标签上统一打分，再横向分析 <strong>44</strong> 种提交算法的方法学特征。</p>
+
+<p><strong>关键数字</strong>：单一数据类型里基因表达的预测力持续最强，加入其他组学能进一步提升但增量有限；44 个方法里没有哪一个在所有药物上都排第一，但预测结果做平均集成后表现优于绝大多数单一队伍。具体的加权 c-index 分值没能核实到——Nature.com、PMC、PLOS One、ResearchGate、synapse.org 今天在这个环境里全部被 egress proxy 拦截，只能拿到搜索引擎对摘要/二手报道的转述，这一条按协议明说。</p>
+
+<p><strong>方法学最大弱点</strong>：排名本质上是在 53 个乳腺癌细胞系这一个谱系上做的，"非线性方法+多组学整合更好"这个结论能不能外推到其他癌种、其他药物类别，尤其是体内药效，论文本身给不出答案。这类细胞系筛选结果和临床获益的相关性历史上一直很弱。</p>
+
+<p><strong>和我的课题接口</strong>：没有直接接口（乳腺癌细胞系药敏 vs 我的迁移/形态学表型），但评估范式值得直接搬：盲评 held-out + 多团队独立打分，这是我们领域大部分论文都没做到的验证强度，可以用来检查自己以后做预测模型时验证设计够不够严格。</p>
+
+<p><strong>谁在做</strong>：这条线现在的直接延续是 Sanger/MGH 的 GDSC（Genomics of Drug Sensitivity in Cancer）和 Broad 的 CCLE/PRISM，持续扩大细胞系-药物矩阵当公开基准；做规模化药敏预测建模的公司包括 Valo Health、Tempus，以及做泛癌细胞系图谱筛选的 Recursion。</p>
+
+<h2>五分钟判断题（找死穴）</h2>
+
+<div class="question-box">
+  <p>这个挑战的结论全靠盲评：队伍看不到测试集标签。如果换成各队伍在自选的训练/测试划分上自报最优结果，"非线性方法排名靠前"这个结论还站得住吗？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026年9月8日，Novartis 公布 pelacarsen（与 Ionis 合作的脂蛋白(a) 反义寡核苷酸）III期 Lp(a)HORIZON 结果：<strong>8323</strong> 例已有心血管病史且 Lp(a) 升高的患者，主要终点（心血管死亡/心梗/卒中/紧急血运重建复合终点）相比安慰剂未见显著获益，尽管 Lp(a) 水平确实降低。同一周，公司斥资约 <strong>120亿美元</strong>收购 Avidity Biosciences（2026年2月完成）拿到的核心资产 del-desiran，其 III期 HARBOR 研究（强直性肌营养不良）也未见有意义临床改善。两条利空叠加，9月8日单日股价重挫约 <strong>14%</strong>。<a href="https://www.cnbc.com/2026/09/08/novartis-novn-del-desiran-drug-trial.html" target="_blank" rel="noopener">CNBC 报道</a></p>
+
+<p><strong>AI 含量</strong>：没有。两个药都是反义寡核苷酸，经典生物标志物驱动设计，没有 AI/ML 参与的报道。</p>
+
+<p><strong>历史对照</strong>：二十年前更极端地发生过一次。2006年 Pfizer 的 CETP 抑制剂 torcetrapib 联合他汀在 ILLUMINATE 试验（n=<strong>15067</strong>）把 HDL 提高 <strong>72.1%</strong>、LDL 降低 <strong>24.9%</strong>，但主要心血管终点风险反升（HR=<strong>1.25</strong>），全因死亡率升高（HR=<strong>1.58</strong>），试验提前终止，终结了 Pfizer 当时最大的在研药物。Lp(a) 在重复同一条教训：降低相关生物标志物，不等于硬终点会跟着改善。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

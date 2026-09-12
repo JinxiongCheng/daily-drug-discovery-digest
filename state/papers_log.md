@@ -11,3 +11,4 @@
 | 2026-09-09 | 周三·单细胞与扰动生物学 | Predicting transcriptional outcomes of novel multigene perturbations with GEARS | 10.1038/s41587-023-01905-6 | https://doi.org/10.1038/s41587-023-01905-6 |
 | 2026-09-10 | 周四·模型可靠性 | A guide for active learning in synergistic drug discovery | 10.1038/s41598-025-85600-3 | https://doi.org/10.1038/s41598-025-85600-3 |
 | 2026-09-11 | 周五·微流控/实验平台与AI结合 | A Deep Learning-Based Model Approach for Quantitative Analysis of Cell Chemotaxis in a Microfluidic Chip | 10.3390/s25113515 | https://doi.org/10.3390/s25113515 |
+| 2026-09-12 | 周六·经典必读 | A community effort to assess and improve drug sensitivity prediction algorithms | 10.1038/nbt.2877 | https://doi.org/10.1038/nbt.2877 |
