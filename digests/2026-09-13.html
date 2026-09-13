@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-13 · 周日 · 反面教材</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-13 · 周日</p>
+  <h1>反面教材</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>The Fragility of Bioactivity Prediction: Rigorous Dataset Splits Expose the Illusion of ML Accuracy</h3>
+<p class="meta">
+  Kisung Lee, Galymzhan Moldagulov, Bartosz A. Grzybowski（Center for Algorithmic and Robotized Synthesis, IBS；UNIST 化学系，韩国蔚山）<br>
+  <em>Chemistry – A European Journal</em>, 2026 · DOI:
+  <a href="https://doi.org/10.1002/chem.71208" target="_blank" rel="noopener">10.1002/chem.71208</a>
+  · PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/42295989/" target="_blank" rel="noopener">42295989</a>
+</p>
+
+<p><strong>核心主张</strong>：活性预测模型的高准确率很大程度是训练/测试分子相似造成的假象——split 越严格，准确率都塌向随机猜测，跟架构无关。</p>
+
+<p><strong>方法</strong>：把同一批 bioactivity 分类模型（经典描述符、k-NN、深度学习）放到从随机到强制压低训练-测试相似度的一系列 split 上评估，测试 3D 描述符能否挽救掉分。</p>
+
+<p><strong>关键数字</strong>：准确率与"训练-测试相似度"的相关性 <strong>R² &gt; 0.95</strong>；最严格划分下所有模型（含深度模型）都塌向接近随机猜测，3D 描述符救不回来；纯靠相似度检索的 <strong>k-NN</strong> 在各划分强度下都能追平"更先进"模型。以上来自搜索引擎摘要转述——Wiley、PubMed、ChemRxiv、doi.org 今天全被拦截，模型数/数据集数没核实到，按协议明说。</p>
+
+<p><strong>方法学最大弱点</strong>：定义 split 严格程度的指标本身就是结构相似度，又用同一把尺子证明 k-NN 最稳，两者部分同源——是"深度模型没学到化学知识"，还是"benchmark 对相似度方法有利"，论文没拆开。</p>
+
+<p><strong>接口</strong>：有，而且直接。形态学/迁移表型筛选同样面临这风险——train/test 若来自同一批次、同一细胞系传代、同一张板，模型学到的可能是批次特征而非表型-药物响应关系。报数字前得先测准确率对划分方式的敏感度。</p>
+
+<p><strong>谁在做</strong>：维也纳 Kirchmair 组（周二那篇也是他们）、UNIST Grzybowski 组、ETH Riniker 组这类方法学团队在学界做；工业界没有专做的公司，各药厂计算化学团队借用验证自家模型。</p>
+
+<h2>五分钟判断题（审稿人视角）</h2>
+
+<div class="question-box">
+  <p>除了"用分子相似度定义 split，又用同一相似度证明 k-NN 最稳"这个循环问题，如果你是审稿人，你会给这篇提哪一条 major comment？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026年9月10日，FDA 授予罗氏 satralizumab 在 MOGAD（无获批药物的罕见自身免疫病）优先审评，预计2027年1月决定。III期 METEOROID（<strong>132</strong>例）：主要终点相对风险降低 <strong>68%</strong>（p=<strong>0.0025</strong>），48周无复发率 <strong>87%</strong> vs <strong>67%</strong>。<a href="https://www.biospace.com/press-releases/u-s-fda-grants-priority-review-for-roches-enspryng-for-mogad-an-autoimmune-disease-with-no-approved-treatments" target="_blank" rel="noopener">BioSpace 报道</a></p>
+
+<p><strong>AI含量</strong>：无，常规蛋白质工程抗体，标准RCT适应症扩展，无AI参与报道。</p>
+
+<p><strong>历史对照</strong>：2019年 NEJM PREVENT 试验同一剧本——依库珠单抗用于同样无药可用的 NMOSD，<strong>143</strong>例，复发率 <strong>3%</strong> vs <strong>43%</strong>（HR=<strong>0.06</strong>，p&lt;0.001），获批为该病首药。罗氏把"老抗体+严格RCT+首个适应症"再往 MOGAD 走一步。数字来自训练记忆，今天打不开 nejm.org 核实，明说。</p>
+
+<h2>本周复盘（探索期进度）</h2>
+
+<p><strong>注意力落点</strong>：direction_notes.md 空文件，这一周"还想往下读什么"一次没被填，feedback.md 也没出现"再来几篇"。不是没有线索可追（GEARS、批次效应、benchmark 泄漏都够深挖），是反馈通道还没被用起来——现在没法从数据判断注意力落在哪。</p>
+
+<p><strong>地形更新</strong>：这周依次读了表型自监督表征、分子性质预测 benchmark、GEARS 扰动预测、协同用药主动学习、微流控趋化深度学习、NCI-DREAM 药敏众包、今天这篇 benchmark 泄漏批判。周二建了"公平比较"的 benchmark，今天拆穿了它在严格划分下多数站不住——这周内部呼应最扎实的一条线。</p>
+
+<p><strong>倒计时</strong>：距 2026-12-31 还剩约 <strong>15-16 周</strong>。没有收敛信号——不是读得不够，是反馈栏一直空着。下周起哪怕写一个词也比空着强，否则12月底大概率还是这么散。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
