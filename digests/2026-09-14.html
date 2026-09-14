@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-14 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-14 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Confounder-aware foundation modeling for accurate phenotype profiling in cell imaging</h3>
+<p class="meta">
+  Giorgos Papanastasiou, Pedro P. Sanchez, Argyrios Christodoulidis, Guang Yang, Walter Hugo Lopez Pinaya（Pfizer；Imperial College London；King's College London）<br>
+  <em>npj Imaging</em>, 2025-10-22 · DOI:
+  <a href="https://doi.org/10.1038/s44303-025-00116-9" target="_blank" rel="noopener">10.1038/s44303-025-00116-9</a>
+  · PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/41125810/" target="_blank" rel="noopener">41125810</a>
+</p>
+
+<p><strong>核心主张</strong>：把 source(实验室)/batch/well 位置当作图像的因果父节点(不是表型的父节点)嵌进一个隐扩散生成模型,用它生成"混杂因子被打散"的合成数据,能比原始数据和标准批次校正更准确地做 MoA/靶点预测。</p>
+
+<p><strong>方法</strong>：在 JUMP-CP 数据集(<strong>13,361,250</strong> 张 Cell Painting 图像,<strong>107,289</strong> 个化合物)上训练一个隐扩散模型,把 source/batch/well 作为结构因果模型里的混杂变量显式建模。给定同一个化合物标签,对混杂变量做 do-干预、保持"真实表型"latent 不变,生成同一化合物在不同实验室/批次/位置下的合成图像,拼出一个混杂因子分布均衡的合成数据集,再在这份数据上训 MoA/靶点分类器。</p>
+
+<p><strong>关键数字</strong>：MoA / 靶点预测 AUROC——已见化合物 <strong>0.66 / 0.65</strong>,未见化合物 <strong>0.65 / 0.73</strong>。论文称显著超过直接用真实数据训练和用标准批次校正(如 ComBat 类方法)后训练,但校正后基线的具体 AUROC 数字没有在可读到的摘要/二次引用里给出,没核实到,明说。</p>
+
+<p><strong>方法学最大弱点</strong>：整套方法的合法性完全依赖"source/batch/well 只影响图像呈现、不影响真实生物学效应"这个因果假设成立。如果某个批次恰好和某个真实亚群或某个化合物的真实异质性相关(常见情况:同一批次常常对应同一批培养的细胞状态),生成模型做"去混杂"时会把真实的生物学变异一起抹平,而不是只抹掉噪声。用扩散模型生成的图像去训练一个又被判定为"state of the art"的分类器,这个闭环里没有一份真正独立、不经过该模型手的混杂因子平衡数据来验证生成的图像本身没有引入新伪影。</p>
+
+<p><strong>接口</strong>：有,但不是架构层面的。我的 PGCC 形态学筛选也有同一张板/同一批培养这种批次混淆,这篇的框架("把混杂当图像的因果父节点建模,不是当表型的因果父节点")值得借,但训一个隐扩散模型需要千万级图像规模,我现在的数据量不支持直接搬架构。</p>
+
+<p><strong>谁在做</strong>：这篇是 Pfizer + Imperial College London/King's College London 的产学合作;更大范围看,Cell Painting 表征学习这条线学界主要是 Broad Institute(数据集和方法源头)、多伦多/蒙特利尔一批做自监督表征评测的组,工业界是 Recursion(Phenom 系列基础模型)在这上面投入最大。</p>
+
+<h2>五分钟判断题（先猜后看）</h2>
+
+<div class="question-box">
+  <p>已见化合物的靶点预测 AUROC 是 0.65。按你见过的大多数 OOD 泛化经验,未见化合物的同一指标一般会比已见化合物掉多少?给个具体数字,再看这篇实际报的未见化合物靶点 AUROC 是 0.73——比已见化合物还高。你的猜测如果是"应该掉",说明你默认了训练集内插值好于外推,但这篇的合成平衡数据是专门为跨化合物泛化设计的,而且未见化合物的测试集通常更小、方差更大,两种解释哪个更可能,想清楚再往下读。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026年9月8日,Novartis 宣布(收购自 Avidity Biosciences 的)delpacibart etedesiran(del-desiran)III期 HARBOR 试验未达主要终点。该研究纳入约 <strong>150-159</strong> 名 1型肌强直性肌营养不良(DM1)患者,主要终点是 video hand opening time(vHOT),对比安慰剂未达统计学显著改善;部分次要终点和探索性分析显示活性信号,安全性与既往一致。具体效应量和 p 值 Novartis 未披露,查不到就不估。<a href="https://www.novartis.com/news/media-releases/novartis-provides-update-delpacibart-etedesiran-del-desiran-phase-iii-harbor-study-treatment-myotonic-dystrophy-type-1-dm1" target="_blank" rel="noopener">Novartis 官方通稿</a></p>
+
+<p><strong>AI含量</strong>：无。del-desiran 是 Avidity 的抗体-寡核苷酸偶联(AOC)平台产品,靶向 DMPK RNA 的经典反义寡核苷酸设计加偶联递送化学,没有 AI 参与设计或筛选的公开报道。</p>
+
+<p><strong>历史对照</strong>：同一个靴子早就掉过一次。Ionis 更早一代 DMPK 反义药物(ISIS-DMPK-2.5Rx)在 I/II 期临床里被发现"到达肌肉组织的药物量不足以产生有意义疗效"而未能推进。del-desiran 换了偶联递送技术、把药物往肌肉里送得更多,结果还是在同一个靶点、同一个适应症上折了。两代技术接连受阻,提示问题可能不在某一代分子设计,而在 DMPK/DM1 这个靶点-组织组合本身的递送天花板。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

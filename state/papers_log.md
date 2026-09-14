@@ -13,3 +13,4 @@
 | 2026-09-11 | 周五·微流控/实验平台与AI结合 | A Deep Learning-Based Model Approach for Quantitative Analysis of Cell Chemotaxis in a Microfluidic Chip | 10.3390/s25113515 | https://doi.org/10.3390/s25113515 |
 | 2026-09-12 | 周六·经典必读 | A community effort to assess and improve drug sensitivity prediction algorithms | 10.1038/nbt.2877 | https://doi.org/10.1038/nbt.2877 |
 | 2026-09-13 | 周日·反面教材 | The Fragility of Bioactivity Prediction: Rigorous Dataset Splits Expose the Illusion of ML Accuracy | 10.1002/chem.71208 | https://doi.org/10.1002/chem.71208 |
+| 2026-09-14 | 周一·表型组学与图像表征学习 | Confounder-aware foundation modeling for accurate phenotype profiling in cell imaging | 10.1038/s44303-025-00116-9 | https://doi.org/10.1038/s44303-025-00116-9 |
