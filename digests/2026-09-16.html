@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-16 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-16 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Simple controls exceed best deep learning algorithms and reveal foundation model effectiveness for predicting genetic perturbations</h3>
+<p class="meta">
+  Daniel R. Wong, Abby S. Hill, Rob Moccia（Pfizer Worldwide Research Development and Medical, Machine Learning and Computational Sciences, Cambridge, MA）<br>
+  <em>Bioinformatics</em> 41(6): btaf317, 2025（bioRxiv 预印本 2025-01-06，10.1101/2025.01.06.631555）· DOI: 10.1093/bioinformatics/btaf317 · 链接:
+  <a href="https://doi.org/10.1093/bioinformatics/btaf317" target="_blank" rel="noopener">doi.org/10.1093/bioinformatics/btaf317</a>
+</p>
+
+<p><strong>核心主张</strong>：Pfizer 团队系统对比 scGPT、scFoundation 等 single-cell foundation model 和 GEARS 等深度学习方法，与一个几乎不学任何东西的极简 baseline（Train Mean，直接输出训练集里所有扰动的平均表达变化）在预测 CRISPR 基因扰动后转录组变化上的表现，发现这个简单 baseline 在全部测试数据集上都能打平或反超所有被测的深度学习/foundation model 方法。</p>
+
+<p><strong>方法</strong>：在 Adamson、Norman、Replogle K562、Replogle RPE1 四个公开 Perturb-seq 数据集上做 held-out 扰动预测，用 Pearson delta（预测的扰动后表达变化 vs 真实变化的相关系数，相对未扰动对照计算）做主要评估指标。Train Mean baseline 对所有测试扰动都输出同一个向量——训练集里所有扰动的平均伪批量表达变化；拿这个"零学习"基线去对比 scGPT、scFoundation 这类需要大规模预训练加微调的 foundation model。</p>
+
+<p><strong>关键数字</strong>：Train Mean 在四个数据集上的 Pearson delta 分别为 <strong>0.711</strong>（Adamson）、<strong>0.557</strong>（Norman）、<strong>0.373</strong>（Replogle K562）、<strong>0.628</strong>（Replogle RPE1）；对照组 scGPT 的对应数字是 <strong>0.641</strong>、<strong>0.554</strong>、<strong>0.327</strong>、<strong>0.596</strong>——四个数据集上全部被这个"直接输出训练集平均值"的基线打平或超过。</p>
+
+<p><strong>方法学最大弱点</strong>：Pearson delta 天然偏向"预测训练集平均效应"的策略，因为大多数基因扰动后表达变化很小、真正有强特异性响应的基因是少数，一个永远输出平均值的模型能靠"猜中大多数不变的基因"拿到不低的相关系数。这个指标可能系统性低估了模型区分不同扰动特异性效应的真实能力，论文本身也承认需要能反映扰动特异性（比如识别差异表达基因的准确率）的指标来补充，而不是只看整体相关系数。</p>
+
+<p><strong>接口</strong>：间接有。以后如果要用扰动响应预测模型帮忙挑选功能验证靶点，这篇提醒我第一步永远是先跑一个不学任何东西的 mean baseline——模型的预测拿不到明显超出这条线的提升，就不该信任它给出的"这个扰动效应很特殊"的判断。</p>
+
+<p><strong>谁在做</strong>：做扰动 foundation model 本身的主要是 Arc Institute（State）、Chan Zuckerberg Biohub/Broad 等做 scGPT 类工作的组，以及药厂内部团队；这类"简单基线打脸复杂模型"的批判性评测，目前主要是工业界（这篇是 Pfizer）和欧洲学术界（EMBL 的 Ahlmann-Eltze/Huber/Anders 团队同期在 <em>Nature Methods</em> 用类似 Norman 数据集做出了几乎一致的结论）在推动。</p>
+
+<h2>五分钟判断题（数字体检）</h2>
+
+<div class="question-box">
+  <p>Norman 数据集上 Train Mean baseline 的 Pearson delta = <strong>0.557</strong>。如果假设大部分基因扰动后表达变化都落在噪声范围内（delta≈0），只有少数基因有真实的扰动特异性变化，你能不能用这个假设粗估一下，一个"什么都不学、只输出训练集平均扰动效应"的模型拿到 0.557 是不是合理？说说你的估算逻辑，以及这个数字离"模型真学到了扰动特异性"还差多远。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>BioVie 9月15日公布 II 期 ADDRESS-LC 试验顶线结果：口服小分子 bezisterim（NE3107）治疗 Long COVID 神经症状。<strong>203</strong> 名患者随机双盲安慰剂对照，预设 <strong>22</strong> 个临床终点。总体意向性治疗人群在全部 22 个终点上均未达到统计显著性，但 <strong>21/22</strong> 个终点数值上偏向 bezisterim；在预设的高基线疲劳、高运动后不适（PEM）、认知损害亚组里，分别在部分终点上（高疲劳亚组 5 个终点、高 PEM 亚组多个疲劳/认知/不适感终点、高认知损害亚组 4 个认知终点）达到统计显著。公司未在 topline 稿中公布具体 p 值。</p>
+
+<p><strong>AI含量</strong>：无。bezisterim（NE3107）是已有多年研发史的口服抗炎/胰岛素增敏小分子，原本面向阿尔茨海默病和帕金森病开发，靶点和化学结构不是 AI 设计，公开信息里也没有提到用 AI 做患者分层或终点选择。</p>
+
+<p><strong>历史对照</strong>：总体人群未达主要终点、转而在预设亚组里报"阳性"信号，是临床试验里的经典陷阱。最讽刺的教学案例是 ISIS-2 试验里研究者故意做的"星座亚组分析"——按出生星座拆分后发现阿司匹林对双子座和天秤座患者"无效"，用来说明亚组拆分足够多总能撞出假阳性。更现实的教训是阿尔茨海默病药物 solanezumab：EXPEDITION3 总体人群未达主要终点后，公司依据"轻度患者亚组"里观察到的趋势设计了后续试验，结果依然失败。BioVie 这次的亚组信号同样需要一项独立的前瞻性验证性试验才能算数，现在报的还只是事后拆分。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
