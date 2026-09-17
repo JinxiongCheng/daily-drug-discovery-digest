@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-17 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-17 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>BOOM: Benchmarking Out-Of-distribution Molecular Property Predictions of Machine Learning Models</h3>
+<p class="meta">
+  Evan R. Antoniuk, Shehtab Zaman, Tal Ben-Nun, Peggy Li, James Diffenderfer, Busra Demirci, Obadiah Smolenski, Tim Hsu, Anna M. Hiszpanski, Kenneth Chiu, Bhavya Kailkhura, Brian Van Essen（Lawrence Livermore National Laboratory; Binghamton University）<br>
+  arXiv:2505.01912（v1 2025-05-03）· 链接:
+  <a href="https://arxiv.org/abs/2505.01912" target="_blank" rel="noopener">arxiv.org/abs/2505.01912</a>
+  · 代码: <a href="https://github.com/FLASK-LLNL/BOOM" target="_blank" rel="noopener">github.com/FLASK-LLNL/BOOM</a>
+</p>
+
+<p><strong>核心主张</strong>：这篇系统评测了 150 多个"模型 × 分子性质预测任务"组合，发现没有一个机器学习模型——包括化学 foundation model——能在真正的 out-of-distribution（OOD）场景下保持稳定，连表现最好的模型，其 OOD 误差也远高于 in-distribution 误差。</p>
+
+<p><strong>方法</strong>：用 QM9（量子化学性质：HOMO、LUMO、gap、偶极矩、比热容、零点振动能等）和基于 Cambridge Structural Database 构建的约 1 万个晶体数据集（密度、生成焓）两类分子性质数据，不做随机划分，而是按化学结构/性质分布构造 train / id（in-distribution）/ ood 三路 split，让 ood 测试集在结构或性质上系统性偏离训练分布。在这套 split 上跑了 150 多个模型-任务组合，覆盖从传统描述符+树模型、GNN，到预训练化学 foundation model 等归纳偏置（inductive bias）强弱不同的方法家族。</p>
+
+<p><strong>关键数字</strong>：核实到的核心数字——表现最好的模型，其平均 OOD 误差是 in-distribution 误差的 <strong>3 倍</strong>。化学 foundation model 在 OOD 外推上没有表现出优势；归纳偏置更强的模型在物理机制简单、性质定义清楚的任务上 OOD 表现相对更稳。每个模型在每个属性上的具体误差数值我没能在公开摘要和仓库 README 里核实到，这里不编。</p>
+
+<p><strong>方法学最大弱点</strong>：这里的"OOD"是在 QM9 和小分子晶体这类量子化学/材料性质数据集上，靠化学结构或性质分布构造出来的，分子普遍偏小、drug-likeness 低。药物发现里真正棘手的 OOD——不同 scaffold 家族之间的活性外推、不同实验室/批次的 assay 噪声——根源不同：前者主要是化学空间覆盖不足，后者还叠加了实验批次效应和标签噪声。"3 倍"这个结论能不能直接套到 ADMET 或活性预测上，证据链是断的。</p>
+
+<p><strong>接口</strong>：有。以后如果要给筛选出的化合物做性质预测或虚拟筛选打分，这篇是个直接可用的方法论提醒——评估前必须按化学结构做有信息量的 OOD 划分，而不是随机 split，不然报出来的准确率没有意义。</p>
+
+<p><strong>谁在做</strong>：做这类 OOD/domain shift benchmark 的主要是美国的国家实验室（这篇来自 Lawrence Livermore 的 FLASK 团队）和学术界的 cheminformatics 评测组；工业界的分子 foundation model 公司（Recursion、Iambic、Genesis Therapeutics 这类）本身正是这类 benchmark 想要检验的对象。</p>
+
+<h2>五分钟判断题（换域）</h2>
+
+<div class="question-box">
+  <p>这篇靠分子结构/性质分布划分 train/id/ood。如果照搬到你自己的 PGCC 形态学筛选或微流控迁移轨迹数据上，用什么维度切"ood"集，第一个会崩掉的假设是什么？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>今天没找到近 7 天内、能核实到具体数字的 AI 药物发现相关新闻——搜索工具今天间歇性失效，多次返回的是 2013–2024 年的旧新闻，没有一条落在本周，所以换成"历史上的今天"作为替代。</p>
+
+<p>1999 年 9 月 13 日，18 岁的 Jesse Gelsinger 在宾夕法尼亚大学参加一项治疗鸟氨酸氨甲酰基转移酶缺乏症（OTC deficiency）的基因治疗 I 期试验，被注射携带正常 OTC 基因的腺病毒载体。注射后出现大规模免疫反应，4 天后、9 月 17 日，因多器官衰竭死亡。这是当时近 <strong>400</strong> 项基因治疗临床试验、<strong>4000</strong> 多名受试者中，第一例被明确归因于基因递送载体本身的死亡。事后调查发现，此前的高剂量猴子实验中有猴子死亡，以及更早人体志愿者的不良反应，在知情同意流程里未被完整披露。</p>
+
+<p><strong>AI含量</strong>：不适用——1999 年 AI 尚未进入药物研发主流，这是基因递送载体的免疫毒性问题。</p>
+
+<p><strong>历史对照</strong>（本身即为今日对照）：这起事件直接导致美国基因治疗领域陷入近十年的停滞，FDA 随后收紧了临床试验知情同意和不良事件披露的监管要求。这是补药物研发史该记住的一课：一个疗法在动物模型和早期人体里看起来安全，不代表递送系统本身的免疫原性风险被充分表征——这和今天 AI 药物设计里"计算预测通过了，但毒理/免疫原性验证没做够"是同一类陷阱。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

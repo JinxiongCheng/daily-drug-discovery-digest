@@ -16,3 +16,4 @@
 | 2026-09-14 | 周一·表型组学与图像表征学习 | Confounder-aware foundation modeling for accurate phenotype profiling in cell imaging | 10.1038/s44303-025-00116-9 | https://doi.org/10.1038/s44303-025-00116-9 |
 | 2026-09-15 | 周二·分子表征与性质预测 | Benchmarking Pretrained Molecular Embedding Models For Molecular Representation Learning | arXiv:2508.06199 | https://arxiv.org/abs/2508.06199 |
 | 2026-09-16 | 周三·单细胞与扰动生物学 | Simple controls exceed best deep learning algorithms and reveal foundation model effectiveness for predicting genetic perturbations | 10.1093/bioinformatics/btaf317 | https://doi.org/10.1093/bioinformatics/btaf317 |
+| 2026-09-17 | 周四·模型可靠性 | BOOM: Benchmarking Out-Of-distribution Molecular Property Predictions of Machine Learning Models | arXiv:2505.01912 | https://arxiv.org/abs/2505.01912 |
