@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-18 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-18 · 周五</p>
+  <h1>微流控/实验平台与AI结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>μPharma: A microfluidic, AI-driven pharmacotyping platform for single-cell drug sensitivity prediction in leukemia</h3>
+<p class="meta">
+  Huiqian Hu, et al.；通讯作者 Alphonsus H. C. Ng、Jun J. Yang、Yong Lu；合作单位 University of Utah（DigiPharma Lab）、St. Jude Children's Research Hospital（Seth E. Karol 组）、University of Pennsylvania<br>
+  <em>Med</em> (Cell Press), 2026-01-30 online, Volume 7 Issue 3, 100966 · DOI:
+  <a href="https://doi.org/10.1016/j.medj.2025.100966" target="_blank" rel="noopener">10.1016/j.medj.2025.100966</a>
+  · PubMed: <a href="https://pubmed.ncbi.nlm.nih.gov/41619724/" target="_blank" rel="noopener">41619724</a>
+</p>
+
+<p><strong>核心主张</strong>：μPharma 在完全不用药物处理细胞的前提下，靠测量白血病单细胞里未处理状态的蛋白标志物，用机器学习直接预测这个细胞会不会对某个药物敏感。</p>
+
+<p><strong>方法</strong>：数字微流控芯片自动给悬浮的 T-ALL（儿童 T 细胞急性淋巴细胞白血病）细胞系和患者来源异种移植（PDX）细胞做免疫荧光染色，读出 pLCK（dasatinib 靶点通路磷酸化标志物）和 pBCL2（venetoclax 靶点通路磷酸化标志物）的表达量、磷酸化水平、亚细胞空间分布和细胞形态特征，用这些单细胞多维特征训练分类器预测该细胞对 dasatinib / venetoclax 的敏感性，再拿同一批细胞实际接受药物处理后的存活数据做验证。染色到出预测结果全程约 4 小时。</p>
+
+<p><strong>关键数字</strong>：pLCK 单细胞特征预测 dasatinib 敏感性，单细胞层面 ROC AUC = <strong>0.826</strong>，聚合到样本层面后 AUC = <strong>0.902</strong>；pBCL2 预测 venetoclax 敏感性 AUC = <strong>0.900</strong>，剔除一个样本（SJ7）后降到 <strong>0.862</strong>。</p>
+
+<p><strong>方法学最大弱点</strong>：pLCK 预测 dasatinib 敏感性这个生物学关联不是这篇首次发现，已有独立的 flow cytometry 工作报过同一标志物。μPharma 真正的新东西是把它压进 4 小时、微流控自动化的单细胞流程，不是新生物学。更关键的是，"剔除一个样本 AUC 就从 0.900 掉到 0.862"这句话暴露了验证集规模——大概率是个位数的 PDX/患者样本，AUC 对单个样本去留这么敏感，说明置信区间很宽，这套分类器还没在真正前瞻、未见过的患者队列里测试过。</p>
+
+<p><strong>接口</strong>：有，而且是直接接口——微流控自动化免疫荧光 + 单细胞形态学/空间特征 + ML 分类，这个组合结构上和我用 PGCC 做形态学筛选高度相似，只是它读的是蛋白标志物，我读的是形态本身。</p>
+
+<p><strong>谁在做</strong>：这类单细胞功能性药敏预测平台目前集中在学术儿科白血病中心——Utah 的 Ng/DigiPharma Lab、St. Jude 的 Karol 组；工业界做单细胞 ex vivo 功能药敏筛选的以 Notable Labs 这类小公司为代表，但直接对标"不接触药物、靠标志物预测"这条路线的商业化产品目前还没看到。</p>
+
+<h2>五分钟判断题（先猜后看）</h2>
+
+<div class="question-box">
+  <p>μPharma 的 pLCK 单细胞层面预测 dasatinib 敏感性，ROC AUC = 0.826。把同一样本里几十到上百个单细胞的 pLCK 读数聚合成样本层面均值再做 ROC，你猜 AUC 会变好、变差还是差不多？给一个具体数字。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 9 月 10 日，Insilico Medicine 在北京协和医院、上海市肺科医院为三期试验 GENESIS-IPF-3 首位患者给药，评估口服 TNIK 抑制剂 rentosertib（ISM001-055）治疗特发性肺纤维化，计划在中国入组 <strong>320</strong> 人，双盲安慰剂对照，疗程 <strong>52</strong> 周。</p>
+
+<p>支持三期启动的是已发表于 <em>Nature Medicine</em> 的二a期数据（<strong>71</strong> 人，22 中心，安慰剂/30mg QD/30mg BID/60mg QD 四臂，12 周，<strong>主要终点是安全性</strong>）。次要终点上，12 周时安慰剂组 FVC 降 <strong>-62.3 mL</strong>（95%CI -115.3 至 -9.33），60mg QD 组 FVC 升 <strong>+98.4 mL</strong>（95%CI 10.9–185.9，不跨零）；30mg QD 与 30mg BID 两组的置信区间都跨零。</p>
+
+<p><strong>AI 含量</strong>：行业里可核实度最高的案例之一——TNIK 靶点由 Insilico 自家 PandaOmics 平台从组学数据挖出，分子由生成式 AI（Chemistry42）从头设计，不是筛已知化合物库后贴标签。但目前疗效信号只来自 71 人二a期的次要终点，三期结果出来前，"AI 发现的药"这个称号还证明不了有效性。</p>
+
+<p><strong>历史对照</strong>：2015 年前后 IBM 高调押注 Watson Health，对外宣传"AI 给癌症治疗建议"，2017 年被曝 MD Anderson 花 <strong>6200 万</strong>美元、两年多，项目从未真正用于治疗病人，内部还发现它给出过不安全的用药建议；IBM 为搭建 Watson Health 收购数据资产花了超 <strong>40 亿</strong>美元，2022 年以超 <strong>10 亿</strong>美元贱卖给 Francisco Partners 退出。高调宣布是起点，不是证明。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
