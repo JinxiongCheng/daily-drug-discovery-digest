@@ -18,3 +18,4 @@
 | 2026-09-16 | 周三·单细胞与扰动生物学 | Simple controls exceed best deep learning algorithms and reveal foundation model effectiveness for predicting genetic perturbations | 10.1093/bioinformatics/btaf317 | https://doi.org/10.1093/bioinformatics/btaf317 |
 | 2026-09-17 | 周四·模型可靠性 | BOOM: Benchmarking Out-Of-distribution Molecular Property Predictions of Machine Learning Models | arXiv:2505.01912 | https://arxiv.org/abs/2505.01912 |
 | 2026-09-18 | 周五·微流控/实验平台与AI结合 | μPharma: A microfluidic, AI-driven pharmacotyping platform for single-cell drug sensitivity prediction in leukemia | 10.1016/j.medj.2025.100966 | https://doi.org/10.1016/j.medj.2025.100966 |
+| 2026-09-19 | 周六·经典必读 | A Simple Framework for Contrastive Learning of Visual Representations（SimCLR） | arXiv:2002.05709 | https://arxiv.org/abs/2002.05709 |
