@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-21 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-21 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>CellPainTR: Generalizable Representation Learning for Cross-Dataset Cell Painting Analysis</h3>
+<p class="meta">
+  Cedric Caruzzo, Jong Chul Ye（KAIST）· arXiv:2509.06986（2025-09-02 提交）·
+  <a href="https://arxiv.org/abs/2509.06986" target="_blank" rel="noopener">https://arxiv.org/abs/2509.06986</a>
+</p>
+
+<p><strong>核心主张</strong>：用一个显式建模"数据来源"的 Transformer，比隐式依赖模型自己学会忽略 batch 的传统方法，能在保留生物学信号的同时做更好的跨数据集 batch correction。</p>
+
+<p><strong>方法</strong>：CellPainTR 不吃原始图像，吃的是 Cell Painting 提取出的连续形态学特征向量（如 CellProfiler 特征）。核心结构是一个线性 adaptor 把连续特征嵌入，加一个可学习的 <code>[SRC]</code> source context token——从一个 source codebook 里查出当前样本属于哪个数据来源（哪个 batch/哪个数据集），显式喂给模型，而不是让模型自己隐式推断并忽略它。序列处理部分用 Hyena 算子替代标准 attention 提升效率。对完全没见过的新数据集（如 Bray et al. 数据集），推理时用 metadata 相似度选一个"代理"source token，并把只有 275 维的特征零填充到训练时的 4765 维。</p>
+
+<p><strong>关键数字</strong>：JUMP held-out 测试集上，综合评分（整合 batch mixing 和生物信号保留多个指标）CellPainTR 为 <strong>0.60</strong>，ComBat <strong>0.54</strong>，Harmony <strong>0.56</strong>，Sphering <strong>0.51</strong>。在完全未见过的 OOD 数据集 Bray et al. 上，CellPainTR 综合得分 <strong>0.40</strong>，ComBat/Harmony 只有 <strong>0.26</strong>。</p>
+
+<p><strong>方法学最大弱点</strong>：OOD 上那个"0.40 vs 0.26"的优势很大程度上建立在两个工程补丁上——零填充缺失特征、metadata 相似度挑代理 source token——论文没有做敏感性分析，换一个代理 source 结果会不会掉到和 baseline 差不多，不知道。而且"综合评分"是内部的 batch-mixing/silhouette 类指标，不是下游真实任务（比如 MOA 分类准确率、hit calling）的表现，0.06-0.14 的内部指标提升能不能转化成真实筛选决策的改善，论文没检验。</p>
+
+<p><strong>接口</strong>：有。PGCC 形态学筛选和微流控迁移数据做跨批次/跨天比较时，本质就是同一个 batch effect 问题——显式建模 source 而不是指望模型隐式忽略，这个思路可以直接借用。</p>
+
+<p><strong>谁在做</strong>：学界这块的核心是 Broad Institute Imaging Platform（Cell Painting 方法学的发源地）和一批做医学影像基础模型的组（如这篇的 KAIST Jong Chul Ye 组）；工业界代表是 Recursion Pharmaceuticals，他们的大规模表型基础模型是这条路线目前最大规模的产业实践。</p>
+
+<h2>五分钟判断题（找死穴）</h2>
+
+<div class="question-box">
+  <p>CellPainTR 用一个可学习的 <code>[SRC]</code> token 显式告诉模型样本来自哪个数据源。如果去掉这个 token，让 encoder 自己隐式学着忽略 batch 信息，你觉得结果最可能在哪个指标上崩，为什么？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>FDA 于 2026-09-15 公布 Expedited IND Pilot 最终设计并开放申请，截止日期 <strong>2026-10-30</strong>，预计遴选 <strong>8-10 个</strong> Sponsor-QRI（合格研究机构）配对进入首批试点。目标是压缩美国 first-in-human 临床试验启动周期——目前常见耗时长达 <strong>2 年</strong>，明显慢于中国和澳大利亚同类试验。机制是让 QRI 提前对药理毒理、临床、CMC 三部分内容做滚动式（rolling）审阅，压缩正式 IND 递交前的串行等待。<a href="https://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications" target="_blank" rel="noopener">FDA 官方公告</a></p>
+
+<p><strong>AI 含量</strong>：很小。这本质是一次行政/监管流程重组——把 IRB 审批、场地合同、试验启动几件本来串行的事变成并行，加一层 QRI 提前审阅。部分二级报道把标题打成"AI 驱动"，是因为 FDA 同期推的 MIDD/QSP/NAMs 监管改革议程里提到"AI 经验证和风险分级后可整合进临床前中后各阶段"，但这次 pilot 本身的机制设计里 AI 不是主角。</p>
+
+<p><strong>历史对照</strong>：2020 年 Operation Warp Speed 用的是同一套逻辑——不是发明新科学，而是在资金托底下把原本串行的临床试验分期、产能建设、监管审查并行推进，把疫苗从"发现"到"附条件批准"压到不到一年。药物研发史上多次显著提速，来源是流程并行化和行政重组，不是核心科学技术突破。这次 FDA pilot 是同一模式的延续，和"AI 让研发变快"的叙事关系不大。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?（我自己填，一句话，可以留空）</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

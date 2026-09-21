@@ -20,3 +20,4 @@
 | 2026-09-18 | 周五·微流控/实验平台与AI结合 | μPharma: A microfluidic, AI-driven pharmacotyping platform for single-cell drug sensitivity prediction in leukemia | 10.1016/j.medj.2025.100966 | https://doi.org/10.1016/j.medj.2025.100966 |
 | 2026-09-19 | 周六·经典必读 | A Simple Framework for Contrastive Learning of Visual Representations（SimCLR） | arXiv:2002.05709 | https://arxiv.org/abs/2002.05709 |
 | 2026-09-20 | 周日·反面教材 | AI in Drug Discovery: Clinical Failures, Regulatory Reality, and the Validation Crisis Behind the Hype | 10.3390/ph19060916 | https://doi.org/10.3390/ph19060916 |
+| 2026-09-21 | 周一·表型组学与图像表征学习 | CellPainTR: Generalizable Representation Learning for Cross-Dataset Cell Painting Analysis | arXiv:2509.06986 | https://arxiv.org/abs/2509.06986 |
