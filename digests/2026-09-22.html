@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-22 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-22 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Uni-Mol2: Exploring Molecular Pretraining Model at Scale</h3>
+<p class="meta">
+  Xiaohong Ji, Zhen Wang, Zhifeng Gao, Hang Zheng, Linfeng Zhang, Guolin Ke, Weinan E（DP Technology / 深势科技）· NeurIPS 2024（2024-09-26 接收）· arXiv:2406.14969 ·
+  <a href="https://arxiv.org/abs/2406.14969" target="_blank" rel="noopener">https://arxiv.org/abs/2406.14969</a> ·
+  代码：<a href="https://github.com/deepmodeling/Uni-Mol" target="_blank" rel="noopener">github.com/deepmodeling/Uni-Mol</a>
+</p>
+
+<p><strong>核心主张</strong>：分子的 3D 结构预训练也存在类似语言模型的 scaling law——把模型参数、预训练数据、算力一起放大，下游性质预测会持续变好，而不是很快饱和。</p>
+
+<p><strong>方法</strong>：输入是分子的 3D 构象（原子坐标 + 原子/键类型），用 SE(3) 不变的 Transformer 编码器同时预测 masked 原子类型和原子间距离，做自监督预训练。核心工作不是提出新结构，而是系统性地把同一套架构从 84M 参数一路放大到 <strong>1.1B 参数</strong>（共 5 档：84M/164M/310M/570M/1.1B），预训练数据是 <strong>约 8.84 亿个 3D 构象、来自约 7300 万个分子骨架</strong>，是当时公开的最大规模分子预训练语料之一。放大后的模型在 QM9（量子化学性质）、COMPAS-1D 等下游任务上微调评估。</p>
+
+<p><strong>关键数字</strong>：1.1B 参数模型相比更小规模模型，在 QM9 上平均误差（MAE）下降约 <strong>27%</strong>；在 COMPAS-1D 上，不引入额外原子/键特征时提升约 <strong>4%</strong>，引入后提升到约 <strong>14%</strong>。以上数字来自多个独立检索结果的交叉印证，不是我直接读到论文原文表格逐项数字——QM9 每个子性质（HOMO、LUMO、gap 等）各自的精确 MAE 没能核实到，只有这个打包的"平均提升"数字。</p>
+
+<p><strong>方法学最大弱点</strong>：这个"平均提升 27%"本身就值得怀疑。QM9 有 12 个子性质，量级和难度差异很大，如果放大主要拉动了少数几个容易学的性质，其余子项收益很小甚至持平，平均数会把这种不均匀性抹掉、看起来像是全面提升。搜索线索里反复出现"不同性质上 scaling 收益不成比例、部分任务出现平台效应"的说法，但我没能核实到论文原文是否真的这样自陈——如果论文没有主动披露这一点，那更说明"平均提升"这个汇总指标本身就是个容易误导读者的呈现方式。</p>
+
+<p><strong>接口</strong>：没有。这篇做的是小分子 3D 构象的自监督预训练，和我做的细胞图像、迁移轨迹数据在模态和任务上都不搭边，没有直接可借用的地方。</p>
+
+<p><strong>谁在做</strong>：大规模 3D 分子预训练这条线，工业界主力是 DP Technology（Uni-Mol 系列发源地）、Microsoft Research AI4Science、NVIDIA（BioNeMo 平台）；学界更多是在做小规模、任务特化的 3D 表征方法，很少有单位有算力和数据去做十亿参数级别的分子基础模型 scaling 实验，这也是这条路线目前主要被少数几家资源密集型机构主导的原因。</p>
+
+<h2>五分钟判断题（先猜后看）</h2>
+
+<div class="question-box">
+  <p>Uni-Mol2 把参数量从 84M 放大到 1.1B（约 13 倍），预训练数据约 8.84 亿个 3D 构象。参照你熟悉的深度学习 scaling law 直觉（误差通常随参数量呈幂律下降），你猜 QM9 上平均 MAE 会下降多少个百分点？说一个具体数字。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Merck 的 Winrevair（sotatercept-csrk）于 2026-09-22 获 FDA 扩大适应症批准，依据是 III 期 <strong>HYPERION</strong> 试验：<strong>320 例</strong>新诊断（平均确诊 7.2 个月内）肺动脉高压（PAH，WHO 1 组）患者，在背景治疗基础上加用 sotatercept vs 安慰剂。主要终点是首次临床恶化事件，结果 <strong>10.6% vs 36.9%</strong>，<strong>HR=0.24（95% CI 0.14–0.41，p&lt;0.0001）</strong>；严重不良事件发生率两组相近（24.4% vs 28.1%）。<a href="https://www.merck.com/news/winrevair-sotatercept-csrk-reduced-the-risk-of-clinical-worsening-events-by-76-compared-to-placebo-in-patients-recently-diagnosed-with-pah-on-background-therapy-in-phase-3-hyperion-trial/" target="_blank" rel="noopener">Merck 新闻稿</a></p>
+
+<p><strong>AI 含量</strong>：无。Sotatercept 是传统的 activin 信号通路抑制剂（ActRIIA-Fc 融合蛋白），整个研发链条里不涉及 AI，这条新闻单纯是一次扎实的 III 期数据驱动的适应症扩展。</p>
+
+<p><strong>历史对照</strong>：同样在 PAH 这个病种里，西地那非（sildenafil）最初是 Pfizer 在 1990 年代初作为心绞痛药物开发的，I 期试验没看到抗心绞痛效果，却意外发现了副作用（阴茎勃起），先被开发成 Viagra（1998 年获批治 ED），几年后才被发现对肺血管有扩张作用，2005 年以 Revatio 之名获批用于 PAH。药物研发史上，适应症从一个领域意外转移到另一个领域，比"AI 设计出对的分子"这种叙事出现的频率高得多。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?（我自己填，一句话，可以留空）</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
