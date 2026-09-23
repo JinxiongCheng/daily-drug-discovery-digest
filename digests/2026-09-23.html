@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-23 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-23 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<p class="notice">今天没能联网核实到 bioRxiv、PubMed、PMC、Cell、arcinstitute.org 正文——这几个域名今天全部被代理拦截，只能靠 WebSearch 摘要片段和 GitHub README 拼数字。标了"没核实到"的地方就是没核实到。</p>
+
+<h2>论文</h2>
+
+<h3>Predicting cellular responses to perturbation across diverse contexts with State</h3>
+<p class="meta">
+  Abhinav K. Adduri、Yusuf H. Roohani 等（Arc Institute，完整作者名单没核实到）· <em>Cell</em>，2026-08-31 在线发表 · DOI:10.1016/j.cell.2026.07.052（bioRxiv 预印本 2025-06-26，10.1101/2025.06.26.661135）·
+  <a href="https://doi.org/10.1016/j.cell.2026.07.052" target="_blank" rel="noopener">https://doi.org/10.1016/j.cell.2026.07.052</a>
+</p>
+
+<p><strong>核心主张</strong>：一个两阶段架构——先学一个细胞状态空间的表征，再学扰动怎么把细胞从状态空间里的一个点推到另一个点——在跨 70 个细胞背景的大规模扰动数据上训练后，预测细胞对遗传、化学、细胞因子扰动转录组响应的能力全面超过已有方法。</p>
+
+<p><strong>方法</strong>：State Embedding（SE）模块用约 <strong>1.67 亿</strong>个未扰动细胞的观测转录组做自监督预训练，把表达谱映射到一个对批次噪声更鲁棒的向量空间，同类型细胞聚簇。State Transition（ST）模块用超过 <strong>1 亿</strong>个扰动细胞、跨 <strong>70</strong> 个细胞背景训练一个以扰动身份为条件的转移函数，预测细胞在这个状态空间里的位移，解码后得到预测表达谱。训练和评估都是"一批细胞对一批细胞"的 set 级别匹配，不是逐细胞配对。</p>
+
+<p><strong>关键数字</strong>：官方通稿称 STATE 把扰动效应判别力（discrimination）提升超过 <strong>50%</strong>，识别真实差异表达基因的准确率是现有模型的 <strong>2 倍以上</strong>。这两个数字只能核实到 Arc Institute 官方转述（含一条官方推文原话），具体对比哪个 baseline、在哪个数据集、用什么统计口径算出来的，今天没核实到。</p>
+
+<p><strong>方法学最大弱点</strong>：相对提升数字容易掩盖跟谁比。9/16 那篇论文已经证明，在扰动预测这个任务上，一个什么都不学的 mean baseline 经常打平甚至反超 scGPT 这类深度模型；如果 STATE 挑的对照组是同一批早期 foundation model 而不是调好的线性/均值 baseline，"2 倍"的意义要打折扣。更实质的边界是：Arc 自己后续发布的 Stack 模型，明确是为了解决"STATE 需要目标 cell context 里已有扰动训练数据才能预测"这个限制，这反过来说明 STATE 在完全没见过的新 context 上零样本泛化能力有限。</p>
+
+<p><strong>接口</strong>：弱。STATE 处理 scRNA-seq 转录组，你的数据是相差显微镜图像和形态学筛选，模态不同，没法直接套用。可以借鉴的只是设计思路——先学状态空间表征、再学条件化转移——如果以后想做"形态学状态空间 + 扰动条件转移"的类似物，这是个参考模板。</p>
+
+<p><strong>谁在做</strong>：学界 Stanford（Roohani/Leskovec 一脉，GEARS 也出自这里）、Regev 实验室（Genentech/MIT）、Theis 实验室（Helmholtz Munich）。产业 Arc Institute、Genentech、Recursion，以及专门做超大规模 Perturb-seq 数据集的 Tahoe Therapeutics（Tahoe-100M）。</p>
+
+<h2>五分钟判断题（数字体检）</h2>
+
+<div class="question-box">
+  <p>STATE 的 ST 模块号称覆盖 <strong>70</strong> 个细胞背景、超过 <strong>1 亿</strong>个扰动细胞，平均每个 context 约 <strong>140 万</strong>个扰动细胞。主流公开 Perturb-seq 数据集（比如 Replogle 2022 全基因组 CRISPRi 筛选）单个数据集通常是多少细胞量级？如果明显小于 140 万，这个均值说明了什么——70 个 context 是不是被一两个超大规模数据集严重拉高，导致大多数 context 实际训练数据很稀疏？</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>AbbVie 和 Iambic Therapeutics 于 <strong>2026-09-21</strong> 宣布多年期研究合作，聚焦小分子药物发现，覆盖免疫、神经科学、肿瘤三个治疗领域。Iambic 把它的平台——多模态 transformer 模型 Enchant v3（号称训练于 6000+ 分子性质）、蛋白-配体复合物结构生成模型 NeuralPLexer、加内部高通量湿实验闭环——接入 AbbVie 的治疗领域专长。Iambic 将获得首付款，并有资格拿基于里程碑的付款和净销售额分成；首付款、里程碑总额、分成比例、涉及项目数，双方均未披露，没查到就是没查到。</p>
+
+<p><strong>AI 含量</strong>：这是发现阶段的平台合作，不是临床数据，也没有已验证的先导化合物。AI 的"贡献"目前只存在于合作意向层面——Iambic 声称平台能提高候选药物成功率，这类声明在签约当天永远无法验证，只有项目走到临床甚至获批才能检验。这条新闻本身不能当作"AI 在药物研发里有效"的证据，只能算"大药厂仍愿为 AI 平台的期权买单"的证据。</p>
+
+<p><strong>历史对照</strong>："平台合作+里程碑付款、财务条款不披露"是过去十年 AI 药物发现领域反复出现的公告模式。签约通稿密集描述技术能力，几乎从不披露能验证有效性的对照数字（命中率提升多少、周期缩短多少）；等到合作到期或项目终止，后续报道的关注度远低于签约当天。签约时刻的叙事总是被放到最大，终止或沉寂时刻的叙事总是被缩到最小，这正是判断这类新闻时最该警惕的偏差。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?（我自己填，一句话，可以留空）</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
