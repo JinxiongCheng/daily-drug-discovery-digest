@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-24 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-24 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用,但今天几乎所有文献站点(nature.com、pmc.ncbi.nlm.nih.gov、www.ncbi.nlm.nih.gov、pubmed.ncbi.nlm.nih.gov、genome.cshlp.org、biorxiv.org、doi.org、researchgate.net、ouci.dntb.gov.ua、news.abbvie.com)都被代理拦截,只有 github.com 能打开。以下数字全部来自 WebSearch 返回的摘要片段拼出来,没有读到任何一篇正文原文。标了"没核实到"的地方就是没核实到。</p>
+
+<h2>论文</h2>
+
+<h3>Batch correction methods used in single-cell RNA sequencing analyses are often poorly calibrated</h3>
+<p class="meta">
+  Sindri Emmanúel Antonsson、Páll Melsted(冰岛大学) · <em>Genome Research</em>,2025-07-07 在线,Vol 35(8):1832–1841 · DOI:10.1101/gr.279886.124 ·
+  <a href="https://genome.cshlp.org/content/35/8/1832" target="_blank" rel="noopener">https://genome.cshlp.org/content/35/8/1832</a>
+</p>
+
+<p><strong>核心主张</strong>:学界常用的八种单细胞 batch correction 方法里,大多数没有校准——就算两组数据之间根本不存在真实批次效应,"矫正"这个操作本身也会凭空制造出看起来像去除了批次效应、实则是伪造的差异信号。</p>
+
+<p><strong>方法</strong>:构造一个零假设检验——把同一批细胞随机拆成两组,保证两组之间不存在真实生物学或技术差异,再人为标注成不同"batch",分别跑 ComBat、ComBat-seq、MNN、Seurat(CCA)、BBKNN、LIGER、scVI、Harmony 这八种方法做批次校正。一个校准良好的方法在这种"无 batch effect"条件下矫正后不该制造出新的差异,他们同时在细胞对之间的距离尺度(fine-scale)和 cluster 层面统计矫正前后的信号变化。</p>
+
+<p><strong>关键数字</strong>:在 PBMC3K 数据集上,未矫正原始数据两组之间只有约 <strong>154–179</strong> 个差异表达基因(背景噪声水平);经 <strong>MNN</strong> 和 <strong>Seurat</strong> 矫正后,这个数字飙升到 <strong>800 以上</strong>——矫正本身制造的假阳性信号是背景的四五倍。八种方法里只有 <strong>Harmony</strong> 在所有测试场景下稳定不产生这种伪影,被作者列为唯一推荐方法。</p>
+
+<p><strong>方法学最大弱点</strong>:零假设测试只覆盖"完全没有批次效应"这一个极端。它证明了这些方法在无效应时会撒谎,但没有系统覆盖"确实存在真实批次效应、强度和噪声混杂在一起"的中间地带——没告诉你真实场景(有效应但强度未知)下这些方法的假阳性率曲线长什么样。容易被简化成"Harmony 全面最优",但这只是在这一个诊断测试里最诚实,不代表它在所有场景下矫正效果最强。</p>
+
+<p><strong>接口</strong>:直接相关。做微流控迁移和 PGCC 形态筛选,跨 plate、跨天、跨批次几乎必然要上某种校正,这篇给了一个可以直接照搬的"零假设校准检验"——在对自己的数据用任何 batch correction 之前,先拆出一组"确定没有 batch effect"的对照,测这个方法会不会在无效应时也报告假阳性。</p>
+
+<p><strong>谁在做</strong>:单细胞方法学审计这条线,学界是方法本身的作者——Rahul Satija(Seurat)、Fabian Theis 组(scVI/scArches)——加上像 Melsted(这篇作者,冰岛大学)这类专做独立审计的团队;图像表型这一侧的 batch correction 由 Broad Institute 的 Carpenter-Singh lab 在主导(JUMP Cell Painting 那条线)。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>零假设检验靠随机拆分同一批细胞,造出"确定无 batch effect"的对照组。搬到你自己跨天拍的 PGCC 形态筛选或微流控迁移图像数据上,你还能用同样办法造出一个"确定无 batch effect"的对照组吗?第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>2026-09-14 通稿,近期公布最终数据</strong>:J&amp;J RYBREVANT(amivantamab)+化疗一线治疗 EGFR exon20 插入突变 NSCLC 的 III 期 PAPILLON 研究公布最终总生存(OS)分析。意向治疗人群里,amivantamab 组中位 OS <strong>34.3 个月</strong>,单纯化疗组 <strong>27.9 个月</strong>,HR <strong>0.87</strong>(95% CI 0.66–1.14,p=0.307),未达到方案预设的统计学显著性。但化疗组有 <strong>76%</strong> 的患者在疾病进展后交叉使用了 amivantamab;做交叉调整分析后,HR 降到 <strong>0.57</strong>(95% CI 0.39–0.82,名义 p=0.003)。</p>
+
+<p><strong>AI 含量</strong>:基本没有。Amivantamab 是 EGFR-MET 双特异性抗体,出自传统抗体工程和免疫学筛选管线,这条新闻里找不到 AI 驱动发现或设计的痕迹。这是一条纯粹的临床数据新闻,和 AI 药物研发没有实质关系。</p>
+
+<p><strong>历史对照</strong>:交叉设计"稀释"OS统计显著性,是肿瘤 III 期试验里反复出现的老问题——出于伦理,对照组进展后允许换用试验药,ITT 分析里的 OS 差异被系统性拉平,PFS 获益明显但 OS"没达标"。这类争议从 2000 年代第一代 EGFR-TKI(吉非替尼、厄洛替尼)临床试验开始就反复出现,监管机构后来普遍接受交叉调整分析作为补充证据,但主分析口径依然以预设显著性为准——这也是为什么 PAPILLON 的通稿标题强调"数值上最长 OS",而不是"统计学显著改善 OS"。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

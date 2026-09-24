@@ -23,3 +23,4 @@
 | 2026-09-21 | 周一·表型组学与图像表征学习 | CellPainTR: Generalizable Representation Learning for Cross-Dataset Cell Painting Analysis | arXiv:2509.06986 | https://arxiv.org/abs/2509.06986 |
 | 2026-09-22 | 周二·分子表征与性质预测 | Uni-Mol2: Exploring Molecular Pretraining Model at Scale | arXiv:2406.14969 | https://arxiv.org/abs/2406.14969 |
 | 2026-09-23 | 周三·单细胞与扰动生物学 | Predicting cellular responses to perturbation across diverse contexts with State | 10.1016/j.cell.2026.07.052 / bioRxiv 10.1101/2025.06.26.661135 | https://doi.org/10.1016/j.cell.2026.07.052 |
+| 2026-09-24 | 周四·模型可靠性 | Batch correction methods used in single-cell RNA sequencing analyses are often poorly calibrated | 10.1101/gr.279886.124 | https://genome.cshlp.org/content/35/8/1832 |
