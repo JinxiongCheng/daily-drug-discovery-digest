@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-25 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-25 · 周五</p>
+  <h1>微流控/实验平台与AI结合</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用。但和最近几天一样,主要文献站点(pmc.ncbi.nlm.nih.gov、pubmed.ncbi.nlm.nih.gov、biorxiv.org、doi.org、advanced.onlinelibrary.wiley.com)全部被代理拦截,正文原文一篇都没打开成功。以下数字全部来自 WebSearch 返回的摘要片段拼出来。标了"没核实到"的地方就是没核实到。</p>
+
+<h2>论文</h2>
+
+<h3>Deep Learning‐Powered Scalable Cancer Organ Chip for Cancer Precision Medicine</h3>
+<p class="meta">
+  Yu-Chieh Yuan 等(Brigham and Women's Hospital / Harvard Medical School) · <em>Advanced Science</em>,2026-02-03 在线 · DOI:10.1002/advs.202516660(前身是 2024 年发布的 bioRxiv 预印本,doi:10.1101/2024.06.10.598272) ·
+  <a href="https://doi.org/10.1002/advs.202516660" target="_blank" rel="noopener">https://doi.org/10.1002/advs.202516660</a>
+</p>
+
+<p><strong>核心主张</strong>:一款全热塑材料注塑成型、不含多孔膜的可规模化 organ chip(OC-Plex),配合无标记明场成像加深度学习图像分析,能把患者来源肿瘤细胞的药物功能测试做到接近临床工作流的速度和规模,结果在方向上和已知临床结局一致。</p>
+
+<p><strong>方法</strong>:OC-Plex 每块板 8 个独立芯片,靠毛细钉扎(capillary pinning)把水凝胶限制在凝胶通道里,不需要传统 organ-on-chip 常用的多孔膜分隔层,支持多种组织特异基质和共培养,适配高内涵成像。无标记明场成像连续追踪细胞形态,深度学习分割算法框出 ROI 并做活/死细胞分类,定量给药后细胞存活率随时间的变化,不需要荧光染色。先在胰腺癌、肺癌、结肠癌细胞系和原代肺癌细胞上验证,再用一例鳞状 NSCLC 患者的新鲜分离肿瘤细胞,芯片培养 6 天后分别用吉西他滨、培美曲塞、紫杉醇、顺铂给药 72 或 144 小时,把芯片药物反应和该患者已知临床特征对照。另外用现成的液体处理机器人把给药和成像流程自动化。</p>
+
+<p><strong>关键数字</strong>:自动化工作流把一次 7 天实验的总操作耗时降低约 <strong>70%</strong>,给出的药物反应结果和人工操作方向一致。在这例鳞状 NSCLC 患者的芯片测试里,培美曲塞没有显示出细胞杀伤效果——这和已知临床事实一致:大型临床试验早就证明鳞状 NSCLC 亚型对培美曲塞不敏感。没核实到的:深度学习分类器本身的准确率、AUC 或活死细胞分类的定量指标,搜索到的摘要片段没给出这些数字。</p>
+
+<p><strong>方法学最大弱点</strong>:目前公开摘要能看到的"芯片药物反应和临床结局一致"的证据,是恰好一个患者、一次给药实验、四种药里对上了一种(培美曲塞无效)。这个"对上"用的是这个亚型已经写进教科书的群体级临床知识去验证单个患者的芯片结果,不是芯片预测出了教科书之外的新信息。容易被读成"这个平台能预测患者用药反应",但现有证据只够支持"这个平台没有在一个已知答案的案例上出错",这两者差得很远。</p>
+
+<p><strong>接口</strong>:直接相关。注塑成型、无膜化的芯片设计,以及用无标记明场+深度学习做活死分类去替代荧光染色定量,和我做微流控迁移、PGCC 形态筛选要解决的"芯片怎么量产、读出怎么去掉染色依赖"是同一类问题,方法上可以直接借鉴。</p>
+
+<p><strong>谁在做</strong>:学界这条线,Harvard Wyss Institute(Ingber 实验室那条食管腺癌 organ chip 预测化疗反应的工作是这个领域最常被引用的先例)和这篇的 Brigham and Women's Hospital / Harvard Medical School 团队是主力;工业界做 organ chip + AI 表型读出的公司包括 Emulate、CN Bio,以及更晚近专门把自动化和深度学习绑在 organ chip 上的初创公司如 Vivodyne。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>这篇论文用一例鳞状 NSCLC 患者、一种药(培美曲塞无效)支持"芯片药物反应和临床结局一致"。如果你是审稿人,会提哪一条 major comment?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>2026-09-21</strong>:NVIDIA 投资的 AI 药物发现公司 Iambic Therapeutics 向 SEC 递交 Form S-1,计划以代码 IAM 在纳斯达克上市(承销商 J.P. Morgan、Jefferies、BofA Securities、Citigroup),同一天宣布与 AbbVie 达成多年期研究合作。公司 2019 年成立,截至 2026-09-18 累计融资约 <strong>4.618 亿美元</strong>,投资方含 NVIDIA、卡塔尔投资局、Catalio、Coatue;NVIDIA 上市前持股约 <strong>960 万股</strong>。管线最靠前的 IAM1363 是口服 HER2 抑制剂,处于 I/Ib 期(NCT06253871),≥960mg/天队列里,可测量全身病灶患者(N=18)客观缓解率 <strong>28%</strong>,可测量颅内病灶患者(N=3)缓解率 <strong>33%</strong>。另两个管线 IAM217(卵巢癌/三阴乳腺癌)、IAM-C1(CDK2/4 抑制剂)计划 2026 年 Q4 报 IND。招股书股数和定价区间尚空,Renaissance Capital 估计募资规模上限约 1 亿美元。</p>
+
+<p><strong>AI 含量</strong>:这条新闻本质是融资新闻。IPO 和 AbbVie 合作都不直接证明 AI 起了作用——一个说明投资人愿意给估值,一个说明 AbbVie 认可这家公司的平台或管线,都不是临床或科学层面对 AI 贡献的验证。IAM1363 报出的选择性数字(对 HER2 相对 EGFR 选择性超过 5000 倍、颅内渗透是已获批 TKI 的 10 倍)是典型结构类药物化学优化结果,传统 SAR 迭代同样能做到,没有和不用 AI 的对照做比较。28% 的 I 期缓解率是正常的小分子 TKI 早期数据,不构成 AI 优于传统方法的证明。</p>
+
+<p><strong>历史对照</strong>:这不是第一波"AI 药物发现公司上市"。Exscientia 2021 年 10 月在纳斯达克上市,估值约 <strong>29 亿美元</strong>,IPO 加同步私募合计融资超过 5 亿美元;不到三年后,2024 年 8 月 Exscientia 被 Recursion Pharmaceuticals 全股票并购,交易作价约 <strong>1.93 亿美元</strong>,估值缩水超过 90%。上市时的平台叙事和最终兑现的价值之间,历史上已经出现过一次巨大落差。Iambic 这次是同一个剧本的第二轮,招股书里的叙事本身不能当作验证。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
