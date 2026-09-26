@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-26 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-26 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用。AlphaFold2 原文(nature.com)没有直接打开测试,数字来自 WebSearch 摘要片段和多个二次来源(CASP14 官方评估综述、PMC 综述文章)交叉确认,一致。新闻部分的 Beacon Therapeutics 数字来自 BioSpace/BioPharma Dive/GlobeNewswire 新闻稿摘要,一致。</p>
+
+<h2>论文</h2>
+
+<h3>Highly accurate protein structure prediction with AlphaFold</h3>
+<p class="meta">
+  Jumper 等(DeepMind) · <em>Nature</em>,2021 · DOI:10.1038/s41586-021-03819-2 ·
+  <a href="https://doi.org/10.1038/s41586-021-03819-2" target="_blank" rel="noopener">https://doi.org/10.1038/s41586-021-03819-2</a>
+</p>
+
+<p><strong>核心主张</strong>:给定一个蛋白质的氨基酸序列,AlphaFold2 能以接近实验精度预测其三维结构,在 CASP14 盲测中把这个问题基本解决到"可用"的程度。</p>
+
+<p><strong>方法</strong>:输入序列先做多序列比对(MSA)和模板搜索,提取共进化信号;核心是 Evoformer 模块,交替更新 MSA 表示和残基对表示(pair representation),把序列层面的共进化关系转成空间距离/方向的约束;然后用 Structure Module 把这些约束直接转成三维坐标,端到端训练,不依赖人工设计的能量函数;整个网络对同一输入迭代"回收"(recycling)几次以精炼结果;同时输出每个残基的置信度分数 pLDDT,用来标注预测的可信区域。</p>
+
+<p><strong>关键数字</strong>:CASP14 上 30 个单域目标的平均 <strong>GDT-TS 超过 90</strong>,其中 <strong>25/30</strong> 个目标 GDT-TS 超过 80;全部结构域的中位数 GDT_TS 为 <strong>92.4</strong>;评审方按累计 z-score 排名,AlphaFold2 得 <strong>244.0</strong>,第二名整个团队合计只有 <strong>90.8</strong>(不是差一点,是差了 2.7 倍)。</p>
+
+<p><strong>方法学最大弱点</strong>:AlphaFold2 给出的是单一静态结构和一个置信度分数,不代表构象动态、多态构象或和小分子结合后的诱导契合。pLDDT 高只说明"这个坐标在同源结构支持下大概率是对的",不说明这个构象和药物设计相关的口袋在功能状态下是什么样子。对没有足够同源序列(浅 MSA)的孤儿蛋白、内在无序区域、和依赖多个构象态才能解释功能的蛋白(比如很多 GPCR 的激活态/失活态切换),它的预测质量会明显下降,而这个下降在孤立看一个预测结果时很难察觉。做基于结构的药物设计时把 AlphaFold2 模型直接当刚性对接靶点用,是最容易踩的坑。</p>
+
+<p><strong>接口</strong>:和我现在做的微流控迁移、单细胞形态学筛选没有直接接口——我的工作是表型层面的读出,不涉及具体蛋白结构。如果以后要往迁移相关靶点的机制层面下钻(比如某个粘附分子或受体的结构基础),这类工具会用得上,但目前是两条不相交的线。</p>
+
+<p><strong>谁在做</strong>:学界这条线的延伸主要是 David Baker 实验室(RoseTTAFold 系列,2024 年和 DeepMind 的 Hassabis、Jumper 共享诺贝尔化学奖);工业界把 AlphaFold 直接产品化做药物设计的是 DeepMind 独立出来的 Isomorphic Labs,另外 Meta 的 ESMFold,以及 Chai Discovery、Generate Biomedicines 这些初创公司在做同类或下一代结构预测模型。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>AlphaFold2 的核心输入是多序列比对(MSA)里的共进化信号,Evoformer 靠它推断残基间的空间约束。如果把 MSA 输入换成单条序列(不给任何同源序列),你预期整体 GDT-TS 会掉到什么量级?为什么这个设计选择一旦反过来,结论会翻?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>2026-09-21</strong>:Beacon Therapeutics 公布 VISTA 关键性试验(registrational trial)顶线数据:laru-zova(AAV 基因治疗,递送 RPGR 基因)治疗 X 连锁视网膜色素变性(XLRP),85 名 12-48 岁男性患者,随机分入高剂量(6.8×10^11 vg/eye)、低剂量(3.7×10^11 vg/eye)和未治疗对照组,随访 12 个月。主要终点是视力表提升≥15 个字母的应答率:高剂量组 <strong>31.0%</strong>(p=0.0019),低剂量组 <strong>24.1%</strong>(p=0.0106),对照组 <strong>0%</strong>。这是首个在 XLRP 上以统计显著性达到主要终点的关键性试验。</p>
+
+<p><strong>AI 含量</strong>:几乎为零。这是经典的 AAV 基因替代疗法——靶点(RPGR 突变导致 70-90% 的 XLRP 病例)几十年前就明确,递送方式是成熟的 AAV 载体工程,试验设计和读出都是传统临床开发路径,新闻和公开资料里没有任何计算/AI 参与设计或筛选的痕迹。</p>
+
+<p><strong>历史对照</strong>:XLRP 基因治疗这条线此前摔得很重。Biogen/Nightstar 的 cotoretigene toliparvovec(BIIB112)2021 年在 XIRIUS Ⅱ/Ⅲ 期试验里没有达到主要终点(MAIA 微视野检测下≥7dB 改善的比例),项目最终终止,尽管当时也报了"次要终点有正向趋势"。再往前追溯,2017 年 Luxturna(voretigene neparvovec,RPE65 基因缺陷)基于 41 名患者的数据获批,是第一个获批的遗传性视网膜病基因治疗,被当作整个领域的破局点。从 Luxturna 到现在快十年,同一大类(AAV 递送、遗传性视网膜病)在不同靶点上反复摔跟头,Beacon 这次是 XLRP 这个具体适应症第一次真正接住。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
