@@ -26,3 +26,4 @@
 | 2026-09-24 | 周四·模型可靠性 | Batch correction methods used in single-cell RNA sequencing analyses are often poorly calibrated | 10.1101/gr.279886.124 | https://genome.cshlp.org/content/35/8/1832 |
 | 2026-09-25 | 周五·微流控/实验平台与AI结合 | Deep Learning‐Powered Scalable Cancer Organ Chip for Cancer Precision Medicine | 10.1002/advs.202516660 | https://doi.org/10.1002/advs.202516660 |
 | 2026-09-26 | 周六·经典必读 | Highly accurate protein structure prediction with AlphaFold | 10.1038/s41586-021-03819-2 | https://doi.org/10.1038/s41586-021-03819-2 |
+| 2026-09-27 | 周日·反面教材 | How successful are AI-discovered drugs in clinical trials? A first analysis and emerging lessons | 10.1016/j.drudis.2024.104009 | https://doi.org/10.1016/j.drudis.2024.104009 |
