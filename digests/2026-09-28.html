@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-28 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-28 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用。但 arxiv.org、openreview.net、recursion.com、genbio.ai、ir.ionis.com、otsuka-us.com、sec.gov、mlanthology.org、ar5iv.labs.arxiv.org 今天全部被 egress proxy 拦截,没有读到任何一篇原文全文。论文的关键数字(77.33%、7.9%、8.1×、116,750 分子)和新闻的关键数字(N=73、p=0.0005)来自 WebSearch 返回的多条独立摘要(NeurIPS 官方页面、Recursion 官网摘要、多家财经/行业媒体对新闻稿的转述)交叉印证,数值一致,但没有做到逐项对照原文表格。</p>
+
+<h2>论文</h2>
+
+<h3>How Molecules Impact Cells: Unlocking Contrastive PhenoMolecular Retrieval(MolPhenix)</h3>
+<p class="meta">
+  Philip Fradkin 等,Valence Labs / Recursion · NeurIPS 2024 Workshop(Foundation Models for Science)· arXiv:
+  <a href="https://arxiv.org/abs/2409.08302" target="_blank" rel="noopener">2409.08302</a>
+</p>
+
+<p><strong>核心主张</strong>:把一个已经预训练好的分子图神经网络和一个已经预训练好的显微图像模型,用对比学习对齐到同一个空间,就能从一张 Cell Painting 图像反推出是哪个分子造成的表型,精度远超之前所有同类方法。</p>
+
+<p><strong>方法</strong>:两个编码器都冻结,不从头训练。分子侧用 MolGPS(10 亿参数 GNN,在大规模分子数据上预训练过);图像侧用 Phenom-1(ViT,掩码自编码器在数百万张显微图像上预训练过)。在这两个冻结编码器上面各接一个轻量投影头,用 JUMP-CP 数据集(<strong>116,750</strong> 个分子、<strong>12,602</strong> 个基因过表达、<strong>7,975</strong> 个基因敲除的扰动图像)训练对比损失。核心创新是一个"软加权 sigmoid locked"损失(S2L):普通对比损失会把"不同分子"一律当负样本互相推开,但大多数分子在给定浓度下根本不改变细胞表型,图像上看不出区别,硬推开反而是错误信号;S2L 按分子在表型空间里的相似度给负样本加权,弱化这种伪冲突。</p>
+
+<p><strong>关键数字</strong>:zero-shot 分子检索(给一张图,从候选分子里猜是谁)的 top-1% recall,从之前最好方法 CLOOME 的 <strong>7.9%</strong> 提升到 <strong>77.33%</strong>,官方口径是 <strong>8.1 倍</strong>提升。</p>
+
+<p><strong>方法学最大弱点</strong>:这个 77.33% 是在"活性分子"这个子集上测的——即已知会引起可检测表型变化的那批分子。真实筛选场景里绝大多数化合物在给定浓度下是表型沉默的,你事先并不知道哪些是"活性"的,这个子集限定让检索任务变得比实际应用场景容易得多。另外 JUMP-CP 这类公开 Cell Painting 数据集有已知的批次/孔板效应,而批次信息经常和化合物身份相关(同一批次测的化合物容易被误判成"表型相似"),图像编码器很可能部分学到的是批次指纹而不是纯生物学表型,这会虚高检索精度而不易被基准本身发现。</p>
+
+<p><strong>接口</strong>:有接口,但要改造。同样的"冻结预训练编码器 + 对比对齐 + 处理'大多数负样本其实是假阴性'"这套思路,可以直接搬到"扰动 → 迁移轨迹/PGCC 形态"的检索任务上——用已有的迁移特征提取器和一个通用扰动编码器做对比对齐,而不是从头训练一个端到端模型。</p>
+
+<p><strong>谁在做</strong>:工业界主力是 Recursion(已收购 Valence Labs)、Insitro、Cellarity;学术界这类分子-表型对齐工作主要在 Broad Institute(Anne Carpenter 组,Cell Painting 数据集的源头)周围。</p>
+
+<h2>五分钟判断题(数字体检)</h2>
+
+<div class="question-box">
+  <p>MolPhenix 的 zero-shot top-1% recall 从基线 7.9% 提升到 77.33%,号称 8.1 倍。若检索池按纯随机排序,top-1% recall 的期望基线本该是多少?用这个数字重算,7.9% 和 77.33% 分别是随机基线的多少倍?"8.1 倍"这个说法合理吗?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Ionis 和 Otsuka 于 <strong>2026-09-22</strong> 公布 Phase 3 <strong>FUSION</strong> 试验(ulefnersen,又名 ION363/Jacifusen)topline 结果,适应症是 FUS 基因突变型 ALS(FUS-ALS,占全部 ALS 约 0.6%)。主要终点是联合排序分析(ALSFRS-R 变化、rescue 时间、无创通气生存时间,72 周/第 505 天),主要分析人群 <strong>N=73</strong>(共入组 89 人),<strong>p=0.0005</strong>,达到统计显著;关键次要终点血清 NfL 下降和"死亡/永久通气/rescue/因病情退出"复合时间也显著改善。</p>
+
+<p><strong>AI 含量</strong>:没有。Ulefnersen 是 Ionis 经典的 2'-MOE gapmer 反义寡核苷酸(ASO)化学平台产物,靶点选择基于已知 FUS 基因突变的遗传学证据,不是 AI/ML 驱动的靶点发现或分子设计。</p>
+
+<p><strong>历史对照</strong>:这个药最早以"Jacifusen"的身份,在 2022 年作为同情用药给一名患者(Jaci Hermstad)单人使用,数据发表在 NEJM 的病例报告里——和 2019 年 Timothy Yu 组给 Batten 病患者定制的 milasen 是同一种"个体化 ASO 先做 n-of-1、再走正规临床"的路径。而同平台上一个已获批药物 tofersen(Qalsody,SOD1-ALS)在关键的 VALOR 试验里其实没有打中主要临床功能终点,是靠 NfL 生物标志物下降拿到的加速批准。ulefnersen 这次直接在功能+生存联合终点上做到统计显著,在 ALS 药物开发三十年基本靠终点失败收场的历史里,是少见的正面结果。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
