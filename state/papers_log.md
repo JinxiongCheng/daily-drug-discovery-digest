@@ -28,3 +28,4 @@
 | 2026-09-26 | 周六·经典必读 | Highly accurate protein structure prediction with AlphaFold | 10.1038/s41586-021-03819-2 | https://doi.org/10.1038/s41586-021-03819-2 |
 | 2026-09-27 | 周日·反面教材 | How successful are AI-discovered drugs in clinical trials? A first analysis and emerging lessons | 10.1016/j.drudis.2024.104009 | https://doi.org/10.1016/j.drudis.2024.104009 |
 | 2026-09-28 | 周一·表型组学与图像表征学习 | How Molecules Impact Cells: Unlocking Contrastive PhenoMolecular Retrieval(MolPhenix) | arXiv:2409.08302 | https://arxiv.org/abs/2409.08302 |
+| 2026-09-29 | 周二·分子表征与性质预测 | UMAP-based clustering split for rigorous evaluation of AI models for virtual screening on cancer cell lines | 10.1186/s13321-025-01039-8 / arXiv:2406.00873(ICANN 2024 会议版) | https://doi.org/10.1186/s13321-025-01039-8 |

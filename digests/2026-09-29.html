@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-29 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-29 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用,但 arxiv.org、jcheminf.biomedcentral.com、link.springer.com 这几个域名今天被 egress proxy 拦截,没能直接打开论文全文。论文的关键数字(hit rate 67.67%/64.53%/43.60%/33.27%,RF 与 GEM 的 MCC 值)来自 WebSearch 对论文结果的转述,并经 Springer、ResearchGate、Zenodo、ChemRxiv 多个独立列表交叉确认论文本身真实存在,但没有做到逐项核对原文表格。新闻部分(FDA 公告、PROGRESS 研究的 N=63、3.2 cm³/24.6 cm³)经 fda.gov、biospace.com、healio.com、hcplive.com 等多个独立信源交叉印证,数值一致;没有查到确切 p 值或 HR,明确说明未核实到。</p>
+
+<h2>论文</h2>
+
+<h3>UMAP-based clustering split for rigorous evaluation of AI models for virtual screening on cancer cell lines</h3>
+<p class="meta">
+  Qianrong Guo, Saiveth Hernandez-Hernandez, Pedro J. Ballester(Imperial College London)· Journal of Cheminformatics 17, 94(2025)· DOI:
+  <a href="https://doi.org/10.1186/s13321-025-01039-8" target="_blank" rel="noopener">10.1186/s13321-025-01039-8</a>
+  · 会议版前身:"Scaffold Splits Overestimate Virtual Screening Performance", ICANN 2024, arXiv:
+  <a href="https://arxiv.org/abs/2406.00873" target="_blank" rel="noopener">2406.00873</a>
+</p>
+
+<p><strong>核心主张</strong>:业界公认比 random split 更严格的 scaffold split,其实仍然系统性高估虚拟筛选模型的真实泛化能力;作者提出基于 UMAP 聚类的切分方式,证明模型表现会进一步大幅下跌。</p>
+
+<p><strong>方法</strong>:在 NCI-60 数据库 60 个癌症细胞系的活性数据集上(每个约 33,000–54,000 个分子),分别用 random、Bemis-Murcko scaffold split、Butina 聚类切分、以及他们提出的 UMAP 聚类切分四种方式,各自训练评估 RF、LR、GEM(图神经网络)、Transformer-CNN 四种模型,每种"算法 × 切分"组合训练约 2,100 个模型。UMAP 先把分子表示降到低维流形再聚类,保证测试集分子和训练集分子在整体化学空间里真的隔得远,而不只是骨架定义上不同。</p>
+
+<p><strong>关键数字</strong>:Transformer-CNN 在测试折上的平均 hit rate,从 random split 的 <strong>67.67%</strong>、scaffold split 的 <strong>64.53%</strong>,到 Butina 聚类的 <strong>43.60%</strong>,骤降到 UMAP split 的 <strong>33.27%</strong>。scaffold split 相对 random split 几乎没拉开区分度(只差约 3 个百分点),但 UMAP split 把表观命中率砍掉了一半以上。UMAP split 下模型排名也会反转:GEM 的中位数 ROC-AUC 和 hit rate 全面超过 RF 和 Transformer-CNN,这个优势在 random/scaffold split 下看不出来。</p>
+
+<p><strong>方法学最大弱点</strong>:UMAP 降维和聚类本身依赖一组超参数(邻居数、距离度量、聚类粒度),论文没有系统报告这些超参数的敏感性——换一组参数,"UMAP split 有多难""哪个模型排第一"可能会跟着变。这套刚被提出来取代 scaffold split 的新标准,自己还没有经受同等程度的鲁棒性检验。</p>
+
+<p><strong>接口</strong>:有接口。这套"同一批数据,多种切分方式并排跑,看模型排名会不会翻"的框架可以直接搬到我自己的表型筛选数据上——不用改实验设计,只需把分子表示换成迁移轨迹或 PGCC 形态特征,检验我用来做预测的模型是不是也挑了一个过于乐观的切分方式。</p>
+
+<p><strong>谁在做</strong>:这类"split 方法学批判"目前主要是 Pedro Ballester 组(Imperial College London)在系统地做;业界大多数公司内部 benchmark 目前仍默认用 scaffold split 报数字,还没有普遍采纳更严格的切分标准。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>论文用"UMAP 划分后模型普遍变差"来证明 UMAP split 更真实、scaffold split 过于乐观。如果反过来——UMAP 聚类只划训练/测试边界,但训练集里额外掺入和测试集 embedding 相邻的"内鬼"分子——UMAP split 还会不会看起来比 scaffold split 更难?这个设计反过来做,论文"UMAP 更严格"的结论会不会翻?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>FDA 于 <strong>2026-09-25</strong> 批准 Atebrioz(zilurgisertib,Mirum Pharmaceuticals/Incyte)用于 12 岁以上 FOP(fibrodysplasia ossificans progressiva)患者,是继 2023 年 palovarotene(Sohonos)、2026 年 8 月 garetosmab(Pasatru)之后第三个获批的 FOP 疗法,也是首个直接靶向 ALK2 激酶的口服小分子。依据是 Phase 3 PROGRESS 研究 Cohort 1,双盲安慰剂对照,主要分析人群 <strong>N=63</strong>,每日口服 100mg 持续 24 周;主要终点(CT 测量新发异位骨化体积)治疗组平均下降 <strong>3.2 cm³</strong>,安慰剂组平均上升 <strong>24.6 cm³</strong>。没有查到确切 p 值或 HR。</p>
+
+<p><strong>AI 含量</strong>:没有。Zilurgisertib 是 Incyte 传统小分子激酶抑制剂项目出身,靶点选择基于 2006 年确定的 ACVR1(ALK2)R206H 突变遗传学证据,不是 AI/ML 驱动的靶点发现或分子设计。</p>
+
+<p><strong>历史对照</strong>:FOP 的致病基因 ACVR1 在 2006 年由 Shore 等人在 <em>Nature Genetics</em> 上确定,但直到 2023 年才出现第一个获批药物(palovarotene,通过 RARγ 激动剂间接抑制异位骨化,并不直接靶向 ALK2),2026 年 8 月才有靶向 activin A 的抗体药(garetosmab)。这次是发现致病基因整整 20 年后,才出现第一款直接靶向 ALK2 的激酶抑制剂。靶点明确不等于药做得快,超罕见病招募慢还会进一步拖后腿——N=63 在这个领域已经算少见的大样本。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
