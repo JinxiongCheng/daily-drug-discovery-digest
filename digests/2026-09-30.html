@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-09-30 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-09-30 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用。nature.com、biorxiv.org、pmc.ncbi.nlm.nih.gov、www.ncbi.nlm.nih.gov、researchgate.net、deepwiki.com、news.abbvie.com、biospace.com、nasdaq.com、pharmaphorum.com 这些域名今天被 egress proxy 拦截,没能直接打开原文全文。论文的关键数字(PearsonΔ 约 0.8 → 约 0)经 WebSearch 对论文摘要/正文的多次独立转述交叉确认,DOI 10.64898/2026.05.07.723486 经 bioRxiv、PubMed、PMC 三个独立列表交叉核实真实存在。新闻部分的 AbbVie-Iambic 合作经多个独立信源(AbbVie 官网、BioSpace、Nasdaq 通稿)交叉确认存在,但均未披露预付款/里程碑具体金额,明确写出未核实到;IAM1363 的 ORR 28%(N=18)数字来自 Iambic 官方发布的 I/Ib 期数据。</p>
+
+<h2>论文</h2>
+
+<h3>Spurious correlation inflates performance in single-cell perturbation prediction</h3>
+<p class="meta">
+  Phillip B. Nicol, Shriya Shivakumar, Rafael A. Irizarry(Dana-Farber Cancer Institute / Harvard T.H. Chan School of Public Health)· bioRxiv 预印本(v2,2026-05-12 提交)· doi:
+  <a href="https://www.biorxiv.org/content/10.64898/2026.05.07.723486v2" target="_blank" rel="noopener">10.64898/2026.05.07.723486</a>
+  · PMID: 42182243
+</p>
+
+<p><strong>核心主张</strong>:GEARS、scGPT、State 这类论文报的预测-真实相关系数,被评估设计缺陷系统性夸大——一个不看训练数据、不看扰动身份的无信息预测器,标准指标下也能打出和 SOTA 相当的分数。</p>
+
+<p><strong>方法</strong>:标准 PearsonΔ 算法里,predicted Δ 和 observed Δ 都减去同一批对照细胞的均值。共享对照往两边注入相同抽样噪声,人为推高相关系数,对照细胞越少越明显。作者构造一个不训练、不看扰动身份的无信息基线,分别在"共享对照"和"对照随机拆两半(预测端、观测端各用一半)"两种评估方式下测它的分数。</p>
+
+<p><strong>关键数字</strong>:共享对照下,无信息基线 PearsonΔ 约 <strong>0.8</strong>,在若干数据集上和 GEARS 这类真实方法打平手;拆成独立两半后,同一个基线掉到约 <strong>0</strong>。用拆分对照重算已发表基准的多个数据集,先前归为"生物学信号"的性能大部分消失。</p>
+
+<p><strong>方法学最大弱点</strong>:这是 bioRxiv 预印本,未经同行评审。已有一篇针锋相对的后续工作("Deep Learning-Based Genetic Perturbation Models Do Outperform Uninformative Baselines on Well-Calibrated Metrics")直接反驳,称在校准得当的指标下深度学习方法确实赢基线——领域对"该怎么给这类模型打分"本身还没共识。</p>
+
+<p><strong>接口</strong>:直接相关。这是"对照细胞被同时用来定义基线和定义比较对象"的陷阱,算 PGCC 形态筛选或微流控迁移的处理组-对照组效应量时,值得检查自己有没有犯同样的错。</p>
+
+<p><strong>谁在做</strong>:这类评估方法论批判目前主要是生物统计背景的组在做,如本文的 Rafael Irizarry(Dana-Farber/Harvard,scRNA-seq 统计方法奠基人之一),不是发模型的组自己在做;工业界没有公开跟进。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>你算 PGCC 形态筛选或微流控迁移的处理组 vs DMSO 对照效应量时,对照细胞有没有被同时用来"定义基线"和"定义比较对象"?如果有,第一个会崩的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>AbbVie 与 Iambic Therapeutics <strong>9 月 21 日</strong>宣布多年合作,用多模态模型 Enchant v3 做免疫、神经、肿瘤三个领域的小分子发现。Iambic 拿预付款(金额未披露)加里程碑付款和销售分成,具体数字查不到。</p>
+
+<p><strong>AI 含量</strong>:真实但有限,是"设计+性质预测压缩临床前周期"的工程效率主张,不是"AI 发现了传统方法发现不了的药"这种更强的主张。Iambic 自家候选 <strong>IAM1363</strong>(HER2 抑制剂)从立项到首例给药不到两年,I/Ib 期数据里可测量系统性病灶患者 ORR <strong>28%(N=18)</strong>——单臂小样本 Phase 1,不能当作"AI 药有效"的证据,只是平台实绩的旁证。</p>
+
+<p><strong>历史对照</strong>:大药厂与计算平台公司的里程碑为主合作,过去十年已经签了几十单,至今没有一单靠这种模式走到获批上市。这个模式并不新鲜——90 年代组合化学(combinatorial chemistry)热潮时,大药厂也曾大批和高通量合成公司签类似合作,承诺"用技术压缩发现周期",结果并没有系统性压低后期失败率。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
