@@ -31,3 +31,4 @@
 | 2026-09-29 | 周二·分子表征与性质预测 | UMAP-based clustering split for rigorous evaluation of AI models for virtual screening on cancer cell lines | 10.1186/s13321-025-01039-8 / arXiv:2406.00873(ICANN 2024 会议版) | https://doi.org/10.1186/s13321-025-01039-8 |
 | 2026-09-30 | 周三·单细胞与扰动生物学 | Spurious correlation inflates performance in single-cell perturbation prediction | bioRxiv 10.64898/2026.05.07.723486(PMID 42182243) | https://www.biorxiv.org/content/10.64898/2026.05.07.723486v2 |
 | 2026-10-01 | 周四·模型可靠性 | A Quiet Failure in Calibrated Virtual Screening: Marginal Conformal Prediction Under-Covers the Minority Class, and a Class-Conditional Fix Recovers It | arXiv:2607.06605 | https://arxiv.org/abs/2607.06605 |
+| 2026-10-02 | 周五·微流控/实验平台与AI结合 | Prediction of anticancer drug resistance using a 3D microfluidic bladder cancer model combined with convolutional neural network-based image analysis | 10.3389/fbioe.2023.1302983 | https://doi.org/10.3389/fbioe.2023.1302983 |
