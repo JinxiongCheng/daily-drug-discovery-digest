@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-03 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-03 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<p class="notice">今天联网核实情况:WebSearch 可用。论文原文(nature.com、Broad Institute 的 PDF、Wikipedia)全部被 egress proxy 拦截,没能读到全文,核心方法细节(6 染料、5 通道、8 种结构、~1500 特征)经两次独立 WebSearch 对摘要/综述转述的交叉确认一致。新闻部分 DaltonTx 发布的细节来自官方通稿转载(GlobeNewswire 等多家转载版本内容一致);Exscientia-Recursion 并购的交易条款(688M 美元、0.7729 换股比例、2024-11-20 完成)来自 GEN、pharmaphorum 和 Recursion 自己的 SEC 文件三方交叉确认。</p>
+
+<h2>论文</h2>
+
+<h3>Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes</h3>
+<p class="meta">
+  Mark-Anthony Bray, Shantanu Singh, Han Han, Chadwick T. Davis, Blake Borgeson, Cathy Hartland, Maria Kost-Alimova, Sigrun M. Gustafsdottir, Christopher C. Gibson, Anne E. Carpenter · <em>Nature Protocols</em>,2016,11(9):1757–1774 · DOI:
+  <a href="https://doi.org/10.1038/nprot.2016.105" target="_blank" rel="noopener">10.1038/nprot.2016.105</a>
+</p>
+
+<p>这是今天这篇和之前推送过的表型组学论文(自监督表征、CellPainTR、MolPhenix)共享的同一个底层数据生成协议,之前一直没推过协议本身,今天补上。</p>
+
+<p><strong>核心主张</strong>:用一套标准化的多重荧光染色方案,可以把任意细胞群在任意扰动下的形态状态压缩成一个和具体假设无关的高维"指纹",用来比较任意两种扰动(化合物、基因)有多相似。</p>
+
+<p><strong>方法</strong>:6 种荧光染料多路复用进 5 个荧光通道成像,标记 8 种细胞结构/细胞器(细胞核、核仁、内质网、高尔基体/细胞膜、线粒体、actin 细胞骨架、RNA、细胞质)。用 CellProfiler 自动分割单细胞,在每个通道、每个细胞区室上分别提取形状、强度、纹理等标准测量,聚合成每个处理条件的 profile,可以直接拿来做相似性检索、聚类、推断 mechanism of action。</p>
+
+<p><strong>关键数字</strong>:每个细胞最终产出约 <strong>1500</strong> 个形态学特征。后续多篇综述指出,Cell Painting profile 的重复性(replicate correlation)普遍高于同类转录组学 profiling(如 L1000),但批次效应和 plate/well 位置效应也比转录组学更明显。</p>
+
+<p><strong>最大方法学弱点</strong>:批次效应和 well 位置效应是系统性的,幅度常常和真实生物学信号同一数量级。如果不做严格的 batch correction 和 plate layout randomization,测到的"相似性"很可能主要反映拍摄批次或孔位置,而不是扰动本身——这正是周四"模型可靠性"主题里反复出现的那类问题,只是在这篇里是源头,不是后果。</p>
+
+<p><strong>接口</strong>:有,但不是直接套用。我的 PGCC 形态筛选和单细胞迁移成像用的染色通道数更少(通常 2–3 通道),"把形态压缩成高维 profile 再做相似性比较"这个范式可以搬过来,但要先解决我自己数据里的批次效应问题,否则会重复这篇的弱点。</p>
+
+<p><strong>谁在做</strong>:学界原创和持续迭代主要是 Broad Institute 的 Anne Carpenter 组(CellProfiler/Cell Painting 团队);业界用这套协议建最大规模表型数据库的是 Recursion Pharmaceuticals,CRO 层面 Evotec、Charles River 也提供 Cell Painting 筛选服务。</p>
+
+<h2>五分钟判断题(数字体检)</h2>
+
+<div class="question-box">
+  <p>协议说每个细胞最终提取约 <strong>1500</strong> 个形态学特征,拍摄用 5 个通道、标记 8 种细胞结构。用 5×8×(shape/intensity/texture 等子测量类别数)做量级估算,这个 1500 对得上吗?哪一环最容易被低估?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>DaltonTx 于 <strong>2026-10-01</strong> 发布了其 Dalton 平台的抗体发现模块,整合抗体设计、结构预测、实验验证于一个 chat 界面工作流,宣称持续用真实实验数据校验 AI 生成的候选抗体。公司脱胎于牛津大学的研究,创始团队来自 AstraZeneca 和 Exscientia 的 AI 药物发现平台老将。</p>
+
+<p><strong>AI 含量</strong>:标签意义上是 100%(这就是一条 AI 产品发布),但可验证意义上几乎为零——通稿里没有任何公开的 benchmark 准确率、湿实验验证成功率或第三方头对头比较数字,无法判断它比现有的 phage display + 结构建模流程好多少、差多少。</p>
+
+<p><strong>历史对照</strong>:DaltonTx 的创始团队直接来自 Exscientia。Exscientia 2012 年成立时讲的就是同一套"AI 加速药物发现平台"叙事,上市多年后没能靠自己的管线独立证明价值,<strong>2024-11-20</strong> 被 Recursion 以全股票交易收购(约 <strong>688M</strong> 美元,换股比例 <strong>0.7729</strong>)。同一批人、同一套叙事,换了个新公司名字重新讲一遍。历史还没给出 DaltonTx 会不会走上同一条路的答案,但这条路本身已经有人走过一次了。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
