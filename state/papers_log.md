@@ -33,3 +33,4 @@
 | 2026-10-01 | 周四·模型可靠性 | A Quiet Failure in Calibrated Virtual Screening: Marginal Conformal Prediction Under-Covers the Minority Class, and a Class-Conditional Fix Recovers It | arXiv:2607.06605 | https://arxiv.org/abs/2607.06605 |
 | 2026-10-02 | 周五·微流控/实验平台与AI结合 | Prediction of anticancer drug resistance using a 3D microfluidic bladder cancer model combined with convolutional neural network-based image analysis | 10.3389/fbioe.2023.1302983 | https://doi.org/10.3389/fbioe.2023.1302983 |
 | 2026-10-03 | 周六·经典必读 | Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes | 10.1038/nprot.2016.105 | https://doi.org/10.1038/nprot.2016.105 |
+| 2026-10-04 | 周日·反面教材 | Investigating whether deep learning models for co-folding learn the physics of protein-ligand interactions | 10.1038/s41467-025-63947-5 | https://doi.org/10.1038/s41467-025-63947-5 |
