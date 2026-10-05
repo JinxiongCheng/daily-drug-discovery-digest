@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-05 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-05 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<p class="notice">今天 WebSearch 可用,但 egress proxy 把 nature.com、pmc.ncbi.nlm.nih.gov、arxiv.org、researchgate.net、themoonlight.io、arxivlens.com 都拦了,论文原文没能直接打开。方法细节和关键数字来自对多条独立 WebSearch 摘要片段(含 Nature Communications 摘要页、PMC 索引摘要、GitHub README)的交叉确认,不是单一来源;新闻部分的数字来自多家财经/医药媒体对同一份 Connect Biopharma 公告的独立报道交叉确认。</p>
+
+<h2>论文</h2>
+
+<h3>PhenoProfiler: advancing phenotypic learning for image-based drug discovery</h3>
+<p class="meta">
+  Bo Li, Chengyang Zhang, Minghao Zhou, 等(通讯作者 Qianqian Song)· <em>Nature Communications</em>,2025 · DOI:
+  <a href="https://doi.org/10.1038/s41467-025-67479-w" target="_blank" rel="noopener">10.1038/s41467-025-67479-w</a>
+  · arXiv: <a href="https://arxiv.org/abs/2502.19568" target="_blank" rel="noopener">2502.19568</a>
+</p>
+
+<p><strong>核心主张</strong>:不需要先做单细胞分割、裁剪、特征整合这一整套传统 pipeline,直接把整张多通道 Cell Painting 图像端到端编码成表型特征向量,比分割类流程(CellProfiler)和现有深度模型都更准、更稳。</p>
+
+<p><strong>方法</strong>:架构分三块——一个基于 difference convolution 的 gradient encoder(两条支路分别做深层和浅层梯度增强,权重 θ₁=0.7、θ₂=0.3,专门强化细胞边缘信息)、一个多头自注意力的 transformer encoder、以及一个三目标联合训练的头:分类(预测处理条件)、回归(拟合预先提取好的经典形态学特征,提供细粒度监督)、对比学习(让同一处理在不同批次/环境下的表征互相靠近)。训练和评测用了 BBBC022、BBBC036、BBBC037、cpg0019 四个公开数据集,覆盖近 40 万张高内涵图像。</p>
+
+<p><strong>关键数字</strong>:在 BBBC022 上达到 MAP = <strong>0.093</strong>、FoE = <strong>52.8</strong>,为四个数据集中最优组合;在跨数据集 OOD 鲁棒性测试中,平均比第二名(DeepProfiler)高出 FoE <strong>45.8%</strong>、MAP <strong>27.3%</strong>;在 BBBC022→BBBC036 迁移场景里比次优方法高 FoE <strong>13.0%</strong>、MAP <strong>17.1%</strong>。作者自己也承认三目标联合训练存在梯度冲突(gradient conflict)。</p>
+
+<p><strong>最大方法学弱点</strong>:回归目标的监督信号是"预先提取好的经典形态学特征"——也就是说模型一部分表征能力的上限,是被它想要取代的那套经典特征空间锁住的,新架构在用端到端的方式去逼近旧流程产出的特征,而不是完全独立于旧流程重新定义什么是"表型"。另外它在整张图(单个视野/孔)层级编码,如果同一视野里混有异质亚群,这种信号很容易被平均掉,除非额外做亚群级别的后处理。</p>
+
+<p><strong>接口</strong>:有,但要加条件。我做的 PGCC 形态筛选同一孔里经常混有多个表型差异很大的亚群,这种 segmentation-free、整图编码的思路如果直接搬过来,大概检测不到罕见亚群,因为训练目标里没有专门针对亚群分离的机制。</p>
+
+<p><strong>谁在做</strong>:学界源头是 Broad Institute Imaging Platform(Anne Carpenter / Shantanu Singh,CellProfiler 和 JUMP Consortium 背后的团队);端到端模型这条线目前主要是各高校生物信息学组(比如 PhenoProfiler 这篇)。业界是 Recursion(Phenom-1/OpenPhenom 基础模型路线)、Insitro,以及 JUMP Consortium 里的十家制药公司。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>PhenoProfiler 用三个目标联合训练:分类(处理条件)、回归(拟合经典形态学特征)、对比学习(跨批次对齐)。OOD 鲁棒性测试里它比 DeepProfiler 高出 27.3% 的 MAP——如果去掉其中一个目标,哪一个最可能让这个鲁棒性优势垮掉?说出理由。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Connect Biopharma 于 9 月 30 日公布其抗 IL-4Rα/IL-13 抗体 rademikibart 在急性 COPD 加重(伴 2 型炎症)患者中的全球 2 期 Seabreeze STAT 研究初步顶线数据:<strong>159</strong> 名随机患者中,在标准治疗基础上单次皮下给药,4 周内治疗失败率比安慰剂降低 <strong>81%</strong>,新发中重度加重降低 <strong>85%</strong>,因新发加重住院/急诊降低 100%,FEV1 在第 4 周多提升约 <strong>70 mL</strong>。公司计划据此与 FDA 讨论 3 期注册性试验方案。(来源:Connect Biopharma 公告、RTTNews、Pharmacally 等多方报道)</p>
+
+<p><strong>AI 含量</strong>:零。这是传统生物制剂的常规 2 期读出,和 AI 平台或 AI 辅助研发没有关系。</p>
+
+<p><strong>历史对照</strong>:2 型炎症生物制剂在哮喘里普遍有效,但一搬到 COPD 就经常栽。AstraZeneca 的 benralizumab(Fasenra)2019 年公布的两项 3 期试验 GALATHEA 和 TERRANOVA 均未达到主要终点——GALATHEA 中 100mg 组加重率比(rate ratio)仅 0.83(P=.05),30mg 组 0.96(P=.65);TERRANOVA 三个剂量组分别是 0.85(P=.06)、1.04(P=.66)、0.93(P=.4),全部不显著。COPD 患者的炎症异质性远比哮喘复杂,同一类机制在哮喘里的成功经验未必能迁移。rademikibart 现在只是 2 期,159 人的初步数据,离 3 期注册性试验的真正考验还有一段距离。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
