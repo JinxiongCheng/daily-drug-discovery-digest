@@ -35,3 +35,4 @@
 | 2026-10-03 | 周六·经典必读 | Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes | 10.1038/nprot.2016.105 | https://doi.org/10.1038/nprot.2016.105 |
 | 2026-10-04 | 周日·反面教材 | Investigating whether deep learning models for co-folding learn the physics of protein-ligand interactions | 10.1038/s41467-025-63947-5 | https://doi.org/10.1038/s41467-025-63947-5 |
 | 2026-10-05 | 周一·表型组学与图像表征学习 | PhenoProfiler: advancing phenotypic learning for image-based drug discovery | 10.1038/s41467-025-67479-w / arXiv:2502.19568 | https://doi.org/10.1038/s41467-025-67479-w |
+| 2026-10-06 | 周二·分子表征与性质预测 | Scaffold splits hide structural-frontier failures in ADMET models | arXiv:2607.10729 | https://arxiv.org/abs/2607.10729 |
