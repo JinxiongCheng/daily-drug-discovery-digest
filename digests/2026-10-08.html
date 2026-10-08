@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-08 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-08 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<p class="notice">今天 WebSearch 可用。目标论文的 arXiv 和 ACS(pubs.acs.org)全文页今天都被 egress proxy 拦了,数字来自两条独立来源(citedrive.com 的摘要转述、Duke Scholars 的论文记录页)交叉确认,彼此一致,但逐数据集的具体指标表格没能核实到,已在下面注明。新闻部分搜了过去 7 天(10月1日–10月8日),找到一条有具体数字且确认发生在本周的 Phase III 读出。</p>
+
+<h2>论文</h2>
+
+<h3>Short-Term Memory Active Learning for Drug Development</h3>
+<p class="meta">
+  Yan Xiang, Jamie Wang, Zachary Fralish, Daniel Reker ·
+  <em>Journal of Chemical Information and Modeling</em>,2026-07-30 · DOI
+  <a href="https://doi.org/10.1021/acs.jcim.6c00687" target="_blank" rel="noopener">10.1021/acs.jcim.6c00687</a>
+</p>
+
+<p><strong>核心主张</strong>:主动学习不该只攒数据不丢数据——训练过程中主动"遗忘"掉质量差或已经学透的训练点,比只增不减的传统主动学习更稳健,尤其在标签有噪声的时候。</p>
+
+<p><strong>方法</strong>:在标准主动学习循环(每轮挑最值得标注的新样本→加入训练集→重训)之上加一步"遗忘":用 random forest 的 out-of-bag 预测误差或不确定性给每个训练点打分,周期性剔除打分差的点(可能是噪声标签,也可能是模型已学会、不再提供信息量的点),不需要人工标出哪些点是坏的。</p>
+
+<p><strong>关键数字</strong>:六个 ADMET 数据集上,SMAL 与传统主动学习打平或更好;人为注入错误标签后,SMAL 能主动识别并丢弃这些点,且不被告知哪些是坏的;在用 SIMPD 方法模拟时间切分的 <strong>99</strong> 个虚拟筛选数据集上,<strong>97.7%</strong> 的比较中 SMAL 匹配或超过传统主动学习。逐数据集的具体准确率/相关系数表格没有核实到——摘要只给了这几个汇总数字。</p>
+
+<p><strong>最大方法学弱点</strong>:遗忘的依据是模型自己的预测误差/不确定性,这是循环论证——如果模型在某个化学空间区域本身系统性地错(比如对某个骨架有偏见),它很可能把这类点当"噪声"主动丢弃,结果是把偏差焊死而不是纠正。论文验证鲁棒性用的是人为注入的随机噪声标签,这和真实世界结构性、非随机的标签错误(比如某个 assay 批次系统偏移)是两种完全不同的失败模式,前者测试通过不代表后者也没问题。</p>
+
+<p><strong>接口</strong>:有。高通量药筛每轮要决定下一批测哪些化合物/浓度组合,正是主动学习选样的场景;"丢弃没用的历史数据点"等于变相提高每轮实验的信息密度,前提是我的筛选噪声结构要像论文模拟的那样,能被模型自己的误差捕捉到。</p>
+
+<p><strong>谁在做</strong>:学界主力是 Reker lab(Duke,这篇就是他们组,之前的 DeepDelta、分子对主动学习也是他们的);业界里 Recursion(原 Exscientia)、Iambic Therapeutics 做自动化筛选+主动学习闭环,Emerald Cloud Lab、Strateos 这类"自主实验室"硬件公司是下游执行方。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>如果你是审稿人,针对"在 99 个数据集的 97.7% 比较中匹配或超过传统主动学习"这个结论,该提一条 major comment,该提哪条?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Boehringer Ingelheim / Zealand Pharma 的 survodutide(胰高血糖素受体/GLP-1 受体双重激动剂)于 2026-10-01 公布 Phase III SYNCHRONIZE-2 结果(NCT06066528),同步发表于 <em>NEJM</em>,并在 EASD 第 62 届年会报告。</p>
+
+<p>试验:755 名合并 2 型糖尿病的超重/肥胖成人(BMI≥27,HbA1c 6.5%–<10%),随机接受 3.6mg、6.0mg 或安慰剂每周皮下注射,76 周双盲,两个共同主要终点均达标。</p>
+
+<p>数字:76 周体重降幅最高 <strong>13.1%</strong>(安慰剂组 <strong>3.1%</strong>);达到 ≥5% 体重下降的比例最高 <strong>79.3%</strong>(安慰剂组 <strong>32.7%</strong>)。</p>
+
+<p><strong>AI 含量</strong>:几乎为零。Survodutide 是经典肽类双重激动剂,研发路径是基于已知胰高血糖素/GLP-1 生物学的肽工程+临床试验,公开资料里没看到任何 AI/ML 驱动发现或优化的说法。</p>
+
+<p><strong>历史对照</strong>:上一次"短期体重数据漂亮、最后栽在长期安全性"的例子是 1996-97 年的 fen-phen(dexfenfluramine)——批准时体重数据亮眼,一年多后因心脏瓣膜病变被撤市。现在这波 GLP-1/胰高血糖素双重激动剂竞赛拼的是体重曲线,76 周数据再好看,也还没回答心脏瓣膜、胆囊、肌肉流失这些长期问题。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
