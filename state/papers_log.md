@@ -38,3 +38,4 @@
 | 2026-10-06 | 周二·分子表征与性质预测 | Scaffold splits hide structural-frontier failures in ADMET models | arXiv:2607.10729 | https://arxiv.org/abs/2607.10729 |
 | 2026-10-07 | 周三·单细胞与扰动生物学 | A Systematic Comparison of Single-Cell Perturbation Response Prediction Models | bioRxiv 10.1101/2024.12.23.630036 / Science Advances 10.1126/sciadv.aed3414 | https://doi.org/10.1101/2024.12.23.630036 |
 | 2026-10-08 | 周四·模型可靠性 | Short-Term Memory Active Learning for Drug Development | 10.1021/acs.jcim.6c00687 | https://doi.org/10.1021/acs.jcim.6c00687 |
+| 2026-10-09 | 周五·微流控/实验平台与AI结合 | Microfluidics guided by deep learning for cancer immunotherapy screening | 10.1073/pnas.2214569119 | https://doi.org/10.1073/pnas.2214569119 |
