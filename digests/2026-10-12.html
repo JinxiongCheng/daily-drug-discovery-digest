@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-12 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-12 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>CellCLIP: Learning Perturbation Effects in Cell Painting via Text-Guided Contrastive Learning</h3>
+<p class="meta">
+  MingYu Lu, Ethan Weinberger, Su-In Lee(University of Washington) ·
+  arXiv <a href="https://arxiv.org/abs/2506.06290" target="_blank" rel="noopener">2506.06290</a> ·
+  ICLR 2025 LMRL workshop oral,NeurIPS 2025 poster ·
+  代码 <a href="https://github.com/suinleelab/CellCLIP" target="_blank" rel="noopener">github.com/suinleelab/CellCLIP</a>
+</p>
+
+<p><strong>核心主张</strong>:提出一个文本引导的对比学习框架,用专门设计的多通道图像编码器(CrossChannelFormer)配合"连续加权对比损失"(CWCL),把 Cell Painting 显微图像和扰动(基因/化合物)的文本描述对齐到同一嵌入空间,专门解决"同一个扰动对应多张图像"导致的 many-to-one 假阴性问题。</p>
+
+<p><strong>方法</strong>:CrossChannelFormer 用 attention 聚合每张图像的多个染色通道(不是简单 mean pooling),把一张多通道显微图像编码成一个向量;扰动的文本描述(基因名、化合物注释)用预训练文本编码器编码。标准 CLIP/InfoNCE 损失把同一 batch 里所有其他样本当硬负例,但很多不同图像其实来自同一个扰动——CWCL 改成按"形态相似度"软加权正负样本对,避免把真正相似的样本硬推开。训练和评测用 Bray et al. 2017、RxRx3-Core、CP-JUMP1(<strong>186,925</strong> 张九通道显微图像,含3个明场通道)三个数据集,批次效应用对照组图像做 KernelPCA 校正。</p>
+
+<p><strong>关键数字</strong>:在 Bray et al. 2017 的 perturbation→profile 检索任务上,标准 CLIP 式损失(InfoNCE)的 R@1 = <strong>1.26% ± 0.10</strong>,换成 CWCL 后 R@1 略降到 <strong>1.18% ± 0.20</strong>,但作者报告 CWCL 在 R@5、R@10 上反超(论文主张这两个指标达到最优)。第三方工作(MorphoCLIP, arXiv:2608.22690)用同一套评测复现时,报告 CellCLIP 在 CP-JUMP1 的五个任务上平均分 <strong>0.195</strong>,被它自己提出的改进方法(<strong>0.287</strong>)超过。</p>
+
+<p><strong>最大方法学弱点</strong>:另一项独立工作(用 CellCLIP 做对照基线)发现它的表型活性预测 AUROC 从训练集的 <strong>0.795</strong> 掉到测试集的 <strong>0.565</strong>,跟另一个基线 CLOOME 的掉点幅度(<strong>0.851→0.573</strong>)几乎一样——说明这类图文对齐模型在域外扰动上的泛化能力仍然很弱,论文报的检索指标很可能在训练分布内被高估,换一批没见过的扰动类型结果会打折。</p>
+
+<p><strong>接口</strong>:有限。CrossChannelFormer 处理多通道显微图像的 attention 聚合思路可以借,但 CWCL 和整套对齐框架都依赖"每个扰动配一段文本描述"这个前提。我的 PGCC 形态筛选和微流控迁移轨迹数据没有这种文本标注,直接套用 CLIP 式图文对齐意义不大。</p>
+
+<p><strong>谁在做</strong>:学界——Su-In Lee lab(University of Washington,本文作者)、Broad Institute Imaging Platform(Anne Carpenter 组,JUMP-CP 数据集的来源);业界——Recursion / Valence Labs(同系列 CLOOME、Phenom 系列工作的产出方)。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>Bray et al. 2017 检索任务上,标准 CLIP loss(InfoNCE)的 perturbation→profile R@1 = <strong>1.26%</strong>。CellCLIP 换成 CWCL 专门处理 many-to-one 问题。猜一下:CWCL 的 R@1 比 baseline 高还是低,差多少?R@5、R@10 呢?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>法国AI生物科技公司 Rivercell 于2026年10月7日宣布完成<strong>2500万美元</strong>种子轮融资,由 HV 领投,HCVC、Alven、Bpifrance Digital Venture 跟投。公司计划把钱投向自建湿实验室、搭建大规模时间分辨多模态单细胞数据平台,目标是训练一个"AI virtual cell"模型预测细胞对药物/基因扰动的响应。CEO Yann Fleureau 是 Cardiologs 联合创始人,CSO Eric Durand 曾任 Owkin 首席数据科学官、Novartis 肿瘤数据科学负责人,科学顾问包括 EPFL 的 Charlotte Bunne 和 Helmholtz Munich 的 Fabian Theis。</p>
+
+<p><strong>AI含量</strong>:这条新闻里没有任何已训练出的模型、没有任何性能数字——公司自己说当前瓶颈是数据不是模型,这轮钱基本全投向建湿实验室采数据,AI 模型本身还没开始训。这是一个"将来会有AI"的融资故事,不是"AI已经做出了什么"的新闻。团队履历(Owkin、Theis、Bunne 都是单细胞/扰动生物学里真实做过工作的人)是这轮融资可信度的主要来源,不是已验证的技术产出。</p>
+
+<p><strong>历史对照</strong>:这是 Insitro 八年前(2018年)走过的同一条路。Daphne Koller 创立 insitro 时的核心主张同样是"数据不够好,模型再强也没用",于是自建湿实验室产生 ML-ready 数据再训模型。八年后的2026年,报道称 insitro 可能才刚要启动第一个临床试验,管线大部分仍停留在 preclinical 阶段。"先砸钱建数据基础设施、模型后置"这条路径历史上已经走过一轮,结论是:至少要一个创始人任期那么长的时间才能看到药进临床。Rivercell 现在站在这条路径最早的起点上。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

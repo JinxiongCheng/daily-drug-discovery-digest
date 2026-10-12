@@ -41,3 +41,4 @@
 | 2026-10-09 | 周五·微流控/实验平台与AI结合 | Microfluidics guided by deep learning for cancer immunotherapy screening | 10.1073/pnas.2214569119 | https://doi.org/10.1073/pnas.2214569119 |
 | 2026-10-10 | 周六·经典必读 | Extended-Connectivity Fingerprints | 10.1021/ci100050t | https://doi.org/10.1021/ci100050t |
 | 2026-10-11 | 周日·反面教材 | The Jungle of Generative Drug Discovery: Traps, Treasures, and Ways Out(期刊版:How evaluation choices distort the outcome of generative drug discovery) | arXiv:2501.05457 / 10.1186/s13321-025-01108-y | https://doi.org/10.1186/s13321-025-01108-y |
+| 2026-10-12 | 周一·表型组学与图像表征学习 | CellCLIP: Learning Perturbation Effects in Cell Painting via Text-Guided Contrastive Learning | arXiv:2506.06290 | https://arxiv.org/abs/2506.06290 |
