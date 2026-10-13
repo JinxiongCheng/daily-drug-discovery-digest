@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-13 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-13 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Can Large Language Models Understand Molecules?</h3>
+<p class="meta">
+  Sadeghi, Bui, Forooghi, Lu, Ngom(搜索引擎摘录只给出姓,名字没能核实,不在此编造) ·
+  BMC Bioinformatics 2024, 25:225 ·
+  DOI <a href="https://doi.org/10.1186/s12859-024-05847-x" target="_blank" rel="noopener">10.1186/s12859-024-05847-x</a> ·
+  arXiv <a href="https://arxiv.org/abs/2402.00024" target="_blank" rel="noopener">2402.00024</a>
+</p>
+
+<p><strong>核心主张</strong>:不对 GPT、LLaMA 做任何化学相关微调,直接把 SMILES 字符串喂进去取通用文本 embedding,当成分子特征用于下游性质预测——这种"拿现成 LLM 当分子表示提取器"的做法,系统性地不如专门在分子数据上预训练的模型(ChemBERTa、MolFormer-XL),而且 LLaMA 的 embedding 明显强于 GPT 的 embedding。</p>
+
+<p><strong>方法</strong>:把每个分子的 SMILES 分别喂给 GPT 系列模型和 LLaMA,取出模型内部的定长向量表示(不 fine-tune,纯粹当黑盒特征提取器),再接一个简单下游分类器,在 MoleculeNet 的 BBBP(血脑屏障穿透)、BACE(BACE-1 抑制剂分类)等任务,以及一个药物-药物相互作用(DDI)任务上评测。对照组是 Morgan fingerprint(非神经网络、算法透明)和两个专门做分子预训练的模型 ChemBERTa、MolFormer-XL。</p>
+
+<p><strong>关键数字</strong>:LLaMA embedding 在 BBBP 上 F1 ≈ <strong>0.933</strong>,AUROC ≈ <strong>0.953</strong>;在 BACE 上 F1 ≈ <strong>0.766</strong>,AUROC ≈ <strong>0.859</strong>。GPT embedding 在 BACE 上明显更弱,F1 ≈ <strong>0.648</strong>,AUROC ≈ <strong>0.743</strong>。作者报告 GPT 的 embedding 在所有测试数据集上都不如已有的专门分子预训练模型,而 Morgan fingerprint 的表现接近那些预训练模型,计算开销却小得多。(说明:今天 WebFetch 全程连不上 Springer、arXiv、PMC 等任何站点,这几个数字是通过搜索引擎对论文结果表的摘录核实的,没能直接打开全文复核小数点后更多位的精确值,GPT 在 BBBP 上的具体数字因为摘录信息冲突没能确认,这里没有给。)</p>
+
+<p><strong>最大方法学弱点</strong>:这个对比对 GPT/LLaMA 不够公平也不够有信息量——它们是被当成"冻结的通用语言模型",没做任何任务相关微调,而对照组 ChemBERTa/MolFormer-XL 本身就是在上百万分子上专门预训练出来的。这个结果只能说明"通用 LLM 的现成 embedding 不是好的分子特征",不能说明"LLM 这类架构学不好化学"——换成对 GPT/LLaMA 做 LoRA 微调,或者把大量 SMILES 加进预训练语料,结论很可能完全不同。</p>
+
+<p><strong>接口</strong>:没有。这篇做的是文本/序列模型当特征提取器,和我的显微图像、迁移轨迹数据没有交集。</p>
+
+<p><strong>谁在做</strong>:学界——做化学专用语言模型的组,比如 EPFL 的 Philippe Schwaller、Rochester 的 Andrew White(ChemCrow);业界——"拿通用 LLM 测化学能力"这类评测现在很多是学界用大厂发布的模型顺手测,专门做化学 LLM 产品的有 FutureHouse 这类公司。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>这篇论文用冻结的 GPT/LLaMA embedding(零微调)去对比专门在分子数据上预训练并微调过的 ChemBERTa/MolFormer-XL。如果你是审稿人,针对这个实验设计该提一条 major comment,该提哪条?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Bloomberg 10 月 8 日报道,Google DeepMind 旗下药物发现公司 Isomorphic Labs 正在筹备新一轮融资,目标估值至少 <strong>400 亿美元</strong>,一说可能到 500 亿美元。今年 5 月那轮 Series B 融了 <strong>21 亿美元</strong>,估值约 <strong>175 亿美元</strong>(领投 Thrive Capital,跟投 Alphabet、英国主权 AI 基金)。公司目前没有任何候选药物进入临床、没有给任何患者给过药,首个临床试验预计要到 2026 年底才启动。这轮谈判仍处早期,金额和投资人名单都未敲定。</p>
+
+<p><strong>AI含量</strong>:零——这不是一条技术或临床新闻,是一轮纯粹基于叙事的估值暴涨(5 个月内估值翻倍多),背后没有一个已公开的临床甚至动物实验层面的具体结果支撑。诚实地说,这条新闻衡量的是投资人情绪,不是 AI 在药物发现里的真实进展。</p>
+
+<p><strong>历史对照</strong>:这是 BenevolentAI 走过的路。它借 SPAC 上市时估值超过 10 亿英镑,核心卖点同样是"AI 能找到更好的靶点和分子"。2023 年它的头号候选药 BEN-2293(湿疹局部用药)二期临床只达到安全性终点,止痒抗炎的疗效信号令人失望,随后公司连续两轮裁员(先约 180 人,后再裁 30%),股价较上市峰值跌去九成以上。估值在管线真正跑出临床数据之前建立在叙事上,数据一出来就被重新定价——这是这个行业过去十年反复出现的模式。Isomorphic 现在的估值同样完全建立在尚未验证的叙事上。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
