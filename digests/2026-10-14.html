@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-14 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-14 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>PerturBench: Benchmarking Machine Learning Models for Cellular Perturbation Analysis</h3>
+<p class="meta">
+  Yan Wu, Esther Wershof, Sebastian M. Schmon, Marcel Nassar, Błażej Osiński, Ridvan Eksi, Kun Zhang, Zichao Yan, Rory Stark, Thore Graepel(Altos Labs,部分作者兼 UCL) ·
+  NeurIPS 2025 Datasets and Benchmarks Track ·
+  arXiv <a href="https://arxiv.org/abs/2408.10609" target="_blank" rel="noopener">2408.10609</a>
+</p>
+
+<p><strong>核心主张</strong>:用统一的数据切分和统一指标,把这几年扰动响应预测里常见的模型架构——从最简单的 linear baseline,到 GNN 类的 GEARS,到生成式的 CPA、Biolord、SAMS-VAE——重新放在同一套测试条件下比,结论是没有一种架构全面碾压其他架构,而且简单架构在数据集变大之后依然有竞争力,有时反超更复杂的模型。</p>
+
+<p><strong>方法</strong>:在多个 Perturb-seq 风格的单细胞扰动数据集上,统一切分训练/测试集(按扰动做留出),统一用 pseudobulk 层面指标(logFC 的余弦相似度、RMSE)和分布层面指标(能否把不同扰动的响应区分开,而不是对所有扰动都预测出差不多的平均响应),专门设计了检测"mode collapse"的指标——也就是模型是不是在偷懒地只学会预测均值。</p>
+
+<p><strong>关键数字</strong>:今天 WebFetch 对 arXiv、OpenReview、ResearchGate 全部连不上(只有 GitHub 能访问),搜索引擎返回的结果表格片段不完整,只看到一行写着 GEARS 的 cosine logFC ≈ <strong>0.44</strong>、Linear baseline 的同一指标 ≈ <strong>0.60</strong>,但具体是哪个数据集、哪种测试场景下的数字,没能确认,这里如实说明没有核实到完整的结果表。能确认的是摘要层面的定性结论:简单架构在更大数据集上具有竞争力,且作者的指标确实检测到了多个主流模型存在 mode collapse。</p>
+
+<p><strong>最大方法学弱点</strong>:这类"统一 benchmark"的公平性完全取决于谁来定训练预算和超参搜索范围——这个选择本身会系统性地偏向某一类架构,而论文自己无法证明这个选择是中立的。换一套训练预算,排名很可能变。</p>
+
+<p><strong>接口</strong>:没有。我的数据是显微图像和迁移轨迹,不是转录组扰动谱,这篇论文的模型直接搬不过来;但它"用专门指标检测 mode collapse"这个评测思路,如果我以后做表型层面的扰动响应预测,这个思路可以借用。</p>
+
+<p><strong>谁在做</strong>:业界——Altos Labs(巨资投入,衰老+扰动生物学方向,这篇是他们的评测框架);学界——UCL 的 Thore Graepel 这条线、同济大学 bm2-lab(做了规模更大的 scPerturBench)、海德堡大学 Wolfgang Huber 组(做"深度学习打不过线性基线"那篇争议论文)。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>把 PerturBench 这套"统一指标 + 检测 mode collapse"的评测框架搬到你自己的数据上(单细胞相差图像、微流控迁移轨迹、PGCC 形态筛选,挑一种),用来评测"不同药物扰动下的表型响应预测模型",第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>今天没能在搜索结果里找到近 7 天内有具体可核实数字的药物研发新闻(搜到的大多是 7 月、8 月的旧新闻,或是还未发生的预告,比如 Insilico、Evaxion 都要到 10 月下旬 ESMO 才公布数据),所以换成「历史上的本周」作为替代。</p>
+
+<p><strong>1962 年 10 月 10 日</strong>,肯尼迪总统签署 Kefauver-Harris 修正案,回应的是 1950 年代末到 1961 年的反应停(thalidomide)致畸灾难。这次修正案第一次要求新药在获批前必须用对照临床试验证明<strong>有效性</strong>,而不只是安全性——1962 年之前,FDA 只要求证明药物安全。报道引用的数字是:修正案之前 FDA 平均每年批准 <strong>46.2</strong> 个新药,之后十年平均降到每年 <strong>15.7</strong> 个,降幅超过三分之二。</p>
+
+<p><strong>对照意义</strong>:这是整个行业"审批门槛"历史上最大的一次抬高,直接决定了此后六十年新药要经过多大规模、多严格的临床试验才能上市——也就是今天 AI 药物发现公司声称能"加速"的那个漫长、昂贵的验证环节的历史起点。AI 现在能压缩的是靶点发现和分子设计这一头,Kefauver-Harris 立下的有效性证明门槛这一头,至今没有被任何技术绕开过。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
