@@ -44,3 +44,4 @@
 | 2026-10-12 | 周一·表型组学与图像表征学习 | CellCLIP: Learning Perturbation Effects in Cell Painting via Text-Guided Contrastive Learning | arXiv:2506.06290 | https://arxiv.org/abs/2506.06290 |
 | 2026-10-13 | 周二·分子表征与性质预测 | Can Large Language Models Understand Molecules? | 10.1186/s12859-024-05847-x / arXiv:2402.00024 | https://doi.org/10.1186/s12859-024-05847-x |
 | 2026-10-14 | 周三·单细胞与扰动生物学 | PerturBench: Benchmarking Machine Learning Models for Cellular Perturbation Analysis | arXiv:2408.10609(NeurIPS 2025 Datasets and Benchmarks Track) | https://arxiv.org/abs/2408.10609 |
+| 2026-10-15 | 周四·模型可靠性 | Temporal Distribution Shift in Real-World Pharmaceutical Data: Implications for Uncertainty Quantification in QSAR Models | arXiv:2502.03982(Artificial Intelligence in the Life Sciences 8, 2025) | https://arxiv.org/abs/2502.03982 |
