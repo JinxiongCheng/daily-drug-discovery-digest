@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-16 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-16 · 周五</p>
+  <h1>微流控 / 实验平台与AI结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Machine learning-driven single-cell phenotyping in size-controlled microenvironments via parallel deterministic droplet microfluidics</h3>
+<p class="meta">
+  Sangmin Lee, Steven O'Donnell, Zhangli Peng, Jae-Won Shin(University of Illinois Chicago) ·
+  <em>Lab on a Chip</em>,2026 年 3 月 17 日在线发表 ·
+  DOI <a href="https://doi.org/10.1039/D5LC00839E" target="_blank" rel="noopener">10.1039/D5LC00839E</a>
+</p>
+
+<p><strong>核心主张</strong>:用并行、确定性的微滴微流控平台把单细胞封装进尺寸可控的微凝胶里,配合机器学习,仅从细胞的 3D 形态与细胞骨架特征就能反推出该细胞所处的物理约束(confinement)状态及其随时间的演化,不需要直接测量微凝胶几何本身。</p>
+
+<p><strong>方法</strong>:用并行 flow-focusing 生成微滴,做确定性的单细胞封装(而不是依赖 Poisson 分布的随机装载),靠细胞表面碳酸钙 + 醋酸触发的细胞选择性凝胶化(cell-selective gelation),从同一股前体液流里并行产出多种尺寸 regime 的微凝胶——这样可以在同一批实验、相同生化条件下比较不同物理约束水平。之后对细胞提取 3D 形态学 + 细胞骨架特征,训练机器学习模型,用这些表型特征反推细胞所处的约束状态。</p>
+
+<p><strong>关键数字</strong>:今天 WebFetch 对 pmc.ncbi.nlm.nih.gov、doi.org、pubs.rsc.org、uic.edu 全部连不上(DNS 解析失败),搜索引擎摘要里也没有暴露具体的准确率 / R² / 相关系数数字。能确认的只有方法学描述和"表型能预测 confinement"这个定性结论,<strong>具体数字没能核实到</strong>,这里明说,不编。</p>
+
+<p><strong>最大方法学弱点</strong>:这套实验设计里,"微凝胶尺寸/约束程度"是实验者设定、本就已知的自变量,而"3D 形态 + 细胞骨架特征"很大程度上正是约束诱导细胞骨架重塑的直接产物——模型要学的映射(表型→约束)在机制上几乎是同一条因果链的两端,这个预测任务容易变成"验证已知的力学生物学机制",而不是提供新信息。真正检验这套 ML 框架价值的地方,是它能不能推广到训练时没见过的细胞类型或生化条件下仍准确反推约束状态,这一点从目前能拿到的信息里看不出来有没有做独立的 held-out 验证。</p>
+
+<p><strong>接口</strong>:直接有接口。我自己做的是显微图像里单细胞形态/迁移轨迹分析,这篇"用确定性微滴控制物理微环境 + 从形态学反推力学状态"的范式,是我以后想把 ECM 刚度/约束系统性引入迁移实验时可以直接借用的平台思路。</p>
+
+<p><strong>谁在做</strong>:Jae-Won Shin(UIC,机械生物学/单细胞工程)这条线在学界还有 Harvard Wyss(Don Ingber,器官芯片方向)、哈佛 David Weitz 组(微滴微流控的奠基性工作)。业界目前更多是把微滴微流控用在单细胞测序硬件上(10x Genomics、Mission Bio 这类),直接做"微滴 + 力学表型 + AI"这个细分交叉的公司还很少。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>如果把这篇"用细胞 3D 形态 + 细胞骨架特征反推物理约束状态"的 ML 框架,搬到你自己的微流控迁移实验(PGCC 形态筛选 / 单细胞迁移轨迹)数据上,第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Syndax Pharmaceuticals 于 <strong>2026 年 10 月 12 日</strong>公布 axatilimab(CSF-1R 阻断性单抗,已以 Niktimvo 品牌获批用于慢性移植物抗宿主病)在特发性肺纤维化(IPF)适应症的 <strong>Phase 2 MAXPIRe 试验</strong>(NCT06132256)结果:<strong>未达到主要终点</strong>(26 周内 FVC 年化下降率)。公司没有公开具体的组间差异数值、置信区间或 p 值,只说安全性与既往研究一致、无新安全信号。公司已决定终止 axatilimab 在 IPF 方向的开发,股价当天跌 <strong>17%</strong>。入组规模约 <strong>145</strong> 名患者、覆盖 14 个国家 62 个中心这个数字来自单一二级来源,没能在 Syndax 官方稿里直接确认,存疑。</p>
+
+<p><strong>AI 真实含量</strong>:零。这是一个已上市抗体(靶点 CSF-1R)在新适应症里的传统临床开发失败,从靶点发现到临床设计都没有 AI 介入的痕迹。</p>
+
+<p><strong>历史对照</strong>:IPF 领域针对炎症/免疫细胞的疗法有一长串失败史——2012 年 PANTHER-IPF 试验(糖皮质激素 + 硫唑嘌呤 + NAC 三联方案)因安全性和疗效问题被提前终止,2009 年 interferon gamma-1b 的 INSPIRE 试验也以失败告终。IPF 真正的转折点是 2014 年 pirfenidone 和 nintedanib 获批上市,机制从"压制炎症"转向直接抗纤维化。axatilimab 这次失败,某种意义上是巨噬细胞/炎症路线在 IPF 里又一次没跑通,符合这个领域"抗炎思路反复失败、抗纤维化思路才真正起效"的历史模式。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
