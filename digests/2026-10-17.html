@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-17 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-17 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>U-Net: Convolutional Networks for Biomedical Image Segmentation</h3>
+<p class="meta">
+  Olaf Ronneberger, Philipp Fischer, Thomas Brox(University of Freiburg) ·
+  <em>MICCAI 2015</em> / arXiv 提交于 2015-05-18 ·
+  arXiv <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener">1505.04597</a>
+</p>
+
+<p><strong>核心主张</strong>:一个对称的 encoder-decoder 卷积网络,配合 skip connection 把编码路径里高分辨率的特征直接传给解码路径,可以在只有几十张标注图的情况下训练出像素级分割模型,不需要复杂后处理。</p>
+
+<p><strong>方法</strong>:contracting path(反复 conv+ReLU+maxpool 下采样,提取上下文语义)+ 对称的 expanding path(上采样+conv 恢复分辨率,定位边界)。expanding path 每一层都通过 skip connection 拼接对应 encoder 层的 feature map,弥补下采样丢掉的空间信息。训练时用大量数据增强,弹性形变(elastic deformation)尤其关键,因为生物组织形变本身就是弹性的。像素级 loss 按"分割边界"加权,逼模型把挨得很近的相邻细胞分开而不是糊成一片。整图用 overlap-tile 策略做 patch 拼接,实现任意大小图像的无缝分割。</p>
+
+<p><strong>关键数字</strong>:ISBI 2012 EM 神经结构分割挑战上,warping error = <strong>0.0003529</strong>,优于此前最好的 sliding-window CNN 的 <strong>0.000420</strong>(无任何额外前/后处理)。训练集只有 <strong>30</strong> 张 512×512 图。ISBI 2015 细胞追踪挑战的 PhC-U373 数据集上,平均 IoU 约 <strong>92%</strong>,比当时第二好的方法(约 83%)高出一截(这组 IoU 数字来自二级来源汇总,论文原文表格没能在搜索摘要里直接核实到,标注一下)。</p>
+
+<p><strong>最大方法学弱点</strong>:评测几乎全部在"训练集和测试集来自同一台显微镜、同一种制样流程、同一个标注团队"的设定下完成,没有跨数据集/跨成像模态的泛化测试。U-Net 在域偏移下(换染色方案、换显微镜、换细胞类型)性能明显掉,这个弱点 2015 年的论文完全没测,是后来者(如 nnU-Net)才系统暴露出来的。</p>
+
+<p><strong>接口</strong>:直接命中。我自己做单细胞显微图像的形态/迁移分析,segmentation 这一步几乎肯定是 U-Net 或它的某个变种在做(Cellpose、StarDist 底层都是 U-Net-like 架构),理解这篇等于理解我流程里最基础的那个黑箱。</p>
+
+<p><strong>谁在做</strong>:学界代表是 Cellpose(Marius Pachitariu,Janelia/HHMI,做到跨细胞类型泛化的通用分割模型)和 StarDist(Uwe Schmidt / Martin Weigert,EMBL)。业界把这套做成产品的有 PerkinElmer/Revvity 的 Harmony、Molecular Devices,以及一批做显微镜图像 AI 分割 SaaS 的创业公司。</p>
+
+<h2>五分钟判断题(数字体检)</h2>
+
+<div class="question-box">
+  <p>EM 分割任务的训练集只有 30 张 512×512 图。按"样本数远大于参数数"的直觉,这个规模训练一个几百万参数的 CNN 不该 work。U-Net 靠什么弥补这个样本量缺口?列出具体机制,别只说"数据增强"。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>BioNTech 于 <strong>2026 年 10 月 13 日</strong>公布 Phase 2/3 <strong>AHEAD-MERIT</strong> 试验(BNT113 + pembrolizumab 一线治疗 HPV16 阳性转移性头颈鳞癌)第一次中期分析结果:<strong>主要终点 PFS 未达到对比 pembrolizumab 单药的统计学显著改善</strong>。具体中位数、HR、p 值均未公开。独立数据监察委员会建议继续试验,按预设统计设计,OS 终点仍有机会单独撑起阳性结果。公司股价当天跌超 <strong>5%</strong>。BNT113 是靶向已知 HPV16 E6/E7 蛋白的固定抗原("off-the-shelf")mRNA 癌症疫苗,2026 年 1 月刚拿到 FDA 快速通道资格。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零。BNT113 的设计基于已知致癌蛋白选固定抗原,不涉及 AI 辅助的新抗原预测或患者个体化设计。</p>
+
+<p><strong>历史对照</strong>:固定抗原癌症疫苗在 Phase 3 上有一长串失败史——GSK 的 MAGE-A3 疫苗(MAGRIT 试验,2013 年 NSCLC 辅助治疗失败)、Oncothyreon 的 L-BLP25/Stimuvax(START 试验,2014 年 NSCLC 失败)、Celldex 的 rindopepimut(ACT IV 试验,2016 年胶质母细胞瘤失败)。相对地,用算法做个体化新抗原预测的 Moderna/Merck mRNA-4157 在黑色素瘤 Phase 2(KEYNOTE-942)里显示出阳性的复发风险下降信号。这次 BNT113 的 miss 又一次印证:固定抗原路线反复难 work,个体化 + 算法选抗原才是癌症疫苗里目前唯一跑通的模式。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

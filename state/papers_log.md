@@ -46,3 +46,4 @@
 | 2026-10-14 | 周三·单细胞与扰动生物学 | PerturBench: Benchmarking Machine Learning Models for Cellular Perturbation Analysis | arXiv:2408.10609(NeurIPS 2025 Datasets and Benchmarks Track) | https://arxiv.org/abs/2408.10609 |
 | 2026-10-15 | 周四·模型可靠性 | Temporal Distribution Shift in Real-World Pharmaceutical Data: Implications for Uncertainty Quantification in QSAR Models | arXiv:2502.03982(Artificial Intelligence in the Life Sciences 8, 2025) | https://arxiv.org/abs/2502.03982 |
 | 2026-10-16 | 周五·微流控/实验平台与AI结合 | Machine learning-driven single-cell phenotyping in size-controlled microenvironments via parallel deterministic droplet microfluidics | 10.1039/D5LC00839E | https://doi.org/10.1039/D5LC00839E |
+| 2026-10-17 | 周六·经典必读 | U-Net: Convolutional Networks for Biomedical Image Segmentation | arXiv:1505.04597(MICCAI 2015) | https://arxiv.org/abs/1505.04597 |
