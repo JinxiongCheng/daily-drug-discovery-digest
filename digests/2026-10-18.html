@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-18 · 周日 · 反面教材</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-18 · 周日</p>
+  <h1>反面教材</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>PoseBusters: AI-based docking methods fail to generate physically valid poses or generalise to novel sequences</h3>
+<p class="meta">
+  Martin Buttenschoen, Garrett M. Morris, Charlotte M. Deane(University of Oxford)·
+  <em>Chemical Science</em> 15, 3130–3139 (2024) · DOI
+  <a href="https://doi.org/10.1039/D3SC04185A" target="_blank" rel="noopener">10.1039/D3SC04185A</a> ·
+  arXiv <a href="https://arxiv.org/abs/2308.05777" target="_blank" rel="noopener">2308.05777</a>
+</p>
+
+<p><strong>核心主张</strong>:深度学习对接方法(以 DiffDock 为代表)在标准 RMSD 指标上看起来超过经典对接软件(AutoDock Vina、Gold),但一旦加入基于化学规则的物理合理性检查,这个优势反转——经典方法重新占优。</p>
+
+<p><strong>方法</strong>:作者做了一套叫 PoseBusters 的纯规则检查工具,不是机器学习模型,用 RDKit 核对预测出的蛋白-配体复合物姿态是否满足基本化学约束——键长键角是否在合理范围、环是否平面、分子内原子是否"穿模"、配体和蛋白是否发生立体冲突。把这套检查套在两个测试集上:Astex Diverse(85 个经典复合物,其中 47 个和 DiffDock 等模型的训练集 PDBbind 重叠)和 PoseBusters Benchmark(308 个 2021 年后新存入 PDB 的复合物,基本不和任何方法的训练集重叠)。同时报告「RMSD&lt;2Å」和「RMSD&lt;2Å 且通过全部物理检查(PB-valid)」两套成功率。</p>
+
+<p><strong>关键数字</strong>:在 Astex Diverse 上只看 RMSD,DiffDock 以 <strong>72%</strong> 领先;但加上物理合理性要求后排序反转——Gold <strong>64%</strong>,AutoDock Vina <strong>56%</strong>,DiffDock 掉到 <strong>47%</strong>。换到几乎没有数据泄漏的 PoseBusters Benchmark 集,DL 方法的差距进一步拉大(后续用同一套指标复现的 Re-Dock 论文给出 DiffDock 在该集上 RMSD&lt;2Å 约 38%、同时 PB-valid 只剩约 12%,而 Vina/Gold 仍能到 55%–58% 的 PB-valid,这组数字来自二级来源复现表格,没能在原文表格里直接核实,标注一下)。原文结论:目前没有一个 DL 方法在物理合理性和泛化性上同时超过经典对接工具。</p>
+
+<p><strong>最大方法学弱点</strong>:PoseBusters 本身只是审计清单,不解释 DL 模型为什么系统性生成不合理几何——它告诉你分数虚高,但不区分虚高是来自训练集与测试集重叠,还是模型本身缺乏物理约束。而且"通过全部化学规则检查"是必要条件不是充分条件,一个姿态可以完全合规却仍然结合模式错误。这篇论文容易被过度引用成"DL 对接没用",但它真正证明的只是"单一 RMSD 指标会掩盖系统性缺陷"。</p>
+
+<p><strong>接口</strong>:没有直接接口,我不做结构对接。但评估方法学上有一条通用教训可以搬:报告聚合指标之前先做"结果是否物理/生物学上合理"的审计,这条逻辑可以直接用在自己模型输出的检查上(比如迁移轨迹预测是否违反细胞运动学约束)。</p>
+
+<p><strong>谁在做</strong>:这类"审计/揭露基准虚高"的工作主要在学界——牛津 Deane lab(作者组)这类做严格评测的团队。对接方法本身由 Genesis Therapeutics、Iambic Therapeutics、薛定谔这类公司在推,但主动做自我审计并公开暴露弱点的工作几乎都来自学界而不是这些公司自己。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>论文用了两个测试集:Astex(与训练集重叠)和 PoseBusters Benchmark(基本不重叠,按时间切分)。如果只保留 Astex 作为唯一基准,"DL 不如经典方法"这个结论会被怎样削弱?说出具体机制。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Zealand Pharma 与 Generate Biomedicines 于 <strong>2026-10-13</strong> 宣布合作,用 AI 从头设计蛋白药治疗肥胖/代谢病。首付 <strong>3000 万美元</strong>,早期临床前里程碑最高 <strong>3500 万美元</strong>,总额最高约 <strong>12 亿美元</strong>(多为后期里程碑和未公开比例的销售提成)。Generate 负责研究到定候选,Zealand 负责临床开发和商业化。</p>
+
+<p><strong>AI 含量真实</strong>:Generate 的平台用生成式扩散模型(Chroma 一类)从头设计全新蛋白骨架和结合界面,不是在现有分子库里筛选打分,这部分 AI 是真的。但交易目前完全停在临床前,没有候选药物进入试验,没有任何疗效数据,首付占总额不到 3%。</p>
+
+<p><strong>历史对照</strong>:1998 年基因组热潮期,Millennium Pharmaceuticals 与 Bayer 签下当时"史上最大"药物研发合作,headline 价值 <strong>4.65 亿美元</strong>(担保资金+里程碑 3.684 亿,股权投资 9660 万)。那批基因组平台交易多数里程碑后来没有触发——不是技术不行,是靶点到获批药物这条路径本身淘汰率极高。AI 蛋白设计平台交易正在重复同样的结构:大 headline 数字,小首付,兑现依赖的是药物研发本身的高失败率,不是平台技术能不能工作。</p>
+
+<h2>周日复盘</h2>
+
+<p><strong>注意力落点</strong>:<code>state/direction_notes.md</code> 本周依然不存在,从首次运行(2026-09-04)到现在连续<strong>第七周</strong>没有产生任何内容;<code>state/feedback.md</code> 也仍停在首次运行的默认状态。这套本该捕捉方向信号的机制,七周里一次都没被激活过——这本身就是信号:你没有在读完推送后回来填那一行,说明这个"每天留一句话"的机制目前对你没有产生足够的吸引力去主动做。</p>
+
+<p><strong>地形更新</strong>:本周(10/12–10/18)读的 7 篇里,CellCLIP(表型图像对比学习,构造性工具)、微流控 AI 筛选(10/16,你课题最近邻,构造性平台工作)、U-Net(奠基性基础设施)是"做方法"一派;Can LLMs Understand Molecules、PerturBench、Temporal Distribution Shift in QSAR、今天的 PoseBusters 四篇全部是"审计现有方法/评估可信度"一派。但这个比例需要打个折扣:周四固定是"模型可靠性"、周日固定是"反面教材",这两天注定落在审计类主题上,属于轮换表的结构性安排,不是你自己反复选择的结果——不能把结构性重复当成你的真实方向信号。</p>
+
+<p><strong>倒计时</strong>:距 2026-12-31 还有约 <strong>74 天(10.5 周)</strong>。因为 direction_notes.md 连续七周空白,没有任何真实信号能用来判断方向。建议不要再等信号自己出现——下周起每天花 2 分钟真的填那一行,或者更直接:挑一篇本周读过的审计类论文(PerturBench 或 PoseBusters 的检查思路),直接套到你自己的 PGCC 形态数据或迁移轨迹数据上跑一遍,用实际操作代替等待。10.5 周里如果 11 月整月仍然空白,深挖一个方向的时间就不够了。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
