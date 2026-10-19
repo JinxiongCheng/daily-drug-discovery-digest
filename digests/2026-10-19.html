@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-19 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-19 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Masked Autoencoders for Microscopy are Scalable Learners of Cellular Biology</h3>
+<p class="meta">
+  Oren Kraus 等(Recursion / Valence Labs)· CVPR 2024, pp. 11757–11768 · DOI
+  <a href="https://doi.org/10.1109/CVPR52733.2024.01117" target="_blank" rel="noopener">10.1109/CVPR52733.2024.01117</a> ·
+  arXiv <a href="https://arxiv.org/abs/2404.10242" target="_blank" rel="noopener">2404.10242</a>
+</p>
+
+<p><strong>核心主张</strong>:用掩码自编码器(MAE)在大规模无标注显微图像上做自监督预训练,比靠实验条件/扰动标签训练的 weakly supervised 分类器,学到更有生物学意义的细胞形态表征。</p>
+
+<p><strong>方法</strong>:ViT-L/8 作为 backbone,在作者自建的 RPI-93M(约 9300 万张显微图像 crop,抽样自约 35 亿个唯一裁切)上做掩码重建预训练,训练目标只是重建被遮挡的像素块,完全不用任何实验标签。额外设计了 channel-agnostic MAE(CA-MAE):推理时可以接受和预训练时不同数量、不同顺序的荧光通道,因此能直接迁移到通道设置不一样的 JUMP-CP 数据集,不用重新训练。</p>
+
+<p><strong>关键数字</strong>:在"从公开数据库里恢复已知生物学关系"(比如已知有功能关联的基因对、化合物对)这个基准上,MAE 表征比最好的 weakly supervised 分类器基线最多高出<strong>相对 11.5%</strong>。预训练语料规模<strong>约 9300 万张</strong>图,CA-MAE 在通道结构不同的 JUMP-CP 上验证了零改动迁移。</p>
+
+<p><strong>最大方法学弱点</strong>:Recursion 自己发布的 OpenPhenom 模型卡承认,MAE 出来的原始 embedding 需要先过标准的 batch correction 后处理,生物学信号才能显现——11.5% 的提升很可能已经建立在"充分批次校正"这个前提上,脱离这一步直接用原始特征,效果会打折。而且"recall known biological relationships"这类基准本质是相关性验证:某两个基因/化合物在已知数据库里关系近,embedding 距离也近,这不能证明模型学到的是因果机制,也可能只是复现了数据库自带的偏置和研究热点偏向。</p>
+
+<p><strong>接口</strong>:直接有。实验室高通量筛选积累的大量未标注细胞图像(迁移轨迹帧、PGCC 形态截图)天然适合 MAE 式自监督预训练,不需要先打标签——这正是目前缺的"把图像变成可用表征"这一步,而不是分类器训练。</p>
+
+<p><strong>谁在做</strong>:工业界是 Recursion(已并入 Valence Labs)、Genentech;学界/联盟一侧是 Broad Institute Imaging Platform(Anne Carpenter 组,JUMP 联盟核心)。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>CA-MAE 的隐含假设是:不同荧光通道的图像共享同一套底层形态学语义,靠掩码像素重建就能学出跨通道一致、且与生物学相关的表征。把这套预训练直接搬到你自己的 PGCC 形态筛选图像或迁移轨迹帧上,第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>2026-10-15</strong>,AstraZeneca 与 insitro 签约多年期合作,用 insitro 的 Virtual Human 平台(细胞模型 + 机器学习)寻找 MASH(代谢相关脱脂性肝炎)和心肌病的疾病驱动靶点及早期候选药物。insitro 拿<strong>4000 万美元</strong>首付,外加最多约<strong>14.6 亿美元</strong>里程碑款和分级销售版税;AstraZeneca 拿走选中项目的全球独家权利,负责后续临床开发和商业化。目前没有公开任何具体候选分子。</p>
+
+<p><strong>AI 含量真实</strong>:这是纯 discovery 阶段的平台合作,没有任何临床数据,也没有已验证的疗效数字——因为候选药物还不存在。AI 在这里的角色是用机器学习从细胞模型里挖疾病驱动靶点,真实程度完全取决于这套流程最终能不能把候选分子送进临床,现在无法验证,只能算押注。</p>
+
+<p><strong>历史对照</strong>:insitro 在 2019 年和 Gilead 签过结构几乎一样的交易——同样是机器学习细胞模型,同样瞄准肝病(当时叫 NASH,现在改称 MASH),首付 1500 万美元,外加最多约 10 亿美元里程碑款。公开报道里没有看到那笔交易后续产生临床阶段候选药物的消息。同一家公司、同一类疾病、同一种交易结构,七年后换了个合作方重新来一遍。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

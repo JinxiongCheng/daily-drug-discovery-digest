@@ -48,3 +48,4 @@
 | 2026-10-16 | 周五·微流控/实验平台与AI结合 | Machine learning-driven single-cell phenotyping in size-controlled microenvironments via parallel deterministic droplet microfluidics | 10.1039/D5LC00839E | https://doi.org/10.1039/D5LC00839E |
 | 2026-10-17 | 周六·经典必读 | U-Net: Convolutional Networks for Biomedical Image Segmentation | arXiv:1505.04597(MICCAI 2015) | https://arxiv.org/abs/1505.04597 |
 | 2026-10-18 | 周日·反面教材 | PoseBusters: AI-based docking methods fail to generate physically valid poses or generalise to novel sequences | 10.1039/D3SC04185A / arXiv:2308.05777 | https://doi.org/10.1039/D3SC04185A |
+| 2026-10-19 | 周一·表型组学与图像表征学习 | Masked Autoencoders for Microscopy are Scalable Learners of Cellular Biology | 10.1109/CVPR52733.2024.01117 / arXiv:2404.10242 | https://arxiv.org/abs/2404.10242 |
