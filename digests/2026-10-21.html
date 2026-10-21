@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-21 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-21 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>SCALE: Scalable Conditional Atlas-Level Endpoint Transport for Virtual Cell Perturbation Prediction</h3>
+<p class="meta">
+  Shuizhou Chen 等(上海人工智能实验室及多所高校)· arXiv 预印本,2026-03 · arXiv
+  <a href="https://arxiv.org/abs/2603.17380" target="_blank" rel="noopener">2603.17380</a>
+</p>
+
+<p><strong>核心主张</strong>:把单细胞扰动响应预测重新表述成"条件最优传输"问题,而不是逐细胞回归,声称在 Tahoe-100M 上生物学保真度指标全面超过 STATE(此前 09-23 推送过的 Arc Institute 基础模型)。</p>
+
+<p><strong>方法</strong>:不预测单个细胞扰动后的具体状态,而是把一批细胞(扰动组 vs 对照组)当作一个集合(set),用 set-aware 的 flow matching 架构学习从对照分布到扰动分布的传输映射,监督目标是终点分布匹配而不是逐点重建误差。细胞表达谱先过一个 LLaMA 结构的编码器做 token 化,再接 flow 网络。工程上基于 BioNeMo 重写了训练/推理 pipeline。</p>
+
+<p><strong>关键数字</strong>:相对 STATE,在 Tahoe-100M 上 PDCorr 提升 <strong>12.02%</strong>,DE Overlap 提升 <strong>10.66%</strong>;预训练提速 <strong>12.51 倍</strong>,推理提速 <strong>1.29 倍</strong>(相对此前 SOTA pipeline,非 STATE 本身)。</p>
+
+<p><strong>最大方法学弱点</strong>:这些百分比都是作者自报的、在单一数据集上用作者自选的两个指标算出的相对提升,没有第三方复现。同月另一篇扰动预测评测论文(arXiv:2604.27646)明确指出,这类模型的排名对任务设计和评测标准高度敏感。这条线此前几篇(09-16 Simple controls exceed best deep learning、09-30 Spurious correlation inflates performance)已经反复证明过同一件事:"比 STATE 高 12%"这种数字,换一个指标或换一个数据集未必站得住。</p>
+
+<p><strong>接口</strong>:没有直接接口。这是转录组群体分布匹配,不是我做的图像/轨迹数据;唯一可能借鉴的是"用 conditional transport 替代逐样本回归"这个思路本身,但目前没有现成的接入点。</p>
+
+<p><strong>谁在做</strong>:学界/新型机构这块主要是 Arc Institute(STATE 团队)和上海 AI Lab(SCALE 作者);产业界 Xaira Therapeutics(X-Cell)、Genentech、Recursion 在往内部筛选管线里整合这类基础模型。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>这条线里,新模型相对旧 SOTA 的提升,你过去见过的例子大多在"个位数%或被简单 baseline 打平"这个量级(参考 09-16)。SCALE 对 STATE 自报的 PDCorr 和 DE Overlap 相对提升,你猜是同一量级,还是明显跳了一档?给出两个具体的百分比猜测。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Recursion Pharmaceuticals(最大的上市 AI 原生药物发现平台公司之一)10 月 15 日定价一次增发,发行 <strong>6154 万股</strong> Class A 普通股,每股 <strong>$3.25</strong>,募资约 <strong>$2 亿</strong>,10 月 16 日交割,主承销商 Leerink/高盛/大摩/Evercore。截至 9 月 30 日公司现金约 <strong>$5.61 亿</strong>。对比其上一次同规模增发(2024 年 6 月,每股 <strong>$6.50</strong>),这次募同样的钱要多发行一倍股数——股价已经腰斩。</p>
+
+<p><strong>AI 真实含量</strong>:纯融资事件,不涉及任何新的科学或临床结果,衡量的是"现金能撑多久",跟 AI 平台本身是否有效没有直接关系。公司今年一季度营收 <strong>$647 万</strong>,远低于分析师预期的 $1610–1630 万。</p>
+
+<p><strong>历史对照</strong>:早期基因组学平台公司(Millennium Pharmaceuticals、Human Genome Sciences)走过同样的路——靠"平台叙事"反复增发撑到管线成熟,多数等了十年以上才等到获批药物,部分始终没等到,最终被并购收场。这次用腰斩的股价换现金,是同一种耐力游戏的当下版本。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
