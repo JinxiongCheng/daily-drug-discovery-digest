@@ -51,3 +51,4 @@
 | 2026-10-19 | 周一·表型组学与图像表征学习 | Masked Autoencoders for Microscopy are Scalable Learners of Cellular Biology | 10.1109/CVPR52733.2024.01117 / arXiv:2404.10242 | https://arxiv.org/abs/2404.10242 |
 | 2026-10-20 | 周二·分子表征与性质预测 | MolCL-SP: a multimodal contrastive learning framework with non-overlapping substructure perturbations for molecular property prediction | 10.1093/bioinformatics/btaf507 | https://doi.org/10.1093/bioinformatics/btaf507 |
 | 2026-10-21 | 周三·单细胞与扰动生物学 | SCALE: Scalable Conditional Atlas-Level Endpoint Transport for Virtual Cell Perturbation Prediction | arXiv:2603.17380 | https://arxiv.org/abs/2603.17380 |
+| 2026-10-22 | 周四·模型可靠性 | Data Leakage and Redundancy in the LIT-PCBA Benchmark | arXiv:2507.21404 | https://arxiv.org/abs/2507.21404 |

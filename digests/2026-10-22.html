@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-22 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-22 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Data Leakage and Redundancy in the LIT-PCBA Benchmark</h3>
+<p class="meta">
+  Amber Huang, Ian Scott Knight, Slava Naprienko(SieveStack, Inc.)· arXiv 预印本,2025-07-29(v2: 2025-08-07)· arXiv
+  <a href="https://arxiv.org/abs/2507.21404" target="_blank" rel="noopener">2507.21404</a>
+  · 代码:<a href="https://github.com/sievestack/lit-pcba-audit" target="_blank" rel="noopener">github.com/sievestack/lit-pcba-audit</a>
+</p>
+
+<p><strong>核心主张</strong>:虚拟筛选领域广泛使用的 LIT-PCBA 基准存在严重的数据泄漏和冗余,过去发表在它上面的大量"SOTA"结果很可能是在利用这些数据 artifact,而不是真的学会了识别新颖骨架。</p>
+
+<p><strong>方法</strong>:对 LIT-PCBA 的 train/validation/query 三个划分做审计——用 2D ECFP4 指纹做精确匹配找完全重复,用 Tanimoto 相似度找近似重复(analog),分别统计跨集合泄漏和集合内部冗余。然后构建一个<strong>零可学习参数</strong>的"记忆"baseline:对每个测试分子,只打分为它与训练集 actives 的最大 2D ECFP4 相似度,不训练任何模型,直接用这个分数做排序当虚拟筛选结果。</p>
+
+<p><strong>关键数字</strong>:<strong>2,491</strong> 个 inactive 化合物同时出现在训练集和验证集里(完全重复);训练集内部另有 <strong>2,945</strong> 个重复 inactives,验证集内部 <strong>789</strong> 个;3 个本应"未见过"的 query ligand 实际上已出现在训练/验证集中;ALDH1 靶点上有 <strong>323</strong> 对高度相似(ECFP4 Tanimoto≥0.6)的 active 化合物横跨训练/验证集;MTORC1 靶点的 11 个 query ligand 里 <strong>9</strong> 个互为近似重复。这个零参数记忆 baseline 在验证集上的中位数 raw EF1% 为 <strong>4.15</strong>,和近期报出的 3D 结构编码器(CHEESE 的 EspSim/ShapeSim)SOTA 中位数基本持平。</p>
+
+<p><strong>最大方法学弱点</strong>:审计的重复判定主要靠把 SMILES canonicalize 成 non-isomeric 形式再比较——这会把立体异构体当成同一分子。网上有一篇博客据此质疑部分重复计数被夸大(我没能核实到原博客正文,只核实到这个批评确实存在,数字打多少折不确定)。即使打折扣,"零学习 baseline 打平 SOTA"这个核心结论大概率站得住,但具体的重复计数精度存疑。另外这只是单个基准的审计,不能直接外推到所有虚拟筛选文献都有同等程度的泄漏。</p>
+
+<p><strong>接口</strong>:没有直接接口——这是基于配体结构相似度的虚拟筛选评测,不是我的图像/轨迹数据。但"系统性检查 train/test 之间是否有精确重复或近似重复"这个审计动作本身,是我做任何自己的 held-out 验证时都该照搬的习惯。</p>
+
+<p><strong>谁在做</strong>:这类基准审计目前主要是小型独立团队/初创公司在推(这篇的作者所在 SieveStack, Inc.);做严肃虚拟筛选评测方法学的学界代表还有 Pat Walters(现 Relay Therapeutics)这条线,以及此前推过的 scaffold-split/UMAP-split 相关工作。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>如果你是这篇审计论文的审稿人,给它提一条 major comment,该提哪条?(提示:可以从"审计方法本身的局限"或"结论的外推范围"两个角度想,挑一个具体展开。)</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>AI Proteins(波士顿)与 Astellas Pharma 于 <strong>2026-10-21</strong> 宣布签订研究合作与许可协议,开发 miniprotein 疗法,总价值(里程碑+许可)超过 <strong>4 亿美元</strong>,具体首付金额未披露。AI Proteins 用其"AI + 合成生物学 + 实验室自动化"平台做 de novo miniprotein 设计,官方稿未披露具体靶点,Endpoints News 报道提到可能涉及 TNFR1 和多靶点肿瘤项目(未经官方确认)。Astellas 获得候选分子的全球独家许可权,负责后续临床开发和商业化。目前没有公开的候选分子,没有临床数据——纯平台阶段合作。</p>
+
+<p><strong>AI 真实含量</strong>:这次 AI 不是锦上添花,是合作的核心主张本身——AI Proteins 的卖点就是用计算方法从头设计稳定的小蛋白结合体。但要分清两件事:"能设计出结合体分子"这一步已被多次证明可行,"这个分子能在人体里安全起效"完全是另一件事,这次交易完全没有触及后者——AI Proteins 平台至今没有任何候选药物进入临床。</p>
+
+<p><strong>历史对照</strong>:1980-90 年代的噬菌体展示/抗体工程平台(Cambridge Antibody Technology 等)走过同一条路——平台确实解决了"如何快速生成高亲和力结合蛋白"这个工程问题,但从平台技术成熟到第一个重磅药物阿达木单抗(Humira,2002 年获批)花了将近二十年。de novo 蛋白设计现在处在这条曲线的早期:"能设计出结合体"这个能力被反复验证,"能设计出能治病的药"这段距离,历史上同类平台从没跳过去过。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
