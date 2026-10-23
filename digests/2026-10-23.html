@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-23 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-23 · 周五</p>
+  <h1>微流控/实验平台与AI结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Artificial intelligence-enabled multipurpose smart detection in active-matrix electrowetting-on-dielectric digital microfluidics</h3>
+<p class="meta">
+  Zhiqiang Jia 等(长春理工大学 / 中国科学院 + ACX Instruments)· <em>Microsystems &amp; Nanoengineering</em>,2024-09-27 · DOI
+  <a href="https://doi.org/10.1038/s41378-024-00765-7" target="_blank" rel="noopener">10.1038/s41378-024-00765-7</a>
+</p>
+
+<p><strong>核心主张</strong>:在主动矩阵电湿润(AM-EWOD)数字微流控芯片上嵌入深度学习模型做实时图像判读,可以把液滴操控的质控和单细胞检测做到接近人工核验的精度,而且是在线、自动的,不需要离线人工计数。</p>
+
+<p><strong>方法</strong>:用 U-Net 对液滴分裂过程的均匀性做分割评估,用 YOLOv8 做实时目标检测——一路监测液滴分裂本身是否成功,另一路检测纳升级液滴里是否装进了单个细胞。整个系统在 18 片 AM-EWOD 芯片上跑,靠这套实时反馈自动判断操控是否达标。</p>
+
+<p><strong>关键数字</strong>:18 片芯片上液滴分裂成功率 <strong>97.76%</strong>;分裂监测模型相对人工核验 precision <strong>99.982%</strong>,recall <strong>99.980%</strong>;改进版 YOLOv8 检测纳升液滴内单细胞,相对人工核验 precision <strong>99.260%</strong>,recall <strong>99.193%</strong>。</p>
+
+<p><strong>最大方法学弱点</strong>:这些数字全部是在同一批芯片、同一套光学成像系统下,用"本实验室人工判读"做 ground truth 算出来的——本质是同分布的内部验证。没有看到跨批次芯片、跨光学系统、跨细胞类型的外部验证。数字微流控芯片的制造工艺和光路通常高度定制化,AI 模型很可能把这套特定设备的光学特征也学进去了,换一批新工艺参数的芯片或换一套光学系统,精度能不能继续保持在 99%+ 是未知的。</p>
+
+<p><strong>接口</strong>:没有直接接口——AM-EWOD 靠电湿润操控离散液滴,是和我用的连续流迁移/成像芯片完全不同的物理机制。但"用轻量级实时检测模型(YOLO 系列)替代离线人工计数"这个思路,可以直接搬到我自己的延时成像流程里。</p>
+
+<p><strong>谁在做</strong>:学术界这条线以 Duke 大学 Krishnendu Chakrabarty 组(数字微流控 CAD/测试方法学与机器学习结合)为代表;产业側做 AM-EWOD/数字微流控仪器的公司,比如这篇论文里出现的 ACX Instruments,以及 Illumina 旗下 GenMark、Baebies 这类数字微流控诊断平台公司,都在往自己的设备里加类似的图像 AI 模块。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>论文把 U-Net/YOLOv8 的训练数据和测试数据都来自同一批 18 片芯片、同一套光学系统。如果反过来,换一批新工艺参数的芯片做测试,报的哪个数字最可能先掉,为什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Iambic Therapeutics(Nasdaq: IAM)于 <strong>2026-10-15</strong> 上市,IPO 定价每股 <strong>16 美元</strong>,发行 937.5 万股,募资 <strong>1.5 亿美元</strong>,发行后市值约 <strong>7.58 亿美元</strong>(单一信源数字)。Nvidia 是公司股东,合作方包括 Revolution Medicines、Jazz Pharmaceuticals、Lundbeck、Bayer、AbbVie。募资主要投向三个早期肿瘤项目——HER2 抑制剂(已进入 <strong>I 期</strong>临床,人群为 HER2 突变晚期实体瘤患者)、KIF18A 项目、CDK2/CDK4 项目——另有约 <strong>2000 万美元</strong>投入公司的"molecular superintelligence"计算平台,公司称资金可支撑到 2028 年底。</p>
+
+<p><strong>AI 真实含量</strong>:这次 IPO 的卖点就是"AI 平台能更快更准地设计药物分子",但目前唯一进入临床的资产还只在 I 期(安全性/药代阶段),没有任何疗效数据或 III 期结果能验证 AI 设计的分子真的比传统方法做得更好。这 1.5 亿美元和 7.58 亿美元市值目前完全建立在"平台叙事"上,不是建立在临床验证结果上。</p>
+
+<p><strong>历史对照</strong>:这和 1990 年代末基因组学驱动的新药平台公司(Human Genome Sciences、Millennium Pharmaceuticals、Incyte 这一代)上市时的叙事几乎一样——"我们的技术能更快找到药",募到巨额资金、估值飙升,但真正走到获批新药普遍要再等上十年以上,最终产出的获批药物数量也远低于当年叙事暗示的规模。AI 药物发现平台现在正处在同一条曲线的早段。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

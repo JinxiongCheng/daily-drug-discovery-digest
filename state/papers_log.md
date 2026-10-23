@@ -52,3 +52,4 @@
 | 2026-10-20 | 周二·分子表征与性质预测 | MolCL-SP: a multimodal contrastive learning framework with non-overlapping substructure perturbations for molecular property prediction | 10.1093/bioinformatics/btaf507 | https://doi.org/10.1093/bioinformatics/btaf507 |
 | 2026-10-21 | 周三·单细胞与扰动生物学 | SCALE: Scalable Conditional Atlas-Level Endpoint Transport for Virtual Cell Perturbation Prediction | arXiv:2603.17380 | https://arxiv.org/abs/2603.17380 |
 | 2026-10-22 | 周四·模型可靠性 | Data Leakage and Redundancy in the LIT-PCBA Benchmark | arXiv:2507.21404 | https://arxiv.org/abs/2507.21404 |
+| 2026-10-23 | 周五·微流控/实验平台与AI结合 | Artificial intelligence-enabled multipurpose smart detection in active-matrix electrowetting-on-dielectric digital microfluidics | 10.1038/s41378-024-00765-7 | https://doi.org/10.1038/s41378-024-00765-7 |
