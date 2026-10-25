@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-25 · 周日 · 反面教材</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-25 · 周日</p>
+  <h1>反面教材</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Evaluating virtual-control-augmented trials for reproducing treatment effects from original RCTs</h3>
+<p class="meta">
+  Alex Fernandes, Raphaël Porcher, Viet-Thi Tran, François Petit(Université Paris Cité / AP-HP)· arXiv:2507.16048(2025-07)
+  <a href="https://arxiv.org/abs/2507.16048" target="_blank" rel="noopener">arXiv:2507.16048</a>
+</p>
+
+<p><strong>核心主张</strong>:用生成模型(CTGAN、TVAE)合成"虚拟患者"去补全临床试验对照组,如果补的比例太高,得到的不只是估计不准,而是把治疗效应的方向直接估反。</p>
+
+<p><strong>方法</strong>:以真实大型卒中试验 IST(n=19,435)的结果当地面真值,人为模拟"对照组招募提前中断"的场景——假设只招到 10% 或 50% 的真实对照组患者,用这些已入组真实患者训练出的 CTGAN/TVAE 生成剩下的"虚拟患者"补齐对照组,再用合成后的对照组重新估计治疗效应,与 IST 真实结果、以及独立重复的 IST3 试验结果对照。</p>
+
+<p><strong>关键数字</strong>:IST 原始风险差 ARD = <strong>-0.012</strong>(治疗组获益)。CTGAN 补齐、真实样本仅占 10% 时,ARD = <strong>+0.004</strong>(SE 0.014),方向直接翻转;真实样本占 50% 时 ARD = <strong>-0.021</strong>(SE 0.014),方向没翻但相对原值偏了约 75%。</p>
+
+<p><strong>最大方法学弱点</strong>:全文只在一对试验(IST/IST3,卒中)上验证了一次,是单一案例的"存在性证明"——证明虚拟对照组可能翻转结论,但没有系统刻画在什么条件下(真实数据比例、终点类型、生成模型选择)风险可控。拿这一个案例去推广成"虚拟对照组普遍不可靠",同样是过度外推。</p>
+
+<p><strong>接口</strong>:没有直接接口,这是临床试验设计问题。但它和我关心的 batch effect/域偏移是同一类问题的另一种表现——用合成或外部数据替代部分真实数据时,分布不匹配不会被常规指标提前预警,直到结论真的翻车才被发现。</p>
+
+<p><strong>谁在做</strong>:学界临床试验方法学/生物统计团队(本文作者所在 Université Paris Cité / AP-HP 一类);业界做"虚拟对照组/数字孪生"产品的公司,比如 Unlearn.AI(PROCOVA)、Certara;FDA 的真实世界证据与数字健康评审团队也在跟进相应监管标准。</p>
+
+<h2>五分钟判断题(数字体检)</h2>
+
+<div class="question-box">
+  <p>IST 原始 ARD = -0.012,CTGAN 补 10% 真实数据后变成 +0.004,两次 SE 都约 0.014。单看这两个 SE,"方向翻转"能不能排除只是「两次估计其实都没显著偏离 0,只是运气落在了不同符号一侧」这个更平淡的解释?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>OpenAI 于 <strong>2026-10-20</strong> 宣布收购 Orchestra Bio,将其团队和"agentic 操作层"产品并入自家生命科学品牌 Rosalind。Orchestra 的产品是让药企科学家把监测研究进度、追踪研发时间线、识别潜在延误这类任务外包给 AI agent。交易金额未披露,Orchestra 此前仅融资约 <strong>2000 万美元</strong>(a16z、Atria、8VC)。半年前 Anthropic 以约 <strong>4 亿美元</strong>收购 Coefficient Bio,属同一波大模型公司买生命科学工具公司的浪潮。</p>
+
+<p><strong>AI 真实含量</strong>:这笔交易里 AI 的贡献是运营流程自动化——监控进度、提醒延误,不涉及靶点发现、分子设计或临床数据解读本身。是"管理层"的 AI,不是"科学层"的 AI,交易金额和团队规模都没披露,更像一次补工具箱的 tuck-in 收购,不是技术突破。</p>
+
+<p><strong>历史对照</strong>:2015-2016 年 IBM 花超过 <strong>40 亿美元</strong>收购 Merge Healthcare、Truven Health、Phytel 等公司组建 Watson Health,打的也是"AI 重塑医疗/药物研发"旗号。2022 年 IBM 把 Watson Health 大部分资产卖给 Francisco Partners,报价仅略高于 <strong>10 亿美元</strong>——花了四倍多的钱,卖出不到四分之一。大厂收购生命科学软件/数据公司的热潮,历史上至少有一次是以大幅亏损收场的。</p>
+
+<h2>周日复盘(探索期进度)</h2>
+
+<ol>
+  <li>这周"还想继续往下读什么"一次都没填,state/feedback.md 也没有"再来几篇"信号——不是分散,是目前完全没有数据点,这条反馈闭环还没真正跑起来。</li>
+  <li>这周七篇覆盖:图像自监督(周一)、分子对比学习(周二)、虚拟细胞扰动(周三)、评估方法学(周四误重复了 9/6 推过的 LIT-PCBA 泄漏论文,是轮换执行的失误)、你的主场微流控+AI(周五)、奠基性 Transformer(周六)、今天的临床试验合成数据可靠性——地图覆盖很广,但广度本身不是信号。</li>
+  <li>距 2026-12-31 还剩约 <strong>9-10 周</strong>。如果方向线索栏继续空着,这套每日推送就没有归因材料可用,探索期会无限期拖下去。建议从下周起,每天哪怕一句话也要填那一行。</li>
+</ol>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
