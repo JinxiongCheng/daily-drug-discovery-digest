@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-26 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-26 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Deep Learning for BioImaging: What Are We Really Learning?</h3>
+<p class="meta">
+  Ivan Svatko, Maxime Sanchez, Ihab Bendidi, Gilles Cottrell, Auguste Genovesio(IBENS / ENS)· arXiv:2603.13377(2026-03)
+  <a href="https://arxiv.org/abs/2603.13377" target="_blank" rel="noopener">arXiv:2603.13377</a>
+</p>
+
+<p><strong>核心主张</strong>:现在一批显微图像表征学习的 SOTA 模型(包括用于 Cell Painting/RxRx3 的 foundation model),在标准 benchmark 上的表现,很多时候和一个权重随机初始化、完全没训练过的网络差不多——说明这些 benchmark 测不出"学没学到真正的生物学信号"。</p>
+
+<p><strong>方法</strong>:拿一批主流预训练模型,对照一组"未训练"基线——随机初始化的 ResNet/ViT,甚至单层随机卷积加简单像素统计特征,在几个标准任务上比较:RxRx3-core 上的基因扰动 retrieval(Recall@k)、JUMP-CP 上的化合物/MoA 检索,以及一个独立组织图像数据集上的线性探针分类。</p>
+
+<p><strong>关键数字</strong>:RxRx3-core 上 Recall@5%,预训练 foundation model 约 <strong>0.20</strong>,随机初始化、从未训练过的 ViT 约 <strong>0.19</strong>——几乎打平。JUMP-CP 上预训练模型的优势更明显一些,但未训练基线的"地板"依然出乎意料地高;另一个独立的 MoA 检索任务里,未训练模型基本追平预训练模型。</p>
+
+<p><strong>最大方法学弱点</strong>:不同数据集/任务上"预训练是否真的领先"并不一致——JUMP-CP 领先更明显,RxRx3-core 和 MoA 检索几乎打平。这种异质性可能来自任务特异的 retrieval 指标选择、类别不平衡或批次效应,不一定是统一的"表征学习普遍失效"。更根本的问题是:如果作者说现有 benchmark 指标测不出表征质量差异,那同一套指标也可能测不出"学会了"和"没学会"之间真实的差距——论文用来批判的工具,和它批判的对象,是同一套指标体系。</p>
+
+<p><strong>接口</strong>:直接相关。我手上的 PGCC 形态筛选、相差图像迁移轨迹如果套用现成的 self-supervised 表征做下游判别,这篇提醒我必须先跑一个"随机初始化网络"对照,否则无法确认提升是不是真的来自学到的生物学信号,还是架构本身的归纳偏置。</p>
+
+<p><strong>谁在做</strong>:学界这类"表征学习审计"文章集中在欧洲几个显微成像组(本文作者所在的 ENS/IBENS Genovesio 组是代表);业界 Recursion(OpenPhenom/Phenom 系列)、Broad Institute 的 JUMP 联盟在持续发布 foundation model 和公开数据集,本身就是这类审计的靶子。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>设置:RxRx3-core 基因扰动 retrieval 任务,评价指标 Recall@5%。一个真正做过大规模预训练的显微图像 foundation model,报的数值大约是 0.20。现在换成一个权重随机初始化、从没训练过的 ViT,同样任务同样指标,你猜它的 Recall@5% 大概是多少?给一个具体数字,再说说你这个数字背后假设了什么。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 10 月 25 日,Insilico Medicine 在 ESMO 2026 做了 ISM6331(abstract #997)的 rapid oral presentation——这是一款 AI 设计的 pan-TEAD 抑制剂首次人体 Phase 1 数据,适应症为恶性胸膜间质瘤及其他晚期实体瘤(NCT06566079,两段式剂量爬坡+剂量优化设计)。该药今年 7 月已获 FDA Fast Track 资格(用于抗 PD-1+铂类化疗后进展的间皮瘤)。<strong>我没能找到 10/25 口头报告实际公布的入组人数、剂量、安全性或抗肿瘤反应的具体数字</strong>——目前能检索到的都是会前预告通稿,报告后的详细数据还没被二次报道收录,这里不编。</p>
+
+<p><strong>AI 真实含量</strong>:靶点确认和分子设计,官方说法均来自 Insilico 自家平台(PandaOmics 定靶点、Chemistry42 做生成化学),不是蹭名字的营销案例。但具体多少是算法直接产出、多少是后续人工药化优化,外部无法独立核实,只能信公司自己的说法。而且这只是 Phase 1 安全性数据,离"AI 设计的分子真的更好"这个问题还很远。</p>
+
+<p><strong>历史对照</strong>:2022 年 Exscientia 的 A2A 受体拮抗剂 EXS21546,也是打着"AI 设计"旗号进入临床的早期标杆分子。2023 年它在 Phase 1b/2a(IGNITE 试验,联合 PD-1 抑制剂治疗肾细胞癌/非小细胞肺癌)上因为安全性-有效性平衡做不出来被叫停,入组人数从计划的 110 人砍到 6 人。AI 设计的分子能顺利进入人体试验从来不是终点,大多数真正淘汰发生在后面几期。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

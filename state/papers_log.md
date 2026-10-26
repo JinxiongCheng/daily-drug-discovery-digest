@@ -55,3 +55,4 @@
 | 2026-10-23 | 周五·微流控/实验平台与AI结合 | Artificial intelligence-enabled multipurpose smart detection in active-matrix electrowetting-on-dielectric digital microfluidics | 10.1038/s41378-024-00765-7 | https://doi.org/10.1038/s41378-024-00765-7 |
 | 2026-10-24 | 周六·经典必读 | Attention Is All You Need | arXiv:1706.03762 | https://arxiv.org/abs/1706.03762 |
 | 2026-10-25 | 周日·反面教材 | Evaluating virtual-control-augmented trials for reproducing treatment effects from original RCTs | arXiv:2507.16048 | https://arxiv.org/abs/2507.16048 |
+| 2026-10-26 | 周一·表型组学与图像表征学习 | Deep Learning for BioImaging: What Are We Really Learning? | arXiv:2603.13377 | https://arxiv.org/abs/2603.13377 |
