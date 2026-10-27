@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-27 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-27 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Descriptor-based foundation models for Molecular Property Prediction(CheMeleon)</h3>
+<p class="meta">
+  Jackson Burns, Akshat Zalte, William Green(MIT ChemE)· arXiv:2506.15792(2025-06,v2 更名为 Deep Learning Foundation Models from Classical Molecular Descriptors)<br>
+  <a href="https://arxiv.org/abs/2506.15792" target="_blank" rel="noopener">arXiv:2506.15792</a> ·
+  <a href="https://github.com/JacksonBurns/chemeleon" target="_blank" rel="noopener">代码 GitHub</a>
+</p>
+
+<p><strong>核心主张</strong>:用分子图上确定性可计算的经典描述符(Mordred)做预训练目标,比用带噪声的实验数据或有偏的量子化学模拟更适合学分子表示。</p>
+
+<p><strong>方法</strong>:在约 100 万个 PubChem 分子上,用一个 D-MPNN(消息传递维度 2048,6 层迭代,mean aggregation,约 870 万参数)去回归每个分子的全套 Mordred 描述符。预训练完成后,把这个消息传递网络的输出固定下来当作 2048 维嵌入(CheMeleonFP),下游任务接一个小 head 做微调或直接线性探测。</p>
+
+<p><strong>关键数字</strong>:在 Polaris + MoleculeACE 共 58 个任务的评测里(v2 版本数字),CheMeleon 胜率 <strong>75%</strong>,随机森林基线 <strong>68%</strong>,fastprop <strong>36%</strong>,Chemprop <strong>32%</strong>;在 MoleculeACE 相关任务上胜率 <strong>97%</strong>。但论文自己承认,具体到区分 activity cliff(结构相似、活性骤变)分子对这件事上,CheMeleon 和大多数被测模型一样做不好。</p>
+
+<p><strong>最大方法学弱点</strong>:预训练目标本身是分子图的确定性函数,不含任何训练数据之外的新信息——本质是用描述符做正则化去塑造一个更好的初始嵌入空间,而不是真的往模型里注入了新知识。它在 activity cliff 上没有改善,说明学到的表示仍是对描述符空间的平滑插值,没抓住局部结构突变;论文也没给出证据表明这套嵌入能缓解 BOOM 这类工作指出的 OOD 外推问题。</p>
+
+<p><strong>接口</strong>:没有。它处理的是小分子结构输入,不涉及细胞图像或表型,除非以后做"化合物结构 + 表型响应"联合建模才会用到。</p>
+
+<p><strong>谁在做</strong>:学界里这条"用经典描述符做自监督预训练目标"的路线,代表是 MIT Green lab(Chemprop 生态,本文作者所在组)、DP Technology 的 Uni-Mol 系列;工业界 Recursion(收购 Valence Labs 后)、Iambic Therapeutics、Genesis Therapeutics 都在用类似思路训练自己的分子基础模型。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>CheMeleon 的预训练目标——Mordred 描述符——是分子图的确定性函数,不含图外新信息。针对这一点,你会给这篇论文提哪条 major comment?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>2026 年 10 月 20 日,OpenAI 宣布收购药物开发协调初创公司 Orchestra Bio,团队和技术并入其生命科学产品 Rosalind(及 Rosalind Workbench)(Axios 独家报道,TechCrunch 跟进)。Orchestra Bio 此前融资约 <strong>2000 万美元</strong>(a16z、Atria、8VC 等),本次交易金额未披露。Rosalind 现有客户包括 Moderna 和 Novo Nordisk。</p>
+
+<p><strong>AI 真实含量</strong>:低。Orchestra Bio 做的是"agentic operating layer"——用 AI agent 跑试验监测、开发时间线跟踪这类操作性任务,是流程自动化/项目管理层,不是分子设计或生物学预测层。这笔收购买的是工作流软件和客户关系,不是新的药物发现算法。</p>
+
+<p><strong>历史对照</strong>:2015-2016 年 IBM 收购 Phytel、Explorys、Truven、Merge Healthcare,组建 Watson Health,同样把"AI"品牌贴在医疗数据整合和流程自动化上。那批资产在 2022 年被 IBM 拆分出售——流程软件被包装成"AI 医疗突破",但始终没有兑现可验证的临床增益。Orchestra Bio 这次性质接近,值得盯的是它会不会只是又一层"AI 包装的操作软件"。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

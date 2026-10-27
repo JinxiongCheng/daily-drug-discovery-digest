@@ -56,3 +56,4 @@
 | 2026-10-24 | 周六·经典必读 | Attention Is All You Need | arXiv:1706.03762 | https://arxiv.org/abs/1706.03762 |
 | 2026-10-25 | 周日·反面教材 | Evaluating virtual-control-augmented trials for reproducing treatment effects from original RCTs | arXiv:2507.16048 | https://arxiv.org/abs/2507.16048 |
 | 2026-10-26 | 周一·表型组学与图像表征学习 | Deep Learning for BioImaging: What Are We Really Learning? | arXiv:2603.13377 | https://arxiv.org/abs/2603.13377 |
+| 2026-10-27 | 周二·分子表征与性质预测 | Descriptor-based foundation models for Molecular Property Prediction(CheMeleon) | arXiv:2506.15792 | https://arxiv.org/abs/2506.15792 |
