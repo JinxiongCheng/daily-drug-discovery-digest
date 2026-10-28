@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-28 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-28 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Predicting cellular responses to complex perturbations in high-throughput screens (CPA)</h3>
+<p class="meta">
+  Mohammad Lotfollahi, Anna Klimovskaia Susmelj, Carlo De Donno 等(Theis lab, Helmholtz Munich / Institute of Computational Biology,与 Meta AI 的 David Lopez-Paz 合作)· <em>Molecular Systems Biology</em> 2023, 19:e11517<br>
+  <a href="https://doi.org/10.15252/msb.202211517" target="_blank" rel="noopener">DOI: 10.15252/msb.202211517</a> ·
+  <a href="https://doi.org/10.1101/2021.04.14.439903" target="_blank" rel="noopener">预印本 bioRxiv</a> ·
+  <a href="https://github.com/theislab/cpa" target="_blank" rel="noopener">代码 GitHub</a>
+</p>
+
+<p><strong>核心主张</strong>:细胞对任意扰动组合的转录响应,可分解为一个与扰动无关的"基础状态"加若干独立的"扰动效应向量"之和;只用单扰动数据学到的向量,就能相加外推到从未观测过的组合。</p>
+
+<p><strong>方法</strong>:CPA 是自编码器。表达谱编码进 latent space 后,扰动身份、剂量、细胞类型各对应一个可学习嵌入,加回"基础状态"隐变量。为防止基础状态残留扰动信息,用对抗训练迫使编码器把扰动信号排除在外。预测未见组合时,把已知单扰动向量相加后解码即可;药物还能用化学结构嵌入代替 one-hot,泛化到新化合物。</p>
+
+<p><strong>关键数字</strong>:在一个 Perturb-seq 基因组合筛选里,CPA 对 <strong>5,329</strong> 个未被实测的基因对组合做出预测,占全部可能组合的 <strong>97.6%</strong>——实验只测了约 2.4% 的组合空间。论文还说在药物组合数据上 CPA 优于基线,但具体 R² 我没核实到。</p>
+
+<p><strong>最大方法学弱点</strong>:外推全靠"效应在隐空间可加"这个假设,排除了上位性(epistasis)——协同、拮抗正是组合筛选最想发现的东西。97.6% 组合从未实测,大多数预测没有真实标签可验证。</p>
+
+<p><strong>接口</strong>:没有,CPA 处理 scRNA-seq,不是我的图像或迁移轨迹数据;但其架构思路模态无关,值得记作模板。</p>
+
+<p><strong>谁在做</strong>:奠基组是 Fabian Theis 实验室(Helmholtz Munich),延伸是同组 chemCPA。赛道主力已转向更大基础模型(Arc Institute 的 State、GEARS、scGPT),CPA 像后来者做基准时的"可解释基线"。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>CPA 能外推到未见组合,全靠"扰动效应在隐空间可加"这一个假设。如果两个扰动之间存在强上位性(协同或拮抗),这个假设会在哪个环节最先失效?预测结果会偏高还是偏低?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>ESMO 2026(10月23-27日)上,Hansoh/GSK 公布 ARTEMIS-011 III期数据:ADC risvutatug rezetecan 对比吉西他滨+多西他赛治骨肉瘤(2:1随机,n=122)。中位 PFS <strong>5.5 月</strong> vs <strong>1.4 月</strong>,HR <strong>0.33</strong>(p&lt;0.0001);ORR <strong>15%</strong> vs <strong>2%</strong>;严重不良事件 <strong>63.8%</strong> vs <strong>28.6%</strong>。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零,是传统 ADC,无 AI 辅助设计信息。放进来是因为骨肉瘤几十年没有新药,不因 AI。</p>
+
+<p><strong>历史对照</strong>:首个获批 ADC Mylotarg 2000年加速批准,2010年因确证性试验死亡率更高主动撤市,2017年改剂量方案后重新获批。Ris-Rez 眼下的不良事件差距是同一类风险——ADC 领域学会了把方案和患者选择做得更细,但毒性-疗效权衡从未被根本解决,只是被更谨慎地管理。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
