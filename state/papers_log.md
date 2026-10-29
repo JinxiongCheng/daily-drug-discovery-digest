@@ -58,3 +58,4 @@
 | 2026-10-26 | 周一·表型组学与图像表征学习 | Deep Learning for BioImaging: What Are We Really Learning? | arXiv:2603.13377 | https://arxiv.org/abs/2603.13377 |
 | 2026-10-27 | 周二·分子表征与性质预测 | Descriptor-based foundation models for Molecular Property Prediction(CheMeleon) | arXiv:2506.15792 | https://arxiv.org/abs/2506.15792 |
 | 2026-10-28 | 周三·单细胞与扰动生物学 | Predicting cellular responses to complex perturbations in high-throughput screens (CPA) | 10.15252/msb.202211517 | https://doi.org/10.15252/msb.202211517 |
+| 2026-10-29 | 周四·模型可靠性 | Same Encoder, Different Winner: A Paired-View Framework for Cell Painting Encoder Evaluation | arXiv:2609.12761 | https://arxiv.org/abs/2609.12761 |

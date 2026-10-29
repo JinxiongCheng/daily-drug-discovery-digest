@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-29 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-29 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Same Encoder, Different Winner: A Paired-View Framework for Cell Painting Encoder Evaluation</h3>
+<p class="meta">
+  Tim Treis, Nikita Moshkov, Johan Fredin Haslum, Shantanu Singh, Fabian J. Theis · arXiv 2026年9月<br>
+  <a href="https://arxiv.org/abs/2609.12761" target="_blank" rel="noopener">arXiv: 2609.12761</a>
+</p>
+
+<p><strong>核心主张</strong>:给同一批 Cell Painting 图像换一套评估协议(换预处理视图、换评估尺度),同一组 encoder 的排名会反转——"哪个表征模型更好"这个结论本身依赖于你选的评估方式,不是模型的客观属性。</p>
+
+<p><strong>方法</strong>:作者构建 CP-BG-Bench,给每个单细胞 tile 配四个像素级匹配的视图——原始裁剪 crop(C)、背景置零的分割图 segmented(S)、crop 加密度增强(CD)、segmented 加密度增强(SD)。在三个数据集(JUMP-CP、RxRx1、RxRx3-core)上,用三个代表性 encoder(DINOv3 ViT-B/16、OpenPhenom、SubCell)跑四种评估协议:replicate mAP(同批次内能否认出同一处理的重复样本)、scIB 批次整合指标、CellProfiler 经典特征预测、跨批次扰动检索 recall(cross-batch R@10)。</p>
+
+<p><strong>关键数字</strong>:在 RxRx3-core 上,SubCell 把输入从 crop 换成 segmented 后,within-study 的 replicate mAP 几乎没掉(约 <strong>0.716</strong> vs crop 的 <strong>0.760</strong>,留住约 <strong>94%</strong>);但 cross-batch R@10 从约 <strong>0.31</strong>(crop)掉到约 <strong>0.10</strong>(segmented),只剩约 <strong>32%</strong>。同一个预处理改动,在"同批次内区分细胞"这个指标上近乎无损,在"跨批次还能不能认出同一个扰动"这个指标上接近崩溃。密度增强能补回约 <strong>84%</strong> 的 within-study crop-to-segmented 差距,但对 cross-batch 差距只补回约 <strong>8%</strong>。</p>
+
+<p><strong>最大方法学弱点</strong>:以上具体数值我是从二手摘要页拼出来的——沙箱网络挡住了直接读 arXiv 全文(html/pdf 域名都被拦),每个 encoder×dataset×protocol 格子的精确值我没能逐一核实,这组数字可能有小误差。但"换协议排名会翻转"这个定性结论在多个独立转述里一致,我确信结论本身是真的。换个角度看这篇论文自己的弱点:它选的四个协议仍是作者自己定义的,"哪个协议更该信"本质上也是一种人为选择,论文给的建议(优先信 cross-batch recall)本身也可能被第五种协议再次推翻。</p>
+
+<p><strong>接口</strong>:直接有接口。我要跑 PGCC 形态筛选和单细胞相差图像,这篇等于明示我——不说清楚用的是哪种预处理视图、哪种 batch split,我关于"哪个 encoder/pipeline 更好"的结论就没有可比性,甚至可能是协议选择的伪影而不是模型的真实差异。</p>
+
+<p><strong>谁在做</strong>:这类"评估协议本身不可靠"的审计工作,目前主要是 Broad Institute(Shantanu Singh,JUMP Consortium 核心方)和 Theis 组(Helmholtz Munich)在做;业界做 Cell Painting foundation model 的 Recursion(OpenPhenom)、各家构建 SubCell 一类模型的团队,是这类审计论文点名的对象。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>这篇的核心发现是:换评估视图(crop vs segmented)和换评估尺度(within-batch vs cross-batch),同一组 encoder 的排名会反转。如果把这套"协议选择能反转排名"的诊断思路搬到你自己的 PGCC 形态筛选或单细胞相差图像数据上——你现在挑 encoder/pipeline 用的那套评估方式,第一个会在哪个环节崩掉?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>10月20日,FDA 批准 GSK 的 Hibsago(bepirovirsen),首个获批用于慢性乙肝(HBV)的 antisense oligonucleotide(ASO)。基于两项 III 期试验 B-Well 1/2:每周皮下注射 300mg 共24周,第72周功能性治愈(functional cure)汇总率 <strong>19%</strong>(233/1220)vs 安慰剂组 <strong>0%</strong>(0/614);<strong>24%</strong> 的用药组患者达到停用现有抗病毒药标准,安慰剂组为 0%。说明书带肝损伤和血小板减少的黑框警告。</p>
+
+<p><strong>AI 真实含量</strong>:基本为零。bepirovirsen 是 Ionis 传统 ASO 化学平台(基于序列互补的 gapmer 设计)产出,授权给 GSK,找不到任何 AI/ML 参与靶点确认或序列优化的证据。放进来不是因为 AI,是因为这是乙肝"功能性治愈"这个长期目标上少见的实质进展。</p>
+
+<p><strong>历史对照</strong>:首个获批 ASO 是 1998 年的 fomivirsen(Vitravene,治 CMV 视网膜炎),后来因 HAART 普及导致 CMV 病例锐减、市场消失而退市,不是药本身失败。ASO 这条路后续多次因肝毒性/血小板减少受挫(如 mipomersen),和 bepirovirsen 的黑框警告是同一类老问题。从 1998 到 2026,近30年才等到 ASO 化学平台(2'-MOE 修饰、递送优化)成熟到能啃下乙肝这块硬骨头——这是慢功夫平台技术迭代的典型案例,不是突破性算法的故事。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
