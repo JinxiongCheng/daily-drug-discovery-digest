@@ -59,3 +59,4 @@
 | 2026-10-27 | 周二·分子表征与性质预测 | Descriptor-based foundation models for Molecular Property Prediction(CheMeleon) | arXiv:2506.15792 | https://arxiv.org/abs/2506.15792 |
 | 2026-10-28 | 周三·单细胞与扰动生物学 | Predicting cellular responses to complex perturbations in high-throughput screens (CPA) | 10.15252/msb.202211517 | https://doi.org/10.15252/msb.202211517 |
 | 2026-10-29 | 周四·模型可靠性 | Same Encoder, Different Winner: A Paired-View Framework for Cell Painting Encoder Evaluation | arXiv:2609.12761 | https://arxiv.org/abs/2609.12761 |
+| 2026-10-30 | 周五·微流控/实验平台与AI结合 | Droplet microfluidic profiling of NK cell cytotoxicity with machine learning-enabled target-cell death analysis | 10.1039/D6LC00301J | https://doi.org/10.1039/D6LC00301J |
