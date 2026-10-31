@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-10-31 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-10-31 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Automatic Chemical Design Using a Data-Driven Continuous Representation of Molecules</h3>
+<p class="meta">
+  Gómez-Bombarelli, Wei, Duvenaud, Hernández-Lobato, Sánchez-Lengeling, Sheberla, Aguilera-Iparraguirre, Hirzel, Adams, Aspuru-Guzik · <em>ACS Central Science</em>, 2018, 4(2), 268–276(预印本 arXiv:1610.02415,2016年挂出)<br>
+  <a href="https://doi.org/10.1021/acscentsci.7b00572" target="_blank" rel="noopener">DOI: 10.1021/acscentsci.7b00572</a> ·
+  <a href="https://arxiv.org/abs/1610.02415" target="_blank" rel="noopener">arXiv: 1610.02415</a>
+</p>
+
+<p><strong>核心主张</strong>:把离散的分子字符串(SMILES)编码成一个连续向量空间,之后"设计分子"这件事就变成在这个连续空间里做插值、扰动和梯度优化——这是把分子生成第一次系统性地变成一个可微优化问题的工作,后面十年的分子生成模型基本都是在回应或绕开这篇的问题。</p>
+
+<p><strong>方法</strong>:用一对深度网络做 SMILES 的 autoencoder(编码器+解码器),同时联合训练第三个网络作为属性预测器(predictor),让潜空间不只是"能还原分子",还和目标性质(比如 logP、QED、SAS 可合成性评分)线性相关。训练集是从 ZINC 随机抽取的 <strong>25 万个</strong>药物相似分子,潜空间维度 <strong>196</strong>。生成新分子时,从潜空间随机采样或沿梯度方向移动一个已知分子的向量,再解码回 SMILES,无效字符串用 RDKit/Marvin 过滤掉。</p>
+
+<p><strong>关键数字</strong>:解码出的 SMILES 里化学上合法的比例在不同条件下从约 <strong>70% 掉到不到 1%</strong>,作者把这归因于分子原子数和该区域训练数据密度。换句话说,这不是一个"生成即合法"的模型,合法性严重依赖采样的潜空间位置离训练分布有多近。</p>
+
+<p><strong>最大方法学弱点</strong>:解码器完全没有语法约束,潜空间里绝大多数点解码出来的字符串不是合法分子。于是"在潜空间里做梯度优化"这件事,优化轨迹很容易滑到一个预测分数很高、但解码失败或解码出来的分子其实不合理的区域。这个问题足够致命,催生了后续专门修正化学合法性的工作(grammar VAE、JT-VAE 这类把化学有效性直接写进生成过程的方法)。这篇最该被记住的教训是:性质优化目标和化学合法性在同一个连续空间里不会自动一致。</p>
+
+<p><strong>接口</strong>:没有直接接口。我的数据是细胞图像和迁移轨迹,不是分子结构,"连续潜空间+梯度优化"的框架思路可以借鉴,但 SMILES autoencoder 本身和我的课题没有交集。</p>
+
+<p><strong>谁在做</strong>:学界这条线的延续是 Aspuru-Guzik 组(多伦多)以及把化学有效性显式建模的后续工作(Kusner 的 grammar VAE、Jin 的 JT-VAE、各类基于图的生成模型);业界做分子生成/de novo 设计的代表是 Insilico Medicine(Chemistry42)、Iambic、Schrödinger 的生成式模块。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>训练集是 25 万个 ZINC 药物相似分子,196 维潜空间,解码后用 RDKit 过滤非法字符串。不看答案,你猜:在潜空间里<strong>随机采样</strong>(不是在已知分子附近小扰动,是整个空间里撒点)解码出来,化学上合法的 SMILES 大概占百分之几?给一个数量级。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>10 月 28 日,Eli Lilly 公布 TRANSCEND-T2D-2 头对头 3 期试验(retatrutide vs 诺和诺德 Ozempic/semaglutide 2mg)的 topline 结果,80 周,2 型糖尿病患者,基线 HbA1c 8.3%。retatrutide 9mg 和 12mg 两个剂量组 A1c 都降了 <strong>2.2 个百分点</strong>,semaglutide 组降 <strong>1.8 个百分点</strong>;Lilly 称 12mg 剂量达到优效,9mg 达到非劣。体重下降 retatrutide 9mg <strong>19.5%</strong>、12mg <strong>20.9%</strong>,semaglutide <strong>9.4%</strong>。因不良反应停药率在 retatrutide 组更高。这些数字来自公司新闻稿和行业媒体,完整数据集和论文还没公开。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零。retatrutide 是 GIP/GLP-1/胰高血糖素三重受体激动剂,走的是传统多肽药物化学的受体工程路线,这条新闻里没有任何 ML 模型参与设计或筛选的信息。</p>
+
+<p><strong>历史对照</strong>:这是 incretin 类药物"加受体"军备竞赛的最新一程——exenatide(2005,单一 GLP-1R 激动剂,A1c 降幅温和)→liraglutide→semaglutide(单受体但更强效)→tirzepatide(2022,双受体 GIP/GLP-1)→现在的 retatrutide(三受体)。每加一个受体,疗效数字更漂亮,但停药率和不良反应也跟着涨,这条曲线目前还没看到拐点,这次更高的停药率是不是拐点信号,值得往后追。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
