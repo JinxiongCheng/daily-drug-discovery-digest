@@ -61,3 +61,4 @@
 | 2026-10-29 | 周四·模型可靠性 | Same Encoder, Different Winner: A Paired-View Framework for Cell Painting Encoder Evaluation | arXiv:2609.12761 | https://arxiv.org/abs/2609.12761 |
 | 2026-10-30 | 周五·微流控/实验平台与AI结合 | Droplet microfluidic profiling of NK cell cytotoxicity with machine learning-enabled target-cell death analysis | 10.1039/D6LC00301J | https://doi.org/10.1039/D6LC00301J |
 | 2026-10-31 | 周六·经典必读 | Automatic Chemical Design Using a Data-Driven Continuous Representation of Molecules | 10.1021/acscentsci.7b00572 / arXiv:1610.02415 | https://doi.org/10.1021/acscentsci.7b00572 |
+| 2026-11-01 | 周日·反面教材 | Evaluating generalization in protein–ligand cofolding methods(预印本:Have protein-ligand co-folding methods moved beyond memorisation?) | 10.1038/s41594-026-01797-5 / bioRxiv 10.1101/2025.02.03.636309 | https://doi.org/10.1038/s41594-026-01797-5 |
