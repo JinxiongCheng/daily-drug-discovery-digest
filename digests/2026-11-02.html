@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-02 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-02 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>SubCell: Proteome-aware vision foundation models for microscopy capture single-cell biology</h3>
+<p class="meta">
+  Ankit Gupta, ..., Emma Lundberg(通讯,Stanford/KTH,Human Protein Atlas 核心团队)· bioRxiv 预印本,2024-12(PMC 索引版本 2025-10-30,PMC12636579;截至核实未确认是否已正式见刊)<br>
+  <a href="https://doi.org/10.1101/2024.12.06.627299" target="_blank" rel="noopener">DOI: 10.1101/2024.12.06.627299</a>
+</p>
+
+<p><strong>核心主张</strong>:用 Human Protein Atlas 全蛋白质组免疫荧光图像做多任务自监督预训练,得到无需微调就能泛化到未见蛋白质和细胞类型的显微图像基础模型。</p>
+
+<p><strong>方法</strong>:训练数据是 HPA v23 的约 <strong>113 万</strong>张单细胞免疫荧光图像,覆盖 <strong>13,141</strong> 个蛋白靶标、<strong>37</strong> 种细胞线,四通道(核、微管、内质网、蛋白靶标)。backbone 是 <strong>86.4M</strong> 参数的 ViT,联合三类自监督目标:MAE 式像素重建、同一细胞不同通道/增强版本互相靠近的对比损失、同一蛋白不同图像互相靠近的对比损失——把「蛋白身份」直接当成监督信号,这是和普通 DINO/MAE 在显微图像上的关键区别。最优变体是纯蛋白对比的 ProtS-Pool 和三目标联合的 MAE-CellS-ProtS-Pool,用 attention pooling 把 patch 特征聚合成单细胞表征。</p>
+
+<p><strong>关键数字</strong>:作者在 HPA 的两个内部基准上声称 SubCell 优于自监督 DINO4Cells-HPA 和同架构的弱监督 ViT,叠加 ESM2 序列 embedding 后在蛋白互作/功能预测任务上也有提升——但具体 accuracy/F1/mAP 数值我没能核实:bioRxiv 全文、PMC 全文、官方 GitHub 仓库(CellProfiling/SubCell)在这个环境里全部打不开或 404,只找到一个不含评测表格的推理版仓库(SubCellPortable)。只能确认方向,不能确认幅度。</p>
+
+<p><strong>最大方法学弱点</strong>:把蛋白身份当对比学习的监督信号,模型很容易学到染色批次/抗体特征这类「身份指纹」,而不是真正的形态学差异。拿去做化合物 MoA 分类等下游任务时,提升里有多少是形态学、多少是残留批次偏差,论文给的两个基准都来自同一套 HPA 染色流程,没法把这两者分开。</p>
+
+<p><strong>接口</strong>:没有直接接口。HPA 是按蛋白靶标设计的免疫荧光图谱,不是按化合物扰动设计的筛选数据;如果要搬到我的 PGCC 形态筛选或迁移轨迹上,「蛋白身份当监督信号」这部分需要等价的强身份标签才能复用,大概率用不上,能直接借的只有 MAE 重建这一半。</p>
+
+<p><strong>谁在做</strong>:学术界以 Lundberg lab(Stanford/KTH,HPA 核心团队)为代表,Broad Institute 的 Carpenter/Singh lab 做的是面向化合物筛选的平行版本(JUMP/Cell Painting);产业界 Recursion 在做同类的 Phenom 系列基础模型,GSK 的 AI 团队在做 channel-agnostic 模型的 OOD 评测。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>SubCell 的两个核心基准都来自 HPA 自家的染色流程和标注体系,作者用它们证明「泛化到未见蛋白质」。如果你是审稿人,针对这个泛化卖点该提哪一条 major comment?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Eli Lilly 的三靶点激动剂 retatrutide 在头对头 3 期试验 <a href="https://www.ajmc.com/view/retatrutide-tops-semaglutide-on-a1c-weight-in-head-to-head-trial" target="_blank" rel="noopener">TRANSCEND-T2D-2</a>(NCT06260722)里胜过 semaglutide 2mg。<strong>1,298</strong> 名 2 型糖尿病患者 2:2:1 随机分配到 retatrutide 9mg、12mg 或 semaglutide 2mg,80 周开放标签。A1C 变化:两个 retatrutide 剂量组都是 <strong>-2.2</strong> 个百分点,semaglutide 组 <strong>-1.8</strong>(基线 A1C 8.3%),达到非劣效、12mg 组声称优效。体重下降:9mg <strong>19.5%</strong>、12mg <strong>20.9%</strong>,semaglutide 组 <strong>9.4%</strong>。因不良反应停药率:9mg 4.8%、12mg 7.9%,semaglutide 组 2.7%,GI 副作用更常见。具体 p 值没能核实到。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零。retatrutide 是传统设计的 GIP/GLP-1/glucagon 三重激动剂肽,没有任何 AI 药物发现平台参与设计或筛选,报道里的「创新」指的是分子设计思路,不是 AI。</p>
+
+<p><strong>历史对照</strong>:这是 2021 年 tirzepatide 在 SURPASS-2 里头对头赢 semaglutide 的重演——「多一个受体、多减一点体重」这个套路在肠促胰素类药物里循环出现,和 AI 无关,是传统多靶点肽设计的军备竞赛。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
