@@ -63,3 +63,4 @@
 | 2026-10-31 | 周六·经典必读 | Automatic Chemical Design Using a Data-Driven Continuous Representation of Molecules | 10.1021/acscentsci.7b00572 / arXiv:1610.02415 | https://doi.org/10.1021/acscentsci.7b00572 |
 | 2026-11-01 | 周日·反面教材 | Evaluating generalization in protein–ligand cofolding methods(预印本:Have protein-ligand co-folding methods moved beyond memorisation?) | 10.1038/s41594-026-01797-5 / bioRxiv 10.1101/2025.02.03.636309 | https://doi.org/10.1038/s41594-026-01797-5 |
 | 2026-11-02 | 周一·表型组学与图像表征学习 | SubCell: Proteome-aware vision foundation models for microscopy capture single-cell biology | bioRxiv 10.1101/2024.12.06.627299 | https://doi.org/10.1101/2024.12.06.627299 |
+| 2026-11-03 | 周二·分子表征与性质预测 | Tabular foundation models for in-context prediction of molecular properties | arXiv:2604.16123 | https://arxiv.org/abs/2604.16123 |

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-03 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-03 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Tabular foundation models for in-context prediction of molecular properties</h3>
+<p class="meta">
+  Karim K. Ben Hicham, Jan G. Rittig, Martin Grohe, Alexander Mitsos(通讯,RWTH Aachen)· arXiv 预印本,2026-04(v1 2026-04-17,v2 2026-04-20)<br>
+  <a href="https://arxiv.org/abs/2604.16123" target="_blank" rel="noopener">arXiv:2604.16123</a>
+</p>
+
+<p><strong>核心主张</strong>:把预训练分子基础模型的 frozen embedding 直接喂给 TabPFN 这类表格基础模型做 in-context 预测,不做任何微调,在多个分子性质预测基准上就能超过微调过的分子基础模型(如 CheMeleon)和传统方法。</p>
+
+<p><strong>方法</strong>:用 CheMeleon(描述符预训练的分子基础模型)输出的 frozen embedding,以及经典 2D 描述符(Mordred)、Morgan fingerprint,分别作为表格特征,喂给 TabPFN/TabICL——这类表格基础模型在海量合成表格任务上预训练过,面对新数据集不用梯度更新,直接把训练集当 context 做 in-context 推断。拿这条路线和「在每个数据集上梯度微调 CheMeleon」的传统路线做头对头比较。</p>
+
+<p><strong>关键数字</strong>(来自两次独立搜索交叉印证,原文 arXiv 页面在此环境打不开,未能逐字核对表格,数字一致性较高但仍标注为未完全核实):MoleculeACE 30 个任务上,TabPFN+CheMeleon embedding 的「最优或与最优统计不可区分」胜率 <strong>100.0%</strong>,平均排名 <strong>4.00</strong>;微调过的 CheMeleon 胜率只有 <strong>36.7%</strong>,平均排名 <strong>7.53</strong>;TabPFN+Mordred 描述符胜率 <strong>66.7%</strong>。Polaris 基准上,TabPFN/TabICL + CheMeleon embedding 胜率都是 <strong>71.4%</strong>,微调 CheMeleon 是 <strong>46.4%</strong>。作者报告计算加速 CPU 最高 <strong>27×</strong>、GPU 最高 <strong>46×</strong>(用 2048 维 CheMeleon embedding,具体倍数随数据集大小变化)。Morgan fingerprint 表现明显更差,具体数值没能核实到。</p>
+
+<p><strong>最大方法学弱点</strong>:「赢或者和最佳统计不可区分」这个胜率定义本身很宽松——置信区间和最佳重叠就算赢,在分子性质预测这种小数据集、方差本来就大的任务上会系统性地把胜率数字拉高。更根本的是,TabPFN 的 in-context 能力建立在大量合成表格数据预训练上,没有专门的分子信号,本质是借用表格数据的归纳偏置;论文测的大多还是同分布内的 held-out split,不是真正远离训练化学空间的 scaffold-远 OOD,胜率优势在真外推场景下能保留多少不清楚。</p>
+
+<p><strong>接口</strong>:有。我们的 PGCC 形态筛选、药物筛选数据量通常是几十到几百个化合物,正是 TabPFN 类 in-context 方法设计的甜区——不用微调、直接拿 frozen embedding 做小样本预测这条路值得在自己数据上试一下。</p>
+
+<p><strong>谁在做</strong>:in-context 表格学习这条线的核心是 Frank Hutter(Freiburg)/PriorLabs 的 TabPFN 系列;分子表征这头是 Mitsos/Rittig(RWTH Aachen,化工过程系统工程背景)和 CheMeleon 背后的 Coley lab(MIT,Chemprop 团队);产业界做分子/表格基础模型结合的有 Recursion/Valence Labs(维护 Polaris 基准)。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>这篇的核心对比(TabPFN-CheMeleon 在 MoleculeACE 上 100% 胜率 vs 微调 CheMeleon 36.7%)用的是「最优或与最佳统计不可区分」这个宽松胜率定义。如果换成严格排名第一、不许打平算赢,你认为这个对比的方向会不会反转?为什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Anthropic 在 2026-10-26 提交的 IPO S-1 招股书里,把药物研发列为重点增长方向:正在自建分子生物学实验室,设想 Claude 驱动的 agent 操作显微镜、液体处理工作站、机械臂等实验设备,并引用预计 <strong>2万亿美元</strong>的 2026 年全球药企研发支出作为市场机会。招股书风险章节超过 <strong>90 页</strong>,专门提到其最先进模型可能「有意义地协助恶意行为者开发化学、生物等危险武器」,并承认相关安全防护「不完整」。具体药物候选物、适应症、已验证的分子设计成果,招股书里没有披露。</p>
+
+<p><strong>AI 真实含量</strong>:目前主要是招股书叙事和风险披露,不是已验证的科学产出。没有候选药物、没有临床数据、没有公开适应症,Claude 在药物研发里被提及的用途目前停留在实验室自动化和文档/流程层面,不是分子设计或预测本身的直接证据。</p>
+
+<p><strong>历史对照</strong>:2021 年 BenevolentAI 通过 SPAC 上市,估值约 15 亿欧元/17 亿美元(此前 2018 年一轮融资后一度被标到 20 亿美元),号称其 AI 平台发现的候选药物已进入临床。几年后股价跌去九成以上,市值跌到不足 1 亿欧元,创始人发起董事会改组。「管线愿景驱动高估值、兑现周期远超预期」这个剧本在 AI 药物研发平台公司里反复出现,值得拿来对照任何一家还在讲故事阶段的公司。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
