@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-04 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-04 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Predicting cellular responses to perturbation across diverse contexts with STATE</h3>
+<p class="meta">
+  Abhinav Adduri, Dhruv Gautam 等;通讯 Yusuf Roohani, Hani Goodarzi(Arc Institute)· bioRxiv 预印本,2025-06-26(二级信源称后刊于 <em>Cell</em>,2026,期刊版细节未独立核实)<br>
+  <a href="https://www.biorxiv.org/content/10.1101/2025.06.26.661135v2" target="_blank" rel="noopener">DOI:10.1101/2025.06.26.661135</a>
+</p>
+
+<p><strong>核心主张</strong>:给定对照细胞状态和一个扰动的编码,直接预测扰动后单细胞转录组分布的"虚拟细胞"模型,号称是第一个在多数据集上稳定超过简单线性基线的扰动预测模型。</p>
+
+<p><strong>方法</strong>:两段式。State Embedding(SE)用约 1.67 亿个未扰动的观测性单细胞转录组预训练,学出一个能跨实验、跨细胞类型迁移的细胞嵌入空间;State Transition(ST)用超过 1 亿个扰动后细胞(Tahoe-100M、Replogle-Nadig 等数据集,约 70 个细胞系)训练,输入"对照细胞 embedding + 扰动 one-hot 向量",输出扰动后细胞在同一嵌入空间里的位置,再解码回表达谱。推理时靠 SE 学到的跨 context 共性,对训练里没见过的"细胞类型 × 扰动"组合做泛化。配套发布 Cell-Eval 评估框架和 Perturbation Discrimination Score(PDS)指标。</p>
+
+<p><strong>关键数字</strong>:老实说——bioRxiv 和 arcinstitute.org 在这个环境里都被拦截,原文打不开。三个独立二级信源给出的"相对基线提升幅度"互相不一致(有说 PDS 提升超过 30%,有说超过 50%,还有中文二级报道给出 Tahoe 上 Pearson 相关性超基线 <strong>63%</strong>、PBMC 上 <strong>47%</strong>),彼此不吻合,没有一个能在原文核实到,所以不把它们当确定数字写进来。能核实到的是训练规模(约 <strong>1.67 亿</strong>观测细胞 + 超过 <strong>1 亿</strong>扰动细胞,约 <strong>70</strong> 个细胞系)和"号称第一个稳定超过线性基线"这条定性说法——这条本身也是作者自报,没查到第三方复现验证。</p>
+
+<p><strong>最大方法学弱点</strong>:PDS 这类"距离排序"指标容易被模式坍塌(mode collapse)骗过——模型只要稳定输出一个大致合理的"平均扰动后表达谱",排序类指标也能打高分,不代表真的区分出了不同扰动各自的特异效应。这不是我猜的,是另一篇 2025 年的 bioRxiv 文章(arXiv:2506.22641,<em>Diversity by Design</em>)专门论证的,State 用的评估框架正好落在它批评的范围内。</p>
+
+<p><strong>接口</strong>:弱。State 预测的是转录组,我的数据是形态/图像读出(PGCC 形态筛选、相差显微镜迁移轨迹),读出层完全不同,没有现成桥梁;但它"对照 embedding + 扰动向量 → 预测 post-perturbation 分布"这套建模范式是通用的,值得借到图像端。</p>
+
+<p><strong>谁在做</strong>:Arc Institute(Roohani/Goodarzi 组,State/Stack)目前最高调;同赛道还有 Tahoe Therapeutics(提供 Tahoe-100M 数据)、Chan Zuckerberg Biohub、Xaira Therapeutics(X-Cell)、学界的 Jure Leskovec 组(GEARS,Stanford)。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>State 的核心设计是"对照细胞 embedding + 扰动 one-hot 向量 → 预测扰动后分布",不依赖扰动的化学结构或靶点先验。如果把这套框架搬到你的 PGCC 形态筛选数据(对照孔形态分布 + 药物 one-hot → 预测给药后形态分布),第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Anthropic 在 2026-10-27 发布更新,披露与 6 家药物研发机构(Enveda、Generate Biomedicines、Divergence Labs、BigHat Biosciences、Bristol Myers Squibb、The Column Group)用 Claude 做真实项目的早期合作结果。Generate Biomedicines 团队用 Claude Code 辅助重新设计 CAR-T 的部分基因序列组件,目标是把现在主要用于血液瘤的 CAR-T 推向实体瘤。报道的数字:一个重新设计构件比标准版本短约 <strong>70%</strong>,实验室测试中让免疫细胞表达的肿瘤识别受体数量约为标准设计的 <strong>10 倍</strong>,杀伤能力和存活时间也有改善。没找到样本量、统计检验方式,也没有体内或临床数据。</p>
+
+<p><strong>AI 真实含量</strong>:是真的,不是文档层面的噱头——用 Claude Code 生成候选序列设计是这个结果的核心步骤。但这是体外结果,没有同行评审论文,信息全部来自 Anthropic 自己的博客和媒体转载,没有第三方独立验证。</p>
+
+<p><strong>历史对照</strong>:"AI 设计候选物在实验室表现亮眼、还没进临床"这一步,历史上大多数 AI 制药叙事都卡在这里——2020 年前后 Exscientia、BenevolentAI 公开的早期"AI 设计分子"案例多数体外/动物阶段表现不错,进入临床后照样被 PK、毒性、剂量问题筛掉;CAR-T 工程改造史上,体外受体表达量和杀伤力增强,也不必然带来体内持久性和疗效,这个落差反复出现。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
