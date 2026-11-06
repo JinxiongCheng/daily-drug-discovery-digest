@@ -66,3 +66,4 @@
 | 2026-11-03 | 周二·分子表征与性质预测 | Tabular foundation models for in-context prediction of molecular properties | arXiv:2604.16123 | https://arxiv.org/abs/2604.16123 |
 | 2026-11-04 | 周三·单细胞与扰动生物学 | Predicting cellular responses to perturbation across diverse contexts with STATE | bioRxiv 10.1101/2025.06.26.661135 | https://www.biorxiv.org/content/10.1101/2025.06.26.661135v2 |
 | 2026-11-05 | 周四·模型可靠性 | Evaluating batch correction methods for image-based cell profiling | 10.1038/s41467-024-50613-5 | https://www.nature.com/articles/s41467-024-50613-5 |
+| 2026-11-06 | 周五·微流控/实验平台与AI结合 | High-throughput single cell motility analysis using nanowell-in-microwells | 10.1039/D5LC00478K / bioRxiv 10.1101/2025.06.18.660403 | https://doi.org/10.1039/D5LC00478K |

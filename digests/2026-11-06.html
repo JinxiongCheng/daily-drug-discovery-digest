@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-06 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-06 · 周五</p>
+  <h1>微流控/实验平台与AI结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>High-throughput single cell motility analysis using nanowell-in-microwells</h3>
+<p class="meta">
+  Pan Deng, Wenze Lyu, Deasung Jang, Kerryn Matthews, Simon P. Duffy, Hongshen Ma(UBC)· <em>Lab on a Chip</em> 2025, 25, 3672–3681,2025-07-04 正式发表(预印本:bioRxiv 10.1101/2025.06.18.660403,2025-06-18)<br>
+  <a href="https://doi.org/10.1039/D5LC00478K" target="_blank" rel="noopener">DOI:10.1039/D5LC00478K</a> ·
+  <a href="https://www.biorxiv.org/content/10.1101/2025.06.18.660403v1" target="_blank" rel="noopener">bioRxiv</a>
+</p>
+
+<p><strong>核心主张</strong>:用纳米阱(nanowell)把单细胞物理隔离在 384 孔板里的约 1200 个微结构中,高通量地给每个细胞单独测迁移轨迹,发现同一培养条件下细胞间迁移异质性本身就很显著,并提出这类数据适合用来训练 AI 分型模型。</p>
+
+<p><strong>方法</strong>:每个 microwell 里嵌套约 70×70×60 μm 的 nanowell 阵列,把每个单细胞各自隔离开,目的是消除细胞-细胞相互作用和分割歧义,让追踪不需要复杂的多目标跟踪算法。细胞接种贴壁后,逐小时成像,连续追踪 12 小时,得到每个细胞的位置轨迹。标准培养、血清饥饿、TNF-α 刺激三种条件各在 6 个 microwell 里采集约 300 个单细胞。用 5 μm/hr 作为迁移/不迁移的速度阈值,统计各条件下超过阈值的细胞比例,并报告标准培养条件下约 <strong>93%</strong> 的细胞维持连续单一方向前向迁移(不折返、不原地绕圈)。</p>
+
+<p><strong>关键数字</strong>:约 <strong>1200</strong> 个纳米阱/384 孔板;每条件约 <strong>300</strong> 个单细胞,分布在 6 个 microwell;逐时间点追踪 <strong>12 小时</strong>;标准培养条件下约 <strong>93%</strong> 的细胞维持连续前向迁移;<strong>5 μm/hr</strong> 是迁移/不迁移的二分阈值。三种培养条件下各自确切的"迁移细胞比例"数字,我没能从摘要和二次来源核实到百分之几,这里不编,只能确认方向上血清饥饿组迁移细胞更少、TNF-α 刺激组更多。</p>
+
+<p><strong>最大方法学弱点</strong>:这是一篇平台/方法论文,它本身没有训练或验证任何 AI 模型——"这类数据适合用来训练 AI 模型识别迁移表型"是论文里的一句展望性陈述,不是已验证的结果,没有任何分类 accuracy 之类的数字支撑这句话。更根本的是,纳米阱把单细胞物理隔离开,本意是消除细胞间相互作用以简化分割和追踪,但这同时把整个测量的生物学含义锁定成"孤立单细胞的迁移能力",而不是集体迁移(collective migration)或有细胞-细胞接触时的迁移行为——后两者恰恰是侵袭、转移里更贴近真实情形的部分。最容易被滥用的外推,是直接把"孤立单细胞迁移能力"当成"侵袭能力"或"转移潜能"的代理。</p>
+
+<p><strong>接口</strong>:强,直接和我自己做的微流控迁移 assay 同类——纳米阱隔离单细胞降低分割/追踪歧义的思路,可以直接当作一个候选工程选项搬到自己平台上,而不是要去照抄它的生物学结论。</p>
+
+<p><strong>谁在做</strong>:这篇通讯作者 Hongshen Ma(UBC)的组是微流控单细胞分选/表征这块的老牌组之一;同类"单细胞迁移异质性 + 微流控"方向,我自己所在的 Yu-Chih Chen 组也在做。工业界目前没看到专门产品化"单细胞迁移表型"这一块的平台公司,这类功能更多是被整合进 Sartorius Incucyte 这类高内涵活细胞成像设备的分析软件模块里,不是独立公司的核心卖点。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>设置:同一株 MDA-MB-231 乳腺癌细胞,各自被隔离在纳米阱里(标准培养,无额外刺激、无血清饥饿),逐小时追踪 12 小时。先猜:这群彼此隔离、不受细胞间接触/拥挤影响的"自由"单细胞里,维持"连续单一方向前向迁移"(不折返、不原地绕圈)的比例大概是多少?给一个百分比区间,再往下看我会不会揭晓。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p class="notice">过去 7 天内没有搜到我能核实到具体数字、且和药物研发直接相关的新闻(搜索工具今天可用,但多次尝试都只翻到 2025 年旧闻或没有日期/数字的二次报道)。改用一条稍早、但数字扎实可核实的:Disc Medicine 的 bitopertin 在 III 期 APOLLO 试验中的 topline 结果,2026-10-19 公布,距今天约 2.5 周,如实说明不在严格的 7 天窗口内。</p>
+
+<p>183 名 12 岁以上红细胞生成性原卵紫质病(EPP)/X 连锁原卵紫质病(XLP)患者,随机、双盲、安慰剂对照。两个主要终点均达标:全血 PPIX 相对安慰剂的下降幅度,公司 topline 口径是 <strong>41.4%(p&lt;0.0001)</strong>;但另一家媒体 BioPharma Dive 给出的口径是 6 个月时约下降 <strong>46%</strong> vs 安慰剂约 <strong>4%</strong>,两个数字我没能从公开信息对齐来源,如实告知这个差异。安全性方面,没有 ≥3 级治疗相关不良事件;最常见不良反应是眩晕,约 50% 治疗组出现,多为轻中度。监管背景:FDA 今年早些时候曾就之前的申请发过 complete response letter,要求用 APOLLO 的数据把 PPIX 下降和临床结局挂钩;公司计划年底前重新提交 NDA,预计 2027 年中有决定。</p>
+
+<p><strong>AI 真实含量</strong>:基本为零。bitopertin 是经典小分子,不是生成式/机器学习设计出来的分子,这条新闻和 AI 药物发现没有关系。</p>
+
+<p><strong>历史对照</strong>:bitopertin 最早是 Roche 从 2001 年起推进的 GlyT1(glycine transporter 1)抑制剂项目,目标是提高突触甘氨酸浓度、增强 NMDA 受体功能,用于治疗精神分裂症的阴性症状。II 期有过阳性信号,但 2014 年初 Roche 宣布关键 3 期项目(SearchLyte)未能在阴性症状终点上证明疗效,同年 4 月砍掉了除一项之外的所有 3 期试验,精神分裂症这条线基本终止。真正让它翻身的,是当年试验里被当成"副作用"记录下来的一个信号——GlyT1 抑制会降低血红蛋白,机制是 GlyT1 抑制减少了甘氨酸供应,而甘氨酸是血红素(heme)合成通路的关键原料。十多年后,Disc Medicine 把这个曾被当成安全性问题的机制反过来用在 EPP 这个遗传性血红素合成通路疾病上:降低甘氨酸供应正好能压低原卵紫质(PPIX)的过量生成。一个精神科项目失败后暴露的代谢副作用,十年后成了另一个完全不同疾病领域 3 期成功的机制基础——这是"失败试验里的副作用数据本身就是信息"的一个具体例子,不靠 AI,靠的是对失败数据的重新解读。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
