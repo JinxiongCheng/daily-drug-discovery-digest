@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-09 · 周一 · 表型组学与图像表征学习</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-09 · 周一</p>
+  <h1>表型组学与图像表征学习</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Cell-DINO: Self-supervised image-based embeddings for cell fluorescent microscopy</h3>
+<p class="meta">
+  Théo Moutakanni, Camille Couprie, Seungeun Yi, Michael Doron 等(Meta FAIR 团队)· PLOS Computational Biology,2025-12-29 · DOI 10.1371/journal.pcbi.1013828<br>
+  <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013828" target="_blank" rel="noopener">journals.plos.org: 10.1371/journal.pcbi.1013828</a>
+</p>
+
+<p><strong>核心主张</strong>:用 channel-adaptive 的 DINOv2 自监督框架在无标注荧光显微图像上预训练,能学到一个可迁移到不同染色方案、不同下游任务的通用细胞图像表征,少标注场景下优势尤其明显。</p>
+
+<p><strong>方法</strong>:ViT-L/16 backbone,按 DINOv2 的 teacher-student 自蒸馏方式,在 Human Protein Atlas 单细胞数据集(HPAone)上无标注训练(约 4 张 A100、2 天,teacher EMA 权重每 9000 iter 存档)。关键设计是输入层能处理不同数量和含义的荧光通道——HPA 常见 4 通道免疫荧光(含一个蛋白通道),Cell Painting 是 5 通道有机染料——同一个 encoder 不改结构就能迁移。下游评测:蛋白亚细胞定位分类、细胞系分类,以及在 LINCS Cell Painting 数据上做化合物 MOA 预测。</p>
+
+<p><strong>关键数字</strong>:官方放出的 linear-eval checkpoint 在 HPAone 蛋白定位任务上,全标注训练 probe 可达 <strong>F1=78.5</strong>(mean per-class multilabel F1)。更关键的是少标注场景:只用 <strong>1%</strong> 标注训练 probe 时,相对监督 CNN baseline 提升 <strong>70%</strong>,相对次优自监督方法提升 <strong>24%</strong>——这两个是相对提升幅度,我没能从可访问渠道核实这两个 baseline 各自的绝对 F1 值(论文全文和 PLOS 页面在这个沙箱环境里都打不开)。在 Cell Painting/LINCS 上做 MOA 预测时,论文称同样跑赢 SimCLR、MAE、监督 CNN 和 CellProfiler,但这部分我只核实到方向性结论,没核实到绝对分数。</p>
+
+<p><strong>最大方法学弱点</strong>:模型的主训练域是 HPA 免疫荧光单细胞图(蛋白定位任务),搬到 Cell Painting 做 MOA 预测是跨通道配置的迁移。论文自己承认 embedding 不能免疫 batch effect,要让同 MOA 化合物的 embedding 聚到一起还需要额外的批次校正——"预训练表征强"和"跨 batch/跨数据集直接可用"是两件事,这篇论文容易被简化成后者。</p>
+
+<p><strong>接口</strong>:有直接接口。这类 channel-adaptive 荧光显微自监督 encoder,理论上可以直接拿来给我自己的单细胞相差图像或 PGCC 形态筛选数据做零监督/少监督特征提取,不用从头训练;下一步该做的验证就是论文里那套"1% 标注"实验设计,而不是默认预训练的就更好。</p>
+
+<p><strong>谁在做</strong>:学界这类工作目前以 Meta FAIR(DINOv2 原班团队这次转向生物荧光显微)为代表,Broad Institute 的 Carpenter-Singh lab 是 Cell Painting/JUMP-CP 标准制定方,持续产出类似基础模型的评测;业界押注通用显微基础模型路线的除 Recursion 的内部表征团队外,还有一批新兴"cell imaging foundation model"创业公司。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>如果把 Cell-DINO 这种在荧光染色图像上训练的 channel-adaptive 自监督 encoder,直接搬到你自己的单细胞相差图像(label-free,没有荧光通道信息)上做零监督特征提取,第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p class="notice">今天没能搜到近 7 天内有具体数字支撑的一手药物研发新闻(搜索工具可用,但没能定位到这一周的原始报道),换成"历史上的这几天"的替代。</p>
+
+<p>2025 年 11 月 8 日,辉瑞以总价最高达 <strong>100 亿美元</strong>收购肥胖症药物公司 Metsera,结束与诺和诺德近一个月的竞购战:辉瑞 2025 年 9 月最初出价每股 <strong>47.50 美元</strong>(约 73 亿美元),诺和诺德 10 月 30 日以每股 <strong>56.50 美元</strong>现金反超,双方 11 月 4 日同步加价,最终辉瑞胜出,诺和诺德退出。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零。这是传统多肽药物(amylin 类似物 MET-097i 等)管线并购,公开资料里看不到 AI 驱动发现的核心作用,放进这里不是因为 AI,而是作为历史对照用。</p>
+
+<p><strong>历史对照</strong>:最可比的先例是 1999-2000 年辉瑞与美国家庭用品公司争夺华纳-兰伯特(持有 Lipitor 专利)的竞购战——辉瑞最终以约 <strong>900 亿美元</strong>的全股票交易胜出,远超华纳-兰伯特原本与美国家庭用品公司约 <strong>720 亿美元</strong>的协议。两次竞购的共同模式:当某个资产被两三家巨头同时认定为"必须拿下的下一代重磅药",竞价本身会把收购价推到远超理性估值的水平——而这和药物最终是否真的成为重磅药,是两件独立的事。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
