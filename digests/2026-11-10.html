@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-10 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-10 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>TxGemma: Efficient and Agentic LLMs for Therapeutics</h3>
+<p class="meta">
+  Google DeepMind · arXiv 预印本,2025-04-08 · arXiv:2504.06196<br>
+  <a href="https://arxiv.org/abs/2504.06196" target="_blank" rel="noopener">arxiv.org/abs/2504.06196</a>
+</p>
+
+<p><strong>核心主张</strong>:把通用大语言模型(Gemma-2)直接微调成一个跨任务的"治疗学通才",同一套参数同时做分子性质预测、临床结果预测等几十个任务,不用为每个任务单独训练专用模型。</p>
+
+<p><strong>方法</strong>:在 Gemma-2(2B/9B/27B 三个尺寸)上,用 Therapeutics Data Commons(TDC)覆盖药物研发全流程的 66 个任务做指令微调,得到 TxGemma-Predict 系列;另外保留对话能力的版本叫 TxGemma-Chat(9B/27B)。再把 TxGemma 接进 Gemini 2.5 驱动的 agent 框架 Agentic-Tx,让它能调用外部工具(检索、计算器、其它预测模型)完成多步推理任务,而不只是单次打分。</p>
+
+<p><strong>关键数字</strong>:TxGemma-Predict 在 TDC 的 66 个任务上,和当时最好的"通才模型"比,<strong>64/66</strong> 打平或更好,其中 <strong>45/66</strong> 是直接胜出;换成和"专才模型"(每个任务单独训练的专用模型)比,只有 <strong>50/66</strong> 打平或更好,直接胜出的只有 <strong>26/66</strong>,不到四成。Agentic-Tx 在 Humanity's Last Exam 化学与生物子集上比 o3-mini(high)相对提升 <strong>52.3%</strong>,GPQA 化学子集相对提升 <strong>26.7%</strong>,ChemBench-Mini 拿到 <strong>84.5%</strong>,比 o3-mini(high)高 2.4 个百分点、比 GPT-4o 高 12.5 个百分点。</p>
+
+<p><strong>最大方法学弱点</strong>:Gemma-2 的预训练语料是网络规模通用文本,TDC 是公开、被广泛讨论引用的基准,论文没有做"预训练语料是否已经见过这些数据集/讨论"的去污染检查。对通才模型 64/66 的胜率,很可能部分来自预训练阶段的隐性记忆而不是对分子-性质关系的真实泛化;更诚实的信号其实是对专才模型只直接赢 26/66——换成真正没见过的新化学空间,它未必打得过一个老老实实训练出来的 GNN。</p>
+
+<p><strong>接口</strong>:没有。这是纯文本/表格性质预测,不涉及图像或细胞表型,跟微流控迁移、PGCC 形态学筛选没有直接接口。</p>
+
+<p><strong>谁在做</strong>:Google DeepMind(TxGemma、更早的 Tx-LLM)在推"通用 LLM 做治疗学"这条路线;TDC 本身由 Harvard 的 Zitnik lab 维护,是这条线的基础设施;学界做 LLM+化学评测的还有 Vector Institute、MIT 几个组在推 ChemBench 之类的榜。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>论文强调"对通才模型 64/66 打平或领先",但对专才模型只直接赢 26/66。如果你是审稿人,该对这个对比提哪条 major comment?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Recursion Pharmaceuticals 2026-11-02 在 CGA-IGC 会议公布 REC-4881 II 期 TUPELO 试验在家族性腺瘤性息肉病(FAP)扩展人群的新数据:<strong>15</strong> 名可评估成人,用药 12 周后 <strong>87%</strong>(13 人)总息肉负荷下降,中位降幅 <strong>47%</strong>,约三分之一患者降幅 <strong>≥65%</strong>;上消化道中位降幅 <strong>55%</strong>,下消化道 <strong>50%</strong>;停药 12 周后 <strong>85%</strong> 的患者仍低于基线;8 名基线有 >5mm 大息肉的患者中 6 人数量下降。开放标签、无对照,样本量很小。</p>
+
+<p><strong>AI 真实含量</strong>:中等偏低。REC-4881 本身不是 AI 设计出来的新分子——它是 Takeda 十多年前为实体瘤开发、后来搁置的老化合物 TAK-733(MEK1/2 抑制剂)。Recursion 的 AI 贡献是用早期表型筛选平台(Recursion OS v0.1)在 APC 缺陷细胞模型里做高内涵图像筛选,把这个老药重新定位到 FAP 这个新适应症——本质是 AI 辅助的老药新用,不是从头分子设计。</p>
+
+<p><strong>历史对照</strong>:老药新用比 AI 筛选早几十年。经典案例是西地那非(sildenafil)本来是心绞痛药,副作用被发现后转向勃起功能障碍;AI 相关的先例是 BenevolentAI 用知识图谱在 2020 年初从已有药物库里挑出 baricitinib 用于 COVID-19,后来真的拿到了 EUA。REC-4881 走的是同一条老路,AI 只是换了一种筛选工具,不改变"重新定位"这个策略的本质。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
