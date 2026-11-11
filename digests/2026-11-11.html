@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-11 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-11 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Systema: a framework for evaluating genetic perturbation response prediction beyond systematic variation</h3>
+<p class="meta">
+  EPFL mlbio 组 · Nature Biotechnology,2025(在线发表) · DOI:10.1038/s41587-025-02777-8<br>
+  <a href="https://doi.org/10.1038/s41587-025-02777-8" target="_blank" rel="noopener">doi.org/10.1038/s41587-025-02777-8</a>
+</p>
+
+<p><strong>核心主张</strong>:现有单细胞扰动响应预测基准(用 CPA、GEARS、scGPT 测)拿到的高分,很大程度上只是在复现对照组和扰动组之间本来就存在的系统性差异(systematic variation),不是真的学到了基因特异性的扰动效应。</p>
+
+<p><strong>方法</strong>:在多个 Perturb-seq 数据集上,先定义一个"系统性差异"指标——扰动细胞群和对照细胞群之间的平均 cosine 距离。再看这个指标和常规打分(以 control centroid 为参照算的 Pearson_Δ)之间的相关性。然后改用 perturbed centroid 做参照重新计算 Pearson_Δ,并加一个新指标 centroid accuracy(预测谱是不是离正确的那个扰动质心最近),对比换参照点前后,模型分数被系统性差异"解释"掉的程度有没有下降。</p>
+
+<p><strong>关键数字</strong>:用传统 control-centroid 参照时,系统性差异指标和 fine-tuned scGPT 分数的相关性 <strong>r=0.91</strong>,和 GEARS 的相关性 <strong>r=0.95</strong>——两个模型的得分几乎完全能被数据集本身的系统性差异预测出来。换成 perturbed-centroid 参照后,这个相关性平均降到 <strong>r≈0.21</strong>。同时,non-control mean 这类不学习的简单 baseline,在不少数据集上和 CPA/GEARS/scGPT 打平甚至更好。</p>
+
+<p><strong>最大方法学弱点</strong>:用 perturbed centroid 做参照来打分,本质上要求你已经知道测试扰动组的质心在哪——这在"预测完全未见过的扰动"这个最该被关心的场景里,等于悄悄往评估里塞进了一部分答案。它把"过度拟合系统性差异"换成了另一种新的乐观偏差,而不是真正解决了泛化问题。</p>
+
+<p><strong>接口</strong>:没有直接接口。我的迁移轨迹和 PGCC 形态学数据不是转录组扰动预测。但它审查"分数是不是其实在测混杂变量"的逻辑,和我自己用 Z-score/SSMD 判断药筛 hit 是不是真被批次效应撬动,是同一类问题,方法论值得搬。</p>
+
+<p><strong>谁在做</strong>:这类"揭穿 benchmark 虚高"的评估批判性工作目前主要是做基准设施的学术组在推——EPFL 的 mlbio-epfl(这篇作者组)、Helmholtz 的 Theis lab、Arc Institute 的虚拟细胞挑战赛团队。工业界(Recursion、Arc 的 STATE/Stack 系列)还是以推新模型为主,自我批判性评估目前基本是学界在做。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>Systema 的结论建立在"把 Pearson_Δ 的参照点从 control centroid 换成 perturbed centroid"这一个设计选择上。如果把这个选择反过来(退回传统的 control centroid 参照),文章说的"模型分数主要被系统性差异撬动"这个结论,具体是在哪一步会翻过来?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>Laboratoires Pierre Fabre 与 XtalPi(港股 2228.HK)11 月 9 日宣布一项 AI 驱动的小分子肿瘤药物发现合作,未来可能延伸到皮肤病学和罕见病。分工:XtalPi 用其"AI+机器人"平台针对未公开靶点设计小分子,Pierre Fabre 负责化合物筛选、临床与商业化开发。协议含首付款、里程碑付款和后续经济分成,但双方均未披露具体金额,目前没有候选分子进入临床——这是签约阶段,不是读出。</p>
+
+<p><strong>AI 真实含量</strong>:核心环节确实是 AI——XtalPi 平台把量子物理模拟、机器学习预测和自动化机器人筛选结合起来做分子设计,不是挂名代工。但现在只有合作框架,没有临床数据能验证这套平台设计出的分子比传统方法更快或更准,AI 的贡献还停留在"design"这一端,未经人体验证。</p>
+
+<p><strong>历史对照</strong>:"大药企 + AI 平台公司,小首付 + 大里程碑"这种结构过去十年反复出现。Sanofi 与 Exscientia 2022 年那笔协议,首付仅 <strong>1 亿美元</strong>、里程碑总额最高 <strong>52 亿美元</strong>,覆盖肿瘤和免疫领域最多 15 个小分子项目;多数这类协议的里程碑从未真正兑现,因为绝大多数候选分子在临床前或早期临床就被淘汰。首付款规模普遍偏小,本身就反映了行业对"AI 能不能真的提速"仍然谨慎。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

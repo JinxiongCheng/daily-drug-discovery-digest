@@ -71,3 +71,4 @@
 | 2026-11-08 | 周日·反面教材 | PertEval-scFM: Benchmarking Single-Cell Foundation Models for Perturbation Effect Prediction | bioRxiv 10.1101/2024.10.02.616248(NeurIPS 2024 Workshop / ICML 2025, PMLR v267) | https://www.biorxiv.org/content/10.1101/2024.10.02.616248 |
 | 2026-11-09 | 周一·表型组学与图像表征学习 | Cell-DINO: Self-supervised image-based embeddings for cell fluorescent microscopy | 10.1371/journal.pcbi.1013828 | https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013828 |
 | 2026-11-10 | 周二·分子表征与性质预测 | TxGemma: Efficient and Agentic LLMs for Therapeutics | arXiv:2504.06196 | https://arxiv.org/abs/2504.06196 |
+| 2026-11-11 | 周三·单细胞与扰动生物学 | Systema: a framework for evaluating genetic perturbation response prediction beyond systematic variation | 10.1038/s41587-025-02777-8 | https://doi.org/10.1038/s41587-025-02777-8 |
