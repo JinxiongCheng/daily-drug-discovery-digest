@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-12 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-12 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>KMM-CP: Practical Conformal Prediction under Covariate Shift via Selective Kernel Mean Matching</h3>
+<p class="meta">
+  Siddhartha Laghuvarapu, Rohan Deb, Jimeng Sun(UIUC) · UAI 2026,PMLR v337:3237-3261 · arXiv:2603.26415<br>
+  <a href="https://arxiv.org/abs/2603.26415" target="_blank" rel="noopener">arxiv.org/abs/2603.26415</a>
+</p>
+
+<p><strong>核心主张</strong>:分子性质预测模型遇到 covariate shift(训练/测试输入分布不同)时,标准 weighted conformal prediction 靠估计 density ratio r(x)=p_test(x)/p_calib(x) 来恢复覆盖率保证,但训练/测试支持重叠低时这个比值在边缘区域会爆炸,估计不稳,覆盖率照样失准。</p>
+
+<p><strong>方法</strong>:KMM-CP 不估计 density ratio,而是在 RKHS 里给校准集重新加权,让加权后校准分布的 kernel mean embedding 匹配测试分布(最小化 MMD),再用这组权重做 split conformal。另加一个 selective 组件:先判断测试点是否落在校准集可靠支持重叠区域内,只在这个子集做校正,重叠本来就低的区域不强行外推纠正。</p>
+
+<p><strong>关键数字</strong>:论文摘要、第三方评测聚合站 alphaxiv、以及 curated 清单 valeman/awesome-conformal-prediction 三个独立来源一致给出同一数字——在有明显 covariate shift 的分子性质预测基准上,相对标准 weighted conformal 基线,KMM-CP 把覆盖率 gap 降低<strong>超过 50%</strong>。但我没能打开论文正文或 PMLR 全文(proceedings.mlr.press、openreview.net、作者 GitHub 在这个环境里都连不上),具体用了哪几个数据集、单个数据集的覆盖率数字,这些我没核实到。</p>
+
+<p><strong>最大方法学弱点</strong>:"降超过 50%"是相对基线的相对改善,不是绝对覆盖率达标保证;selective 机制本身需要一个"支持重叠是否可靠"的判断阈值,论文给的是渐近覆盖率分析,渐近保证在高维分子特征空间里常常不紧,容易被误读成"任意程度 covariate shift 都能兜底"。</p>
+
+<p><strong>接口</strong>:这是不需要重训练、只对校准集重新加权的后处理方法,理论上能套在任何黑箱模型输出上做区间估计。但它处理的是表格/分子特征空间的 covariate shift,不是我更常遇到的"细胞图像批次效应"——那条路通常走 batch correction 或 domain generalization,要用上 KMM-CP 得先把图像域偏移转成明确的特征空间协变量偏移,这一步不是免费的,接口偏弱。</p>
+
+<p><strong>谁在做</strong>:学界这个方向 UIUC Jimeng Sun 组是代表;工业界 Novartis 的 UQ 团队在用 UNIQUE 基准系统评估不同方法在 data shift 下的表现;更底层的 conformal prediction 理论工作集中在统计系(Berkeley、Stanford),分子/药物应用层目前还比较分散。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>目标覆盖率 90%。在支持重叠低的 covariate shift 下,标准 density-ratio 加权的 weighted conformal prediction 基线,实际覆盖率往往明显低于 90%。<br><br>先猜:这个基线大概会掉到多少?给个数量级(比如"70%左右"还是"85%左右")。猜完我告诉你,KMM-CP 把 gap 降超过 50%意味着什么量级的恢复。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>InnoCare(诺诚健华)11 月 5 日发布 orelabrutinib(BTK 抑制剂)治疗慢性原发性免疫性血小板减少症(ITP)的 III 期关键性注册试验顶线结果:主要终点 durable response(双盲期最后 12 周 6 次访视中 4 次血小板 ≥50×10⁹/L,无需救援治疗),orelabrutinib 组达到率 <strong>32.8%</strong>,高于安慰剂组 <strong>25.5 个百分点</strong>(p=0.0001)。多个次要终点也达到,安全性与安慰剂相当。中国 NDA 已受理,完整数据 12 月 14 日 ASH 口头报告。</p>
+
+<p><strong>AI 真实含量</strong>:没有。orelabrutinib 是传统小分子 BTK 抑制剂,这是标准随机双盲 III 期读出,靶点选择和化合物优化都是经典 med-chem 路线。</p>
+
+<p><strong>历史对照</strong>:BTK 抑制剂是"first-in-class 之后多代 fast-follower"的典型。2013 年 ibrutinib 首个获批证明不可逆共价抑制可行,此后 acalabrutinib、zanubrutinib、orelabrutinib、rilzabrutinib 陆续跟进,卖点是选择性更好、适应症从肿瘤扩展到自身免疫病。公开报道把这次结果拿来和已获批的 rilzabrutinib 比,但两者非头对头,跨试验比较不严谨。这种迭代节奏远早于 AI 进入药物发现,提醒我很多"新药"故事本质仍是渐进式优化。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
