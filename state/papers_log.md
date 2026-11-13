@@ -73,3 +73,4 @@
 | 2026-11-10 | 周二·分子表征与性质预测 | TxGemma: Efficient and Agentic LLMs for Therapeutics | arXiv:2504.06196 | https://arxiv.org/abs/2504.06196 |
 | 2026-11-11 | 周三·单细胞与扰动生物学 | Systema: a framework for evaluating genetic perturbation response prediction beyond systematic variation | 10.1038/s41587-025-02777-8 | https://doi.org/10.1038/s41587-025-02777-8 |
 | 2026-11-12 | 周四·模型可靠性 | KMM-CP: Practical Conformal Prediction under Covariate Shift via Selective Kernel Mean Matching | arXiv:2603.26415 / PMLR v337 (UAI 2026) | https://arxiv.org/abs/2603.26415 |
+| 2026-11-13 | 周五·微流控/实验平台与AI结合 | High-throughput single-cell density measurements enable dynamic profiling of immune cell and drug response from patient samples | 10.1038/s41551-025-01408-6 / bioRxiv 10.1101/2024.04.25.591092 | https://www.nature.com/articles/s41551-025-01408-6 |
