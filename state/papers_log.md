@@ -75,3 +75,4 @@
 | 2026-11-12 | 周四·模型可靠性 | KMM-CP: Practical Conformal Prediction under Covariate Shift via Selective Kernel Mean Matching | arXiv:2603.26415 / PMLR v337 (UAI 2026) | https://arxiv.org/abs/2603.26415 |
 | 2026-11-13 | 周五·微流控/实验平台与AI结合 | High-throughput single-cell density measurements enable dynamic profiling of immune cell and drug response from patient samples | 10.1038/s41551-025-01408-6 / bioRxiv 10.1101/2024.04.25.591092 | https://www.nature.com/articles/s41551-025-01408-6 |
 | 2026-11-14 | 周六·经典必读 | Diagnosing the decline in pharmaceutical R&D efficiency | 10.1038/nrd3681 | https://doi.org/10.1038/nrd3681 |
+| 2026-11-15 | 周日·反面教材 | GEOM-Drugs Revisited: Toward More Chemically Accurate Benchmarks for 3D Molecule Generation | 10.1039/D5DD00206K / arXiv:2505.00169 | https://doi.org/10.1039/D5DD00206K |
