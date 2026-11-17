@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-17 · 周二 · 分子表征与性质预测</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-17 · 周二</p>
+  <h1>分子表征与性质预测</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Do Larger Models Really Win in Drug Discovery? A Benchmark Assessment of Model Scaling in AI-Driven Molecular Property and Activity Prediction</h3>
+<p class="meta">
+  Jinjiang Guo, Sheng Ding(Global Health Drug Discovery Institute / 清华大学)· arXiv:2604.26498(v3,2026 年 6 月修订,4 月 29 日首次提交)<br>
+  <a href="https://arxiv.org/abs/2604.26498" target="_blank" rel="noopener">arxiv.org/abs/2604.26498</a>
+</p>
+
+<p><strong>核心主张</strong>:在分子性质与活性预测任务上,模型越大、越"通用"不等于预测效果越好——预测性能取决于模型、任务和验证场景三者是否匹配,不取决于参数规模。</p>
+
+<p><strong>方法</strong>:在 22 个分子性质/活性预测任务上做系统对比,任务来源包括公开 ADMET 基准、Tox21,以及两个内部抗感染活性数据集。对比三类模型:(1)基于 RDKit 描述符的经典机器学习模型,代表是 ExtraTrees;(2)图神经网络,代表是 GIN 和 Ligandformer;(3)参数量更大的预训练分子序列/语言模型,代表是 MoLFormer 和 ChemBERTa2。另外设了 LLM-based SAR 推理基线,看大模型能不能靠零样本推理替代训练好的预测模型。</p>
+
+<p><strong>关键数字</strong>:在 22 个任务的主评价指标上,ExtraTrees(RDKit 描述符)拿下 <strong>10</strong> 个任务的最优成绩,GNN 类模型拿下 <strong>9</strong> 个,预训练分子序列模型只拿下 <strong>3</strong> 个。LLM-based SAR 基线在主预测指标上没有一次超过训练好的最优模型,其价值被归纳为"假设生成和 SAR 解读",而不是预测本身。</p>
+
+<p><strong>最大方法学弱点</strong>:论文用"赢了几个任务"这种计数指标来下结论,但没有报告每个任务上赢/输的效应量或显著性检验——赢的任务可能只赢一点点,输的任务可能输得很多,计数本身掩盖了这个信息。另外两个内部抗感染数据集不公开,其划分方式(是否 scaffold split、是否有时间顺序)未披露,第三方无法复现,结论的可信区间打了折扣。</p>
+
+<p><strong>接口</strong>:没有直接接口。这篇是分子端性质预测的方法学评测,跟我现在做的细胞图像/迁移轨迹数据没有方法学交叉,但对我以后判断"这个任务要不要上大模型"这个决策有参考价值。</p>
+
+<p><strong>谁在做</strong>:这类"质疑规模崇拜"的评测工作目前主要是学界和非营利药物研发机构的交叉团队在做,比如清华大学和 Global Health Drug Discovery Institute 这类团队。工业界的分子基础模型路线(Uni-Mol、MolGPS、CheMeleon 这些)仍然在推更大模型、更大预训练语料,两条路线目前在打对台。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>这篇论文用"赢了几个任务"(10 / 9 / 3)这个计数指标,得出"越大不代表越好"的结论。如果你是审稿人,针对这个指标本身,你会提哪一条 major comment?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>FDA 于 2026 年 11 月 14 日前后对 Summit Therapeutics / Akeso 的依沃西单抗(ivonescimab,PD-1×VEGF 双抗)在 EGFR 突变非小细胞肺癌二线治疗适应症上发出完全回复信(CRL),拒绝批准。III 期 HARMONi 试验的主要终点 PFS 达标:<strong>HR=0.52(95% CI 0.41–0.66,p&lt;0.00001)</strong>,中位 PFS <strong>6.8 个月 vs 4.4 个月</strong>。但次要终点 OS 未达统计学预设阈值:<strong>HR=0.79(95% CI 0.62–1.01,p=0.057)</strong>,而统计分析计划要求 p≤0.0448 才算显著(后续加入更多西方患者随访后 HR 改善到 0.78,nominal p=0.0332,但这不是预设的主分析)。FDA 的立场是:没有统计学显著的 OS 获益,单靠 PFS 不足以构成"实质性有效证据"。</p>
+
+<p><strong>AI 真实含量</strong>:几乎为零。依沃西单抗是传统抗体工程路线开发的双特异性抗体,这条新闻的核心是统计学和监管问题——替代终点(PFS)能不能换来真实终点(OS)的批准,跟 AI 方法没有关系。</p>
+
+<p><strong>历史对照</strong>:2008 年 FDA 基于 E2100 试验(中位 PFS 延长 5.5 个月、无统计学显著 OS 获益)加速批准贝伐珠单抗(Avastin)用于转移性乳腺癌。后续确证性试验依然没能证实 OS 获益,FDA 于 <strong>2011 年 11 月 18 日</strong>撤销了这一适应症——几乎正好是 15 年前的今天。PFS 获益不会自动兑现成 OS 获益和监管批准,这个教训这周又在依沃西单抗身上重演了一遍。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
