@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-18 · 周三 · 单细胞与扰动生物学</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-18 · 周三</p>
+  <h1>单细胞与扰动生物学</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Tahoe-100M: A Giga-Scale Single-Cell Perturbation Atlas for Context-Dependent Gene Function and Cellular Modeling</h3>
+<p class="meta">
+  Tahoe Therapeutics(原 Vevo Therapeutics)团队 · bioRxiv 预印本,DOI 10.1101/2025.02.20.639398(作者名单因 biorxiv.org 被沙箱拦截没能核实,只核实到标题、DOI 和产出机构)<br>
+  <a href="https://doi.org/10.1101/2025.02.20.639398" target="_blank" rel="noopener">doi.org/10.1101/2025.02.20.639398</a>
+</p>
+
+<p>Tahoe-100M 用工业化规模的 pooled 单细胞测序,给"小分子×癌细胞系"建了目前最大的公开扰动图谱,作虚拟细胞模型的训练底料。</p>
+
+<p><strong>方法</strong>:Tahoe Therapeutics(原 Vevo)用 Mosaic 平台把最多 <strong>50</strong> 个癌细胞系混养进同一 well,每 well 加一种小分子(<strong>1,100+</strong> 化合物、多剂量),靠每系自带的 SNP 指纹把测序 reads 退卷积回其细胞系身份;捕获用 Parse Biosciences 组合索引,测序用 Ultima Genomics 降成本。</p>
+
+<p><strong>关键数字</strong>:Arc Institute 在 GitHub 的数据集说明(可核实,github.com/ArcInstitute/arc-virtual-cell-atlas)给出细胞数 <strong>100,648,790</strong>、样本数 <strong>1,344</strong>。50 系、1,100+ 化合物在多个二级来源一致出现,但 biorxiv.org 被拦截,论文自己报的基准/复现相关系数我没核实到。</p>
+
+<p><strong>最大方法学弱点</strong>:全部背景是体外癌细胞系且故意混养测序,图谱只回答"某小分子在这几十个细胞系基因型下怎么扰动转录组",没验证能否迁移到原代组织、有免疫环境的真实肿瘤或正常细胞。规模大不等于代表性广。</p>
+
+<p><strong>接口</strong>:没有。这是培养癌细胞系的转录组扰动图谱,不是影像数据,和我做的迁移/形态学读出不交叠。</p>
+
+<p><strong>谁在做</strong>:Tahoe Therapeutics 产数据,Arc Institute 纳入 Virtual Cell Atlas 并联合推 STATE/SCALE;学术界多是下游用它做预训练。</p>
+
+<h2>五分钟判断题(换域)</h2>
+
+<div class="question-box">
+  <p>如果把 Tahoe-100M 这种"大规模扰动图谱+预训练表征"的思路搬到你自己的数据(单细胞相差图像/微流控迁移轨迹/PGCC 形态筛选)上,第一个会崩掉的假设是什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>事件:11 月 18 日 Recursion 宣布与 FDA 就 REC-4881(MEK1/2 抑制剂)治疗家族性腺瘤性息肉病的 III 期设计达成一致,2027 下半年启动。此前 Phase 1b/2 数据:<strong>12</strong> 名可评估患者 <strong>12</strong> 周息肉负荷中位数降 <strong>43%</strong>。终点细节一手稿件被拦截没核实到。</p>
+
+<p><strong>AI 含量</strong>:REC-4881 即 TAK-733,是 Takeda 的老 MEK 抑制剂,不是 AI 设计分子。Recursion 用 phenomics 图像筛选把老药匹配到 FAP 新适应症,是 AI 驱动老药新用,不是 AI 设计新药。</p>
+
+<p><strong>历史对照</strong>:老药意外找到新适应症不新鲜,西地那非从心绞痛失败药变成万艾可是经典案例,区别是这次用系统筛选替代了偶然撞见。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
