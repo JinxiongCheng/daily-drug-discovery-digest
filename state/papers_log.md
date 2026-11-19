@@ -79,3 +79,4 @@
 | 2026-11-16 | 周一·表型组学与图像表征学习 | ViTally Consistent: Scaling Biological Representation Learning for Cell Microscopy | arXiv:2411.02572(ICML 2025) | https://arxiv.org/abs/2411.02572 |
 | 2026-11-17 | 周二·分子表征与性质预测 | Do Larger Models Really Win in Drug Discovery? A Benchmark Assessment of Model Scaling in AI-Driven Molecular Property and Activity Prediction | arXiv:2604.26498(v3) | https://arxiv.org/abs/2604.26498 |
 | 2026-11-18 | 周三·单细胞与扰动生物学 | Tahoe-100M: A Giga-Scale Single-Cell Perturbation Atlas for Context-Dependent Gene Function and Cellular Modeling | bioRxiv 10.1101/2025.02.20.639398 | https://doi.org/10.1101/2025.02.20.639398 |
+| 2026-11-19 | 周四·模型可靠性 | Clever Hans in Chemistry: Chemist Style Signals Confound Activity Prediction on Public Benchmarks | arXiv:2512.20924 | https://arxiv.org/abs/2512.20924 |

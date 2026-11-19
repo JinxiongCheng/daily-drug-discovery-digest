@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-19 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-19 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Clever Hans in Chemistry: Chemist Style Signals Confound Activity Prediction on Public Benchmarks</h3>
+<p class="meta">
+  Andrew D. Blevins, Ian K. Quigley(Leash Biosciences) · arXiv:2512.20924(2025年12月)<br>
+  <a href="https://arxiv.org/abs/2512.20924" target="_blank" rel="noopener">arxiv.org/abs/2512.20924</a>
+</p>
+
+<p>公开 ChEMBL 类活性数据库里,"这个分子是哪个化学家做的"这一身份信号本身就能相当程度地预测活性标签,说明很多"结构-活性"模型其实学的是数据集的社会学(谁在追哪个靶点、哪条化学系列),不是化学。</p>
+
+<p><strong>方法</strong>:两阶段。Stage 1 只用分子指纹(结构)预测这个分子出自哪位化学家——基于 ChEMBL 的作者归属做了一个 1,815 类多分类器。Stage 2 完全不用分子结构,只拿 stage 1 输出的作者概率向量加上蛋白靶点 ID 去预测活性。</p>
+
+<p><strong>关键数字</strong>:Stage 1 在 scaffold-split 下 top-5 准确率达到 <strong>60%</strong>。Stage 2 不看结构、只看"谁做的+打哪个靶",预测活性的表现逼近直接用 ECFP 结构指纹做预测的 baseline(多个二级来源一致描述为"AUROC 在 0.65 附近",但这个数字我没能在原文或一手图表上核实,只核实到"接近baseline"这个方向性结论)。把 ECFP 加回作者概率向量里,只带来有限的额外提升——这个"有限"具体多少我也没核实到,arxiv.org 被沙箱拦截,bytez/alphaxiv/themoonlight/emergentmind/deeppaper 等镜像站全部解析不到域名,只能靠 WebSearch 摘要片段交叉印证。</p>
+
+<p><strong>最大方法学弱点</strong>:作者归属是个不完美的代理。论文署名里混着真正合成分子的化学家和挂名的 PI、测序员等非合成贡献者,所以"author identity"信号很可能部分就是"哪个课题组用哪条assay、哪批试剂"的技术性批次效应,被论文框成了"模型学会了社会学"这种更戏剧性的叙事,但本质上这仍然是没控制好的批次混杂,而不是全新的现象。</p>
+
+<p><strong>接口</strong>:间接有。这提醒我在做形态学/迁移筛选的 benchmark 时,要去查"操作员/实验批次"身份是否和标签系统性相关——这是批次效应的一种特殊形式(谁做的实验 vs 哪天做的实验),思路可以直接搬,但数据形态完全不同,不能复用他们的管线。</p>
+
+<p><strong>谁在做</strong>:这类"揭public benchmark里的shortcut learning"的工作,目前主要是 Leash Biosciences 这种做大规模 DNA-encoded library 筛选数据的小型AI-native公司,以及少数学术方法学批评者在推。大药厂基本不发这种自曝家丑的论文。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>这篇的核心结论建立在 <strong>scaffold-split</strong> 下 author 概率向量几乎打平 ECFP 结构 baseline。如果把 split 换成随机 split(而不是 scaffold-split),这个"author identity 信号几乎等价于结构信号"的结论最可能往哪个方向翻,为什么?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p>事件:FDA 11月16日批准 Roche/Genentech 的 giredestrant(商品名 Wilserdly)联合 everolimus,用于 ESR1 突变的晚期/复发乳腺癌。基于 III 期 evERA 试验,共入组 <strong>373</strong> 名患者,其中 <strong>207</strong> 名为 ESR1 突变亚组。ESR1 突变亚组中,giredestrant 组相比标准内分泌治疗,疾病进展或死亡风险降低 <strong>62%</strong>;意向性治疗(全人群)分析里降低 <strong>44%</strong>。口服,<strong>30mg</strong> 每日一次。</p>
+
+<p><strong>AI 含量</strong>:几乎没有。giredestrant 是基于已知雌激素受体结构做的经典结构导向优化(优化口服生物利用度的小分子 SERD 化学),整个审批报道里没有出现任何 AI/ML 相关描述。</p>
+
+<p><strong>历史对照</strong>:第一个 SERD fulvestrant 2002 年在美国获批,但口服生物利用度太差,只能做成每月一次的肌肉注射剂。此后行业用了二十多年才做出能口服给药的 SERD,giredestrant 就是走到获批的其中一个。靶点和作用机制二十多年前就搞清楚了,纯粹的药代动力学优化——跟AI毫无关系——照样能卡住一整类药物二十多年。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
