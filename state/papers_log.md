@@ -81,3 +81,4 @@
 | 2026-11-18 | 周三·单细胞与扰动生物学 | Tahoe-100M: A Giga-Scale Single-Cell Perturbation Atlas for Context-Dependent Gene Function and Cellular Modeling | bioRxiv 10.1101/2025.02.20.639398 | https://doi.org/10.1101/2025.02.20.639398 |
 | 2026-11-19 | 周四·模型可靠性 | Clever Hans in Chemistry: Chemist Style Signals Confound Activity Prediction on Public Benchmarks | arXiv:2512.20924 | https://arxiv.org/abs/2512.20924 |
 | 2026-11-20 | 周五·微流控/实验平台与AI结合 | Dissecting Exosomal–Tumoral–Vascular Interactions of Single Tumor Cells and Clusters Using a Tumoral-Transendothelial Migration Chip | 10.1021/acsnano.5c02557 | https://pubs.acs.org/doi/10.1021/acsnano.5c02557 |
+| 2026-11-21 | 周六·经典必读 | Can Animal Models of Disease Reliably Inform Human Studies? | 10.1371/journal.pmed.1000245 | https://doi.org/10.1371/journal.pmed.1000245 |
