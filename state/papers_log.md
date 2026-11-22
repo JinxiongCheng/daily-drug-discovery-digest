@@ -82,3 +82,4 @@
 | 2026-11-19 | 周四·模型可靠性 | Clever Hans in Chemistry: Chemist Style Signals Confound Activity Prediction on Public Benchmarks | arXiv:2512.20924 | https://arxiv.org/abs/2512.20924 |
 | 2026-11-20 | 周五·微流控/实验平台与AI结合 | Dissecting Exosomal–Tumoral–Vascular Interactions of Single Tumor Cells and Clusters Using a Tumoral-Transendothelial Migration Chip | 10.1021/acsnano.5c02557 | https://pubs.acs.org/doi/10.1021/acsnano.5c02557 |
 | 2026-11-21 | 周六·经典必读 | Can Animal Models of Disease Reliably Inform Human Studies? | 10.1371/journal.pmed.1000245 | https://doi.org/10.1371/journal.pmed.1000245 |
+| 2026-11-22 | 周日·反面教材 | Identifying and Addressing Systematic Data Leakage in Protein-Ligand Affinity Benchmarks | bioRxiv DOI:10.64898/2026.06.29.735309 | https://www.biorxiv.org/content/10.64898/2026.06.29.735309v1 |

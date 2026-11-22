@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-22 · 周日 · 反面教材</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-22 · 周日</p>
+  <h1>反面教材</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Identifying and Addressing Systematic Data Leakage in Protein-Ligand Affinity Benchmarks</h3>
+<p class="meta">
+  Björn Mattsson, W. Patrick Walters · bioRxiv 预印本,2026-06-29 · DOI: 10.64898/2026.06.29.735309<br>
+  <a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735309v1" target="_blank" rel="noopener">biorxiv.org/content/10.64898/2026.06.29.735309v1</a>
+</p>
+
+<p>蛋白-配体结合亲和力预测的 benchmark 按蛋白序列相似度做 train/test split,不足以防止数据泄漏——因为"target mirroring":序列相似度很低的同源蛋白,结合谱也可能高度相关。</p>
+
+<p><strong>方法</strong>:对 ChEMBL36 做 meta 分析,系统比较不同蛋白对之间结合谱的相关性,找出哪些蛋白对即使序列 identity 很低仍高度 correlated。再构造一个完全不用蛋白结构/序列信息、只看配体特征的 baseline,跑两个业界常用亲和力 benchmark(FEP+ 4、OpenFE),分数越高说明"模型学到了 protein-ligand interaction"这个叙事里有多少其实是配体侧信号泄漏撑出来的。最后提出 Novelty-Tiered Affinity Benchmark(NTAB):按配体相对训练集的 novelty 分层,并用 assay 发表时间做 time split(训练集早于 2022、验证集 2022、测试集 2023 起)来堵这个漏洞。</p>
+
+<p><strong>关键数字</strong>:ChEMBL36 里找到超过 <strong>6000</strong> 对存在 target mirroring 的 assay pair,这种泄漏在序列 identity 阈值低至 <strong>0.2</strong>(远低于 benchmark 常用的 ~30%-40% 阈值)时依然存在;完全不看蛋白质的 ligand-only baseline 在 FEP+ 4 上拿到 <strong>r=0.66</strong>,在 OpenFE 上 <strong>r=0.36</strong>。</p>
+
+<p><strong>最大方法学弱点</strong>:这是 bioRxiv 预印本,未经同行评审;作者之一 Walters 本身就是以审计/打假 benchmark 著称的独立评论者,这类工作天然倾向挑排行榜上最显眼的旗舰 benchmark 来演示失败,不代表所有发表过的亲和力预测方法都受同等程度影响。更值得警惕的是,他们提出的 NTAB 把"novelty"定义成某种分子相似度度量下的分层——这个度量和阈值的选择本身也可能引入新的、形式不同的泄漏,跟他们批评的"序列 identity 阈值不够严"是同一类问题,只是换了个轴。</p>
+
+<p><strong>接口</strong>:没有直接接口。这是蛋白-配体亲和力 benchmark 特有的问题,不涉及图像或迁移轨迹数据。唯一的迁移价值:以后看到任何声称"按 X 做了 split 所以不泄漏"的论文,都要多问一句"X 这个轴和结果真的独立吗",不是看到 split 这个词就放心。</p>
+
+<p><strong>谁在做</strong>:这类 benchmark 审计/揭穿泄漏的工作,主要是独立研究者和公司内部的计算化学批评者在做——Pat Walters(现独立顾问,曾任 Vertex/Relay Therapeutics 计算化学负责人,写 Practical Cheminformatics 博客)是这个圈子里最活跃的一个;被审视的一方是 OpenFE 联盟和 Schrödinger(FEP+)这类 benchmark/软件维护方;学界做类似诊断的还有 LIT-PCBA 泄漏审计一派,以及最近 NeurIPS/ICML 上那篇关于 misaligned baselines 的 position paper。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>反着问:如果某个模型的 ligand-only baseline 分数很低,能据此断定它真学到了蛋白-配体结合界面吗?这步反推在哪一环最站不住?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>事件</strong>:2026 年 11 月 19 日,Isomorphic Labs 与 Merck(MSD)宣布战略研究合作,共同开发针对一个未披露、"具有战略重要性"的 oncology 靶点的小分子候选药物。Isomorphic 用其 AI 药物设计引擎 IsoDDE 做 in silico 预测和分子设计,结合 MSD 提供的 proprietary 数据;MSD 负责 preclinical/临床开发、生产和商业化。Isomorphic 获得 upfront 付款 + 研发/注册/商业里程碑付款 + 销售分成,具体金额未披露。这笔交易发生在 Isomorphic 刚完成约 50 亿美元融资后几天。</p>
+
+<p><strong>AI 含量</strong>:目前只是签约公告,没有任何 preclinical 或临床数据能验证 IsoDDE 设计的分子真的更好——AI 在这里的"贡献"还停留在未经验证的承诺阶段,不是已证实的结果。</p>
+
+<p><strong>历史对照</strong>:这和上世纪 90 年代 combinatorial chemistry 平台公司(如 ArQule、Pharmacopeia)靠连续签大药厂多靶点研究合作来证明技术路线的模式几乎一样——那批合作里大多数靶点最终没有产出上市药物。行业后来的共识是:平台授权协议本身不能证明技术有效,只有临床成功率才算数。</p>
+
+<h2>本周复盘(周日)</h2>
+
+<ol>
+  <li><strong>注意力落点</strong>:<code>state/direction_notes.md</code> 不存在,过去 7 天里没有任何"还想继续往下读什么"的记录可读;<code>state/feedback.md</code> 本周也没有出现"再来几篇"信号。这一周没有任何可用于判断方向收敛点的数据——这栏自 9 月 4 日首次运行以来可能一直是空的,这本身就是个问题:不开始填,"反复回到哪里暴露方向"这个机制就等于没启动。</li>
+  <li><strong>地形更新</strong>:本周读的 7 篇横跨了版图大部分象限——周一 ViTally Consistent(表征学习 scaling)、周二 Do Larger Models Really Win(质疑 scaling 本身的 position paper)、周三 Tahoe-100M(大规模扰动图谱基础设施)、周四 Clever Hans in Chemistry(评估方法学批评)、周五肿瘤-血管迁移芯片(微流控主场)、周六动物模型可靠性综述(转化医学方法论)、周日今天的亲和力 benchmark 泄漏审计。整体仍然在"方法学批评/评估可靠性"这条轴上停留时间最长。</li>
+  <li><strong>倒计时</strong>:距 2026 年 12 月 31 日还有约 <strong>5.5 周</strong>。因为方向线索栏目前完全没有数据,现在判断不出收敛点——不是"散",是"没数据",这比散更需要马上处理。建议从下周起,哪怕只写一个词,也开始填那一行,否则到期时仍然只能靠印象判断方向,不是靠数据。</li>
+</ol>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
