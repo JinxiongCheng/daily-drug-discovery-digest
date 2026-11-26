@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-26 · 周四 · 模型可靠性</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-26 · 周四</p>
+  <h1>模型可靠性</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Beyond Random Splits: Evaluating Drug-Target Affinity Models Under Chemically and Biologically Motivated Distribution Shifts</h3>
+<p class="meta">
+  Minjae Chung, Clara Li 等(Georgia Tech,May Dongmei Wang 组)· NeurIPS 2026 · arXiv:2610.03456<br>
+  <a href="https://arxiv.org/abs/2610.03456" target="_blank" rel="noopener">arxiv.org/abs/2610.03456</a>
+</p>
+
+<p>用哪种OOD划分方式去评测drug-target affinity(DTA)模型,会直接决定哪个架构看起来最强;只用常见的scaffold split,会严重低估模型在真实部署场景(面对全新蛋白靶点)下的性能崩塌和排名不稳定性。</p>
+
+<p><strong>方法</strong>:从ChEMBL和BindingDB整理出718,800个独立drug-protein pair,构造四种划分——scaffold-based、fingerprint-cluster-based(两种都是化学结构维度的shift)、protein-cluster-based(蛋白靶点维度)、以及dual OOD(化合物和蛋白同时外推到训练集没见过的cluster)。在这四种划分下分别训练评测12种DTA架构,记录validation RMSE,并用Kendall's tau衡量不同划分下模型排名的一致性。</p>
+
+<p><strong>关键数字</strong>:validation RMSE均值在scaffold split下约<strong>0.950</strong>,fingerprint-cluster split下约<strong>0.945</strong>,到protein-cluster split跳到约<strong>1.299</strong>,dual OOD下约<strong>1.321</strong>。排名一致性上,两种化学shift之间Kendall's<strong>tau = 0.79</strong>(高度一致),但scaffold排名和protein-OOD排名的一致性掉到<strong>tau = 0.39</strong>,到dual OOD直接反转为<strong>tau = -0.55</strong>——意味着在scaffold split下排第一的架构,换到dual OOD下可能排到倒数。</p>
+
+<p><strong>最大方法学弱点</strong>:报的是validation RMSE而不是独立held-out test RMSE,而且四种OOD场景的边界都靠聚类人工划出来,聚类粒度(用多粗/多细的cluster定义"没见过")本身会直接改变shift的严重程度,论文没给出对聚类粒度的敏感性分析——"排名会反转"这个结论对聚类阈值选择的鲁棒性没有被交代清楚。</p>
+
+<p><strong>接口</strong>:我的课题是形态学/迁移表型,不是drug-target binding affinity,技术内容本身没有直接接口。但它的评测哲学——同一批模型换一种split排名就翻转——是我做任何表型预测模型验证时都该去复现检查的"诚实度测试",论证结构值得借用。</p>
+
+<p><strong>谁在做</strong>:学界这类"split选择如何扭曲评测结论"的meta分析正扎堆出现,DrugOOD(AAAI团队)、ICLR 2025的similarity-aware evaluation都在做同一件事;业界真做DTA虚拟筛选的是Atomwise、Schrödinger这类structure-based docking/affinity公司,但它们基本不会公开发"我们的排名会翻转"这类论文。</p>
+
+<h2>五分钟判断题(审稿人视角)</h2>
+
+<div class="question-box">
+  <p>dual OOD划分要求测试样本同时落在没见过的蛋白cluster和没见过的化合物cluster里,这会让dual OOD组的样本量比单轴OOD(只换蛋白或只换化合物)小很多。给这篇论文提一条major comment,该提哪条?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>事件</strong>:FDA于2026年11月18日批准Sanofi的venglustat(商品名Infilbray),用于治疗3型(神经型)Gaucher病的神经系统症状——这是该适应症下首个获批药物,覆盖体重≥15 kg的儿童和成人。批准依据是III期LEAP2MONO试验:43名患者按1:1随机分为venglustat口服 + 安慰剂输液组(n=21)和imiglucerase酶替代治疗 + 安慰剂片剂组(n=22),头对头对比52周。主要终点是合并共济失调(mSARA)和认知(RBANS)的复合评分:mSARA变化venglustat组<strong>-1.35</strong> vs imiglucerase组<strong>-0.79</strong>(分数越低越好);RBANS认知评分venglustat组<strong>+3.69</strong>,imiglucerase组反而<strong>-4.63</strong>。安全性上TEAE发生率<strong>90.5%</strong> vs <strong>86.4%</strong>,venglustat组脾大发生率更高(<strong>14.3%</strong> vs 0%)。</p>
+
+<p><strong>AI 含量</strong>:几乎为零。Venglustat是传统小分子GCS(葡糖苷酰基神经酰胺合酶)抑制剂,走的是二十多年前就确立的底物减少疗法(substrate reduction therapy)路线,试验设计和审批跟AI无关。选这条不是因为AI相关,是历史对照够干净。</p>
+
+<p><strong>历史对照</strong>:同一类口服底物减少药物,miglustat(Zavesca)2003年获批只覆盖1型(非神经型)Gaucher病,eliglustat(Cerdelga)2014年获批依然只覆盖1型。从2003到2026,隔了23年才等到第一个能处理神经系统症状的同类药物——核心卡点一直是血脑屏障:1型不涉及中枢神经系统,分子不需要进脑就能起效,神经型则要重新做药代工程才能穿过血脑屏障。同一靶点、同一机制,换一个组织屏障,开发周期能直接翻倍以上。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>
