@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-27 · 周五 · 微流控/实验平台与AI结合</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-27 · 周五</p>
+  <h1>微流控 / 实验平台与AI结合</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Deep learning unlocks label-free viability assessment of cancer spheroids in microfluidics</h3>
+<p class="meta">
+  Chun-Cheng Chiang, R. Anne, P. Chawla 等(通讯作者 Yu-Chih Chen,University of Pittsburgh / UPMC Hillman Cancer Center)· Lab on a Chip, 2024, 24(12):3169–3182 · DOI: 10.1039/D4LC00197D<br>
+  <a href="https://doi.org/10.1039/D4LC00197D" target="_blank" rel="noopener">doi.org/10.1039/D4LC00197D</a>
+</p>
+
+<p>不用荧光染色,只靠相差显微图像加深度学习,就能连续读出微流控芯片里肿瘤球状体的活力,替代一次性、有毒性的LIVE/DEAD终点检测。</p>
+
+<p><strong>方法</strong>:芯片一次形成约<strong>12,000个</strong>球状体。先用传统LIVE/DEAD荧光染色做ground truth,训练CNN把相差图像的形态特征映射到活力分数。用<strong>8种</strong>传统化疗药物做验证,并测试模型在训练集之外的新化合物、新细胞系上能不能用,换一套显微镜、换一个实验室之后能不能迁移。</p>
+
+<p><strong>关键数字</strong>:摘要报告的是"染色活力读数和相差形态学预测之间强相关",覆盖8种药物、约12,000个球状体规模的芯片,并报告了跨实验室、跨显微镜设置下的可迁移性。具体Pearson r或分类准确率我没能从摘要和可访问的二次来源核实到——RSC原文站点在这个环境里打不开,这个数字没核实到,如实说。</p>
+
+<p><strong>最大方法学弱点</strong>:模型的训练和验证都建立在同一个假设上——LIVE/DEAD染色就是活力的金标准。但染料在球状体核心的穿透本身就不均匀,大球状体容易把染色不均误判成"存活"。"相差预测和染色强相关"这句话,证明的可能是模型学到了真实活力信号,也可能是模型学会了复制染色本身的系统偏差,论文没有把这两种可能性分开。</p>
+
+<p><strong>接口</strong>:直接接口——这是我导师Yu-Chih Chen自己实验室的工作,路线和我用的微流控球状体/迁移平台是同一个技术家族,区别是这篇做的是单次终点活力读出,不是连续轨迹追踪。</p>
+
+<p><strong>谁在做</strong>:这类"label-free + 微流控 + CNN形态学读出"的工作,学界集中在做微流控器件工程的几个组——Yu-Chih Chen(Pitt)、Euisik Yoon(Michigan)这条线做球状体/类器官的活力和药敏预测;业界做规模化图像组学自动化的是Recursion、Insitro这类公司,但它们的重心是高通量成像平台,不是芯片本身的实时形态学读出。</p>
+
+<h2>五分钟判断题(找死穴)</h2>
+
+<div class="question-box">
+  <p>这篇的CNN训练和验证都基于同一个假设:LIVE/DEAD染色就是活力金标准。如果染色在球状体核心系统性高估存活率,"相差预测和染色强相关"证明的是模型学到了真活力,还是学会了复制染色偏差?</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>事件</strong>:FDA于2026年11月18日批准Regeneron的Livsayis(cemdisiran),用于治疗抗AChR抗体阳性的全身型重症肌无力(generalized myasthenia gravis)成人患者,是首个获批用于该适应症的siRNA疗法,皮下注射、一年四次给药。依据是III期NIMBLE试验:随机双盲、安慰剂对照,覆盖86个中心,24周主要终点MG-ADL评分改善<strong>4.5分</strong>(cemdisiran组)vs<strong>2.2分</strong>(安慰剂组),<strong>P=0.0005</strong>。</p>
+
+<p><strong>AI 含量</strong>:几乎为零。cemdisiran是基于Alnylam原创RNAi平台化学修饰出来的siRNA分子,靶点选择和递送化学都是传统平台工程,试验设计和获批流程里没有AI驱动药物设计的成分。这次获批给Alnylam(技术原始授权方)触发<strong>2500万美元</strong>里程碑付款,并带来最高<strong>15%</strong>的梯度版税。</p>
+
+<p><strong>历史对照</strong>:RNAi机制1998年由Fire和Mello发现(2006年诺贝尔奖),但第一个获批的siRNA药物Onpattro(patisiran)要等到<strong>2018年</strong>才上市——从机制发现到第一款药,走了<strong>20年</strong>。cemdisiran只是同一平台技术的第N个适应症扩展,不是新机制。AI药物发现现在喊的"靶点到临床5-10年"目标,放在RNAi这种真实的平台转化史里看,仍然偏乐观。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

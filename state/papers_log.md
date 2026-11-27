@@ -87,3 +87,4 @@
 | 2026-11-24 | 周二·分子表征与性质预测 | Critical Assessment of ML models for ADMET Prediction in TDC leaderboards | bioRxiv 10.64898/2026.02.26.708193 | https://www.biorxiv.org/content/10.64898/2026.02.26.708193v1 |
 | 2026-11-25 | 周三·单细胞与扰动生物学 | Benchmarking virtual cell models for in-the-wild perturbation response (VCBench) | arXiv:2604.27646 | https://arxiv.org/abs/2604.27646 |
 | 2026-11-26 | 周四·模型可靠性 | Beyond Random Splits: Evaluating Drug-Target Affinity Models Under Chemically and Biologically Motivated Distribution Shifts | arXiv:2610.03456(NeurIPS 2026) | https://arxiv.org/abs/2610.03456 |
+| 2026-11-27 | 周五·微流控/实验平台与AI结合 | Deep learning unlocks label-free viability assessment of cancer spheroids in microfluidics | 10.1039/D4LC00197D | https://doi.org/10.1039/D4LC00197D |
