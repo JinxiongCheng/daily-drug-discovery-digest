@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-11-28 · 周六 · 经典必读</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --fg: #1f2328;
+    --muted: #5b6470;
+    --accent: #a05a2c;
+    --card-bg: #ffffff;
+    --border: #e3e0da;
+    --highlight-bg: #fbf3e9;
+    --highlight-border: #c98a4b;
+    --link: #a05a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181c;
+      --fg: #e6e4df;
+      --muted: #9aa2ab;
+      --accent: #e0a870;
+      --card-bg: #1d2024;
+      --border: #2c3036;
+      --highlight-bg: #2a2318;
+      --highlight-border: #c98a4b;
+      --link: #e0a870;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 16.5px;
+    line-height: 1.75;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header.page-head {
+    margin-bottom: 28px;
+  }
+  header.page-head .date {
+    color: var(--muted);
+    font-size: 0.95em;
+    margin: 0 0 4px;
+  }
+  header.page-head h1 {
+    font-size: 1.5em;
+    margin: 0;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 1.15em;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1.05em;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 14px;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  ol {
+    margin: 0 0 14px;
+    padding-left: 1.4em;
+  }
+  ol li {
+    margin-bottom: 10px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.92em;
+    margin: 0 0 20px;
+  }
+  .notice {
+    color: var(--muted);
+    font-size: 0.92em;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 0 24px;
+  }
+  a {
+    color: var(--link);
+  }
+  strong {
+    color: var(--accent);
+  }
+  .question-box {
+    background: var(--highlight-bg);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .question-box p {
+    margin: 0;
+  }
+  .fill-box {
+    margin-top: 48px;
+    border: 1px dashed var(--muted);
+    border-radius: 8px;
+    padding: 18px;
+    color: var(--muted);
+    min-height: 60px;
+  }
+  .fill-box .label {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.85em;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-head">
+  <p class="date">2026-11-28 · 周六</p>
+  <h1>经典必读</h1>
+</header>
+
+<h2>论文</h2>
+
+<h3>Neural Message Passing for Quantum Chemistry</h3>
+<p class="meta">
+  Justin Gilmer, Samuel S. Schoenholz, Patrick F. Riley, Oriol Vinyals, George E. Dahl(Google Brain)· ICML 2017, PMLR v70, pp. 1263–1272 · arXiv:1704.01212<br>
+  <a href="https://arxiv.org/abs/1704.01212" target="_blank" rel="noopener">arxiv.org/abs/1704.01212</a>
+</p>
+
+<p>把当时一堆各自命名的图神经网络(spectral networks、gated graph net、Weave等)统一成一个框架——消息传递神经网络(MPNN):节点沿边互相发"消息"、聚合、更新隐状态,重复若干轮后读出整图表示。这个框架后来成了几乎所有分子性质预测GNN的共同祖先。</p>
+
+<p><strong>方法</strong>:分子是图,原子是节点,键是边。每一轮,每个节点根据自己和邻居的隐状态、边特征,计算一条"消息"发给邻居;所有收到的消息聚合(求和)后更新节点隐状态;重复T轮让信息传到更远的原子。最后用Set2Set读出函数把所有节点状态汇总成一个分子级向量,接全连接层回归目标性质。论文在QM9(13.4万个小分子,13个DFT计算的量子性质,如HOMO-LUMO gap、原子化能)上系统比较了是否使用3D坐标/距离信息的不同变体。</p>
+
+<p><strong>关键数字</strong>:使用3D空间信息的最优MPNN变体在QM9全部13个目标上达到当时SOTA,其中<strong>11/13</strong>个目标的预测误差落入"化学精度"(chemical accuracy,各性质有专门定义的误差阈值)以内。只用分子图拓扑、不给3D坐标的版本,13个目标里只有<strong>5/13</strong>能达到化学精度——少了空间信息,模型在一半以上的量子性质上过不了这道线。</p>
+
+<p><strong>最大方法学弱点</strong>:两点。一是标签本身是DFT(B3LYP级别)算出来的理论值,不是实验测得的真实物理量,"化学精度"衡量的是和这一种近似理论的吻合度,不是和真实世界的吻合度。二是QM9全是平衡态构型的小分子(<9个重原子),论文证明的是"在这个狭窄、规整的分布内,给了3D坐标模型就能逼近DFT",没有证明模型学到了可以外推到非平衡构型、更大分子或真实反应活性的东西——后来大量工作证明这类模型在scaffold外推、conformer多样性上的表现远不如QM9基准上的数字那样乐观。</p>
+
+<p><strong>接口</strong>:没有直接接口。这是纯小分子量子性质预测的方法论文,和我做的细胞图像、微流控迁移轨迹没有数据层面的交叉。但消息传递这个"局部聚合—更新—重复"的计算范式,是后来几乎所有基于图的生物信息模型(细胞-细胞交互图、空间转录组图网络)的共同底层逻辑,值得知道它从哪来。</p>
+
+<p><strong>谁在做</strong>:原始方法现在是教材级内容,直接做分子GNN的学界有MIT的Jaakkola/Coley组(Chemprop系列直接继承了MPNN框架)、斯坦福的Leskovec组;业界把这套框架做成产品化平台的有NVIDIA BioNeMo、Schrödinger、以及用类似图网络做ADMET/活性预测的多数cheminformatics创业公司。</p>
+
+<h2>五分钟判断题(先猜后看)</h2>
+
+<div class="question-box">
+  <p>QM9有13个量子性质,每个性质有自己的"化学精度"误差阈值。如果一个MPNN<strong>完全不给3D坐标,只用分子图的拓扑结构(原子种类+化学键)</strong>去预测这13个性质,你猜它能在几个性质上达到化学精度?给出一个数字(0-13),并说一句为什么。</p>
+</div>
+
+<h2>新闻 + 历史对照</h2>
+
+<p><strong>事件</strong>:2026年11月19日,Merck(美国以外称MSD)与Isomorphic Labs(Google DeepMind衍生公司,AlphaFold技术路线)宣布战略研究合作,共同开发针对一个未公开肿瘤靶点的小分子候选药物。合作模式:Isomorphic用其IsoDDE计算设计引擎跑硅基预测、产出分子设计,并获得Merck部分专有数据;Merck负责后续的临床前/临床开发、生产和商业化。协议包含首付款+里程碑付款+分层特许权使用费,具体金额双方未披露(有媒体估算总交易价值可能超过<strong>26亿美元</strong>,但我没能核实到官方确认的数字)。这项合作发生在Isomorphic完成<strong>50亿美元</strong>融资的几天之后。</p>
+
+<p><strong>AI 含量</strong>:这是一笔真实的AI原生药物设计平台和大药厂的研发合作,不是营销噱头——Isomorphic的技术血统直接来自AlphaFold/AlphaFold3的蛋白结构预测能力。但要诚实地说:这条新闻本身不含任何疗效数据或临床结果,只是一笔"合作协议"。宣布时没有候选分子进入人体试验,靶点验证、成药性、安全性全部还是未知数。AI在这里的含量是"参与早期分子设计的真实能力",不是"已经证明能把药做出来"。</p>
+
+<p><strong>历史对照</strong>:这类"大药厂付钱买计算平台的早期发现能力"的合作模式,上世纪90年代末基因组学泡沫期就有过一轮——Millennium Pharmaceuticals靠基因组学平台,在1998年前后和拜耳(5年<strong>4.65亿美元</strong>)、雅培等多家药厂签下系列合作,承诺用基因组学大幅加速靶点发现。二十多年后回看,这类平台合作绝大多数没有转化成已上市的新药,产业最终记住的是"基因组学革命"这个说法本身被证明过度承诺。AI药物设计平台现在走的合作路径和当年基因组学平台几乎是同一个商业剧本——这不代表这次结果一定一样,但说明"大药厂签大单"这件事本身,历史上从不是药能不能做出来的证据。</p>
+
+<div class="fill-box">
+  <div class="label">今天这篇让我还想继续往下读什么?(我自己填,一句话,可以留空)</div>
+</div>
+
+<footer>daily-drug-discovery-digest</footer>
+
+</main>
+</body>
+</html>

@@ -88,3 +88,4 @@
 | 2026-11-25 | 周三·单细胞与扰动生物学 | Benchmarking virtual cell models for in-the-wild perturbation response (VCBench) | arXiv:2604.27646 | https://arxiv.org/abs/2604.27646 |
 | 2026-11-26 | 周四·模型可靠性 | Beyond Random Splits: Evaluating Drug-Target Affinity Models Under Chemically and Biologically Motivated Distribution Shifts | arXiv:2610.03456(NeurIPS 2026) | https://arxiv.org/abs/2610.03456 |
 | 2026-11-27 | 周五·微流控/实验平台与AI结合 | Deep learning unlocks label-free viability assessment of cancer spheroids in microfluidics | 10.1039/D4LC00197D | https://doi.org/10.1039/D4LC00197D |
+| 2026-11-28 | 周六·经典必读 | Neural Message Passing for Quantum Chemistry | arXiv:1704.01212(ICML 2017, PMLR v70) | https://arxiv.org/abs/1704.01212 |
